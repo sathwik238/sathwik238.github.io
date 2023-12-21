@@ -1,0 +1,223 @@
+---
+title: "Basics of Statistics"
+author: "Sathwik Bollepalli"
+date: "09/14/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+Q1) a.
+
+```{r}
+data(trees)
+boxplot(trees$Volume,varwidth=TRUE)
+```
+
+I see a 5 number summary of the Volume of the trees present in the dataset with one outlier which has value greater than 1.5\*IQR(Q3-Q1), where Q3 \~ 35 - 40 & Q1 \~ 15-20. The median of the data points lies between 20 to 25. The data seems to be right skewed as the boxplot has slight long whisker towards the right.
+
+Q1) b.
+
+```{r}
+boxplot(trees$Girth,notch = TRUE)
+```
+
+In the above Boxplot, the notch=TRUE parameter is used to add notches to the box plot which helps in comparing the medians if multiple boxplots were there in the same visual. Notches are used to compare groups; if the notches of two boxes do not overlap, this is a strong evidence that the medians differ.
+
+Q2) a.
+
+```{r}
+library(ggplot2)
+ggplot(data = trees,mapping = aes(y=Volume,x=0)) +
+geom_boxplot(col="black",fill="lightblue",width=0.1) + coord_flip() + theme_light()
+```
+
+Q2) b.
+
+```{r}
+library(car)
+qqPlot(trees$Volume, main="", ylab="Volume", cex=0.6,pch=19, col="red", 
+       col.lines = "orange")
+```
+
+The Volume of trees does not follow normal distribution, as we can see that the points do not lie on the straight line and some points are even going out of the confidence band.
+
+Shapiro-Wilk Test
+
+```{r}
+shapiro.test(trees$Volume)
+```
+
+As we can see the p-value for the Shapiro test comes out to be 0.003579 which is less than 0.05(alpha), therefore we can say that trees\$Volume does not follow normal distribution.
+
+Chi-Square Test
+
+```{r}
+library(nortest) 
+pearson.test(trees$Volume) 
+```
+
+The Chi-square goodness of fit test is a statistical hypothesis test used to determine whether a variable is likely to come from a specified distribution (in this case normal distribution) or not.
+
+As we can see, the p-value of the Pearson Chi-Square test is less than 0.05, we can say that trees\$Volume does not follow normal distribution.
+
+Q3) a.
+
+```{r}
+scatterplotMatrix(~mtcars$mpg+mtcars$disp+mtcars$hp+mtcars$drat+mtcars$wt+mtcars$qsec, data=mtcars)
+```
+
+By Looking at the first row of the scatter plot matrix, we can see that **mpg** is most **Positively** **assoicated** with **drat** and most **negatively associated** with **wt**.
+
+Q3) b
+
+```{r}
+data(mtcars)
+
+selected_columns <- mtcars[, c("mpg", "disp", "hp", "drat", "wt", "qsec")]
+
+correlation_matrix <- cor(selected_columns)
+
+diag(correlation_matrix) <- NA
+
+max_correlation <- max(correlation_matrix, na.rm = TRUE)
+
+indices <- which(correlation_matrix == max_correlation, arr.ind = TRUE)
+
+column1 <- rownames(correlation_matrix)[indices[1, 1]]
+column2 <- colnames(correlation_matrix)[indices[1, 2]]
+
+cat("Pair with maximum correlation:", column1, "and", column2, "with correlation =", max_correlation, "\n")
+
+```
+
+The Corelation between wt and disp is the highest with correlation = 0.8879799
+
+Q4)
+
+```{r}
+library(dplyr)
+
+mumbai_data <- read.csv('Temperature_And_Precipitation_Cities_IN/Mumbai_1990_2022_Santacruz.csv')
+
+
+chennai_data <- read.csv('Temperature_And_Precipitation_Cities_IN/Chennai_1990_2022_Madras.csv')
+
+delhi_data <- read.csv('Temperature_And_Precipitation_Cities_IN/Delhi_NCR_1990_2022_Safdarjung.csv')
+
+
+banglore_data <- read.csv('Temperature_And_Precipitation_Cities_IN/Bangalore_1990_2022_BangaloreCity.csv')
+
+
+
+# Combine the datasets with a grouping variable
+combined_data <- bind_rows(
+  mutate(mumbai_data, Group = "Mumbai"),
+  mutate(chennai_data, Group = "Chennai"),
+  mutate(delhi_data, Group = "Delhi"),
+  mutate(banglore_data, Group = "Banglore")
+)
+
+
+boxplot(combined_data$tavg ~ combined_data$Group, xlab="City", 
+        ylab="Avg Temprature", border = "blue", col="lightblue",notch=TRUE)
+```
+
+As we can see from th above visual, the median Average daily temperature for Banglore, Chennai, Delhi and Mumbai over the years 1990 to 2022 is in between 23\~30 degrees, also Banglore and Mumbai are having a lot of outliers, i.e people in those cities had to go through extreme weather conditions compared to normal days.
+
+Q5)
+
+Some of the examples of unethical data visualization might be:
+
+1\) **Showing lots of variables in a pie chart**: The ideal number is in between 2 and 7, anything more than that will make the visual untidy and will over-populate the visual which make it difficut to interpret.
+
+```{r}
+# Sample data (percentages)
+categories <- c("Category A", "Category B", "Category C", "Category D")
+percentages <- c(30, 25, 20, 25)
+
+# Create a pie chart
+par(mfrow=c(1,2))
+pie(percentages, labels = categories, main = "Ethical Pie Chart Example")
+
+categories2 <- c("Category A", "Category B", "Category C", "Category D","Category E", "Category F", "Category G", "Category H", "Category I", "Category J", "Category K", "Category L")
+percentages2 <- c(2,3,4,5,5,5,20,25,15,5,5,5)
+pie(percentages2, labels = categories2, main = "Unethical Pie Chart Example")
+
+
+```
+
+2\) **Truncating the Y-axis** in the graphs: It will mislead or manipulate the users perception of data. Truncating the Y-axis refers to displaying a chart in a way that omits a portion of the Y-axis, making differences between data points appear more significant or less significant than they actually are.
+
+3\) **Unusual Coloring** : Good outcomes are associated with green color and bad outcomes with red, if we devaite from these then this might create misunderstandings.
+
+4\) **Lack of Labels** : If charts are lacking labels, percentages, or any specific information about the categories then viewers cannot discern the exact values or proportions represented by each category.
+
+```{r}
+# Sample data (percentages)
+categories <- c("Category A", "Category B", "Category C", "Category D")
+percentages <- c(30, 25, 20, 25)
+
+# Create a pie chart
+par(mfrow=c(1,2))
+pie(percentages, labels = categories, main = "Chart with Label")
+percentages2 <- c(2,3,4,5,5,5,20,25,15,5,5,5)
+pie(percentages2, main = "Chart without Label")
+```
+
+5\) **No Data Source**: Transparency is crucial in data visualization, and viewers need to know where the data comes from and how it was collected.
+
+6\) **Misleading Labels**: Using misleading labels or titles that don't accurately represent the data, its source, or its context.
+
+7\) **Data Manipulation**: Manipulating the underlying data before visualization, such as altering data values, outliers, or summary statistics to support a particular agenda.
+
+8\) **Overlaying Charts**: Overlaying multiple Visuals on a single chart without proper scaling or labeling.
+
+```{r}
+# Sample data
+x <- rnorm(100)  # Random data for the plot
+
+# Load the ggplot2 library
+library(ggplot2)
+
+# Create a ggplot object
+plot <- ggplot(data.frame(x = x), aes(x = x)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.2, fill = "blue", alpha = 0.5) +
+  geom_point(aes(y = 0), col = "red", pch = 16) +
+  geom_line(stat = "density", aes(color = "Density"), size = 1) +
+  geom_curve(aes(x = -2.5, y = 0.1, xend = 2.5, yend = 0.1, color = "Curve"), curvature = 0.3, size = 1) +
+  geom_density(aes(color = "Density"), fill = NA, size = 1) +
+  scale_color_manual(values = c("Density" = "green", "Curve" = "purple")) +
+  labs(x = "X", y = "Density/Frequency", title = "Combined Visuals")
+
+# Print the plot
+print(plot)
+```
+
+Overlaying visuals create confusion to gain insights from.
+
+# **EXPOSED: Here Are The Tricks That Fox News Uses To Manipulate Statistics On Its Graphics**
+
+A lot of the issue comes in the way the data is presented. While most of the time the data is grounded in fact, by skewing the axes, using the wrong kind of chart, or just changing where the points should be on the graph, Fox is able to change the way that the information is interpreted.
+
+**EX1:**
+
+As one example, When we add up the numbers in the pie chart, it exceeds 100 percent, making a pie chart a poor choice.
+
+**EX2:**
+
+In this Fox News chart, the axis starts at 34%. When looked at it this way, it appears that taxes will be five times higher than they are now if the cuts expire. In reality, that isn't the case.
+
+**EX3:**
+
+By expanding the scope of the Y-axis and strangely changing the placement of a number of points, Fox News presented the unemployment rate as stagnant.
+
+Website link: <https://www.businessinsider.com/fox-news-charts-tricks-data-2012-11>

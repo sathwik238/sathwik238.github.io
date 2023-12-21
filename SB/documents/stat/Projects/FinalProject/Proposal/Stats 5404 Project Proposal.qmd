@@ -1,0 +1,75 @@
+---
+title: "Customer Churn Prediction"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+## Team Members
+
+-   Adam Syed
+-   Sathwik Bollepalli
+
+## Title
+
+**Predicting Customer Churn for ABC Bank**
+
+### **Abstract**
+
+**Goal/Motivation:** The project aims to predict customer churn for ABC Bank, enabling the bank to identify potential churn risks and enhance customer retention strategies.
+
+**Method Used:** We plan to utilize machine learning techniques to analyze customer data and predict churn, using features like credit score, country, gender, age, and others based on the dataset provided.
+
+### **Data Source**
+
+The dataset used for this project is sourced from Kaggle: [Bank Customer Churn Dataset](https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset). It consists of various customer attributes and a target variable indicating customer churn.
+
+# Project Proposal
+
+## Introduction
+
+In the banking industry, customer retention is a crucial challenge due to intense competition and evolving customer preferences. Our project, 'Predicting Customer Churn for ABC Bank,' is designed to address this challenge by identifying potential churn risks using data-driven insights.
+
+#### What We Propose
+
+We propose to develop a machine learning model that predicts customer churn. This model will analyze customer behavior and attributes to help ABC Bank identify and retain at-risk customers.
+
+#### How We Propose to Do This
+
+1.  **Data Collection and Preparation:** Utilize the [Bank Customer Churn Dataset](https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset) from Kaggle, ensuring robust and relevant data. Preprocess the data to handle missing values, convert categorical data, and standardize the dataset.
+
+2.  **Exploratory Data Analysis (EDA):** Conduct a thorough EDA to understand data characteristics, including distributions, correlations, and patterns.
+
+3.  **Model Development:** Build predictive models using logistic regression, decision trees, and random forests, and select the best performer based on various metrics.
+
+4.  **Model Evaluation and Selection:** Test and evaluate models using accuracy, precision, recall, and the F1-score.
+
+#### Expected Takeaways
+
+-   A predictive model to identify high-risk customers.
+
+-   Insights into factors contributing to customer churn.
+
+-   Recommendations for targeted customer retention strategies.
+
+#### Why This Will Be Useful
+
+-   **Enhanced Customer Retention:** Focused retention strategies to reduce churn and improve loyalty.
+
+-   **Cost Efficiency:** More cost-effective than acquiring new customers.
+
+-   **Competitive Advantage:** Understanding and addressing churn reasons to gain market edge.
+
+-   **Data-Driven Decision Making:** Promotes a culture of data-driven strategies within the bank.
+
+#### Conclusion
+
+This project is poised to become a key element in ABC Bank's strategy to enhance customer satisfaction and loyalty. Through machine learning and data analytics, we aim to provide actionable insights for a more engaged and loyal customer base.

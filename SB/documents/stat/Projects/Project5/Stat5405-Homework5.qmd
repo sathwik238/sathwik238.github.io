@@ -1,0 +1,478 @@
+---
+title: "Analyzing House Price Dataset"
+author: "Sathwik Bollepalli"
+date: "10/08/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+## Q1)
+
+Importing the data
+
+```{r}
+house_data=read.csv('data/kc_house_data.csv')
+head(house_data)
+```
+
+a\) **Solution**
+
+```{r}
+plot(house_data$sqft_living,house_data$price, col='red')
+```
+
+A funnel-shaped scatterplot indicates that the spread of house prices increases or decreases systematically as the living room area increases. This means that the variance of house prices may not be constant across different levels of living room area. In simpler terms, the variability in house prices tends to change as the size of the living room area changes.
+
+b\) **Solution**
+
+```{r}
+plot(house_data$sqft_living, log(house_data$price))
+plot(log(house_data$sqft_living), log(house_data$price))
+```
+
+The relationship between log transformed price and living room size does not look to be linear, but when compared with the price and living_room_area without any transformation, the relationship between the variable has improved..
+
+If we take the log transformation for both the price and the sqft_living, the relationship follows linear relationship.
+
+c\) **Solution**
+
+```{r}
+cor(log(house_data$price),house_data$sqft_living)
+```
+
+The correlation between the log transform of house prices and living room area being 0.6953 indicates a moderately strong positive linear relationship between these two variables.
+
+As the living room area of houses in the dataset increases, the log-transformed house prices tend to increase. This means that larger living room areas are associated with higher log-transformed house prices on average.
+
+d\) **Solution**
+
+```{r}
+living_room_area<-house_data$sqft_living
+log_price<- log(house_data$price)
+price<-house_data$price
+
+SLM <-lm(log_price~living_room_area,data=house_data)
+predicted <- fitted(SLM)
+summary(SLM)
+
+```
+
+The estimated intercept is approximately 12.222 This represents the estimated value of the response variable log_Price when the predictor variable Living_room_area is zero.
+
+The estimated coefficient for the predictor variable Living_room_area is approximately 3.987e-04. This coefficient represents the change in the response variable log_Price for a one-unit change in Living_room_area. In this case, it indicates that a one-unit change in Living_room_area leads to an estimated change of approximately 3.987e-04 in Log_price.
+
+The Multiple R-squared is 0.4835, this indicates that 48.35% of the variance in the response variable Log_Price is explained by the predictor variable Living_room_area in the model.
+
+The F-statistic is 2.023e+04, and its associated p-value is \< 2.2e-16. This test assesses the overall significance of the model, and the extremely low p-value suggests that the model as a whole is statistically significant.
+
+```{r}
+SLM_nolog <-lm(price~living_room_area,data=house_data)
+summary(SLM_nolog)
+```
+
+The estimated intercept is -43,580.743. This represents the estimated house price when the living room area (living_room_area) is zero. However, this interpretation may not be practically meaningful, as houses with a living room area of zero are unlikely.
+
+The estimated coefficient for living_room_area is 280.624. This coefficient is the slope of the fitted line and represents the estimated change in house price for each additional square foot of living room area.
+
+For every one-square-foot increase in living room area, the estimated house price increases by \$280.624.
+
+The Multiple R-squared is 0.4929, which indicates the proportion of the variance in house prices that is explained by the living room area in the model. In our case living room area cathes approx 50% variability in the price variable.
+
+In both models, there is a positive relationship between living room area and house prices.
+
+In the model involving log-transformed prices, the relationship is expressed on a logarithmic scale, indicating that as living room area increases, the log-transformed price tends to increase.
+
+In the model involving the original price (without log transformation), the relationship is linear, indicating that as living room area increases, the house price (in dollars) tends to increase by a fixed amount.
+
+e\) **Solution**
+
+```{r}
+# Residuals vs. Fitted Values Plot
+plot(SLM, which = 1)
+
+# Normal Q-Q Plot
+plot(SLM, which = 2)
+```
+
+The majority of the points (or residuals) on the Q-Q plot lie closely along the straight diagonal line, which is a good indication. This suggests that a large portion of the residuals have a distribution that is roughly normal.
+
+The lower tail is heavier than expected for a normal distribution (the residuals are more negative than expected).
+
+The upper tail is also slightly heavier than expected, with residuals being more positive than what we'd expect under perfect normality.
+
+**The residual vs fitted values plot:**\
+The red line (which represents the lowess smoother) should ideally be flat and hover around the 0-residual line if the model is capturing the linear relationship adequately. In the plot, the line does show some deviation from perfect flatness, particularly as we move toward the higher fitted values. This suggests that there may be some non-linearity in the relationship that the model hasn't fully captured.
+
+There's a clear funnel shape with the spread of residuals increasing as the fitted values increase, indicating the presence of heteroscedasticity (non-constant variance).
+
+f\) **Solution**
+
+```{r}
+# Residuals vs. Fitted Values Plot
+plot(SLM, which = 1)
+```
+
+Some points are labeled (e.g., 21051, 4025, 12778), which usually indicates potential outliers or influential observations. These data points have residuals that stand out from the majority, and they may be exerting undue influence on the model.
+
+Outliers can have a significant effect on the fitted regression line, especially if they are also influential observations. An influential observation is an outlier that can drastically change the slope or intercept of the regression line when removed.
+
+Point 12778, due to its considerable distance from the other observations, is of particular concern and might be influential. If it's influential, it could pull the regression line towards itself, leading to a misrepresentation of the general trend in the data.
+
+```{r}
+
+
+SLM_residuals<-residuals(SLM)
+X<-house_data$sqft_living
+y<-log(house_data$price)
+result_data <- data.frame(X, y, predicted, SLM_residuals)
+
+
+studentized_residuals <- rstudent(SLM)
+
+threshold <- 3
+
+#Removing outliers
+outlier_indices <- which(abs(studentized_residuals) > threshold)
+
+cleaned_data <- result_data[-outlier_indices, ]
+
+#refitting the model after removing the outliers
+SLM_no_outliers <- lm(y ~ X, data = cleaned_data)
+
+summary(SLM_no_outliers)
+```
+
+```{r}
+# Residuals vs. Fitted Values Plot
+plot(SLM_no_outliers, which = 1)
+
+# Residuals Normality check 
+plot(SLM_no_outliers, which = 2)
+```
+
+g\) **Solution**
+
+Test for true slope and the true intercept in the regression line of log price on area are significantly different than zero:
+
+For Intercept:
+
+$$
+H_o:\beta_o=0\ (The\ intercept\ is\ not\ significantly\ different\ from\ zero) \\
+H_a:\beta_o \ne0\  (The\ intercept\ is\ significantly\ different\ from\ zero)
+$$
+
+For Slope $$
+H_o:\beta_1=0 \ (The\ slope\ is\ not\ significantly\ different\ from\ zero,\ implying\ area\ does\ not\ significantly\ predict\ log(price))\\
+H_a:\beta_1 \ne0\  (The\ slope\ not\ significantly\ different\ from\ zero,\ implying\ significant\ relationship\ between\ area\ and\ log(price))\\
+$$
+
+```{r}
+
+summary(SLM_no_outliers)$coefficients
+
+# Test the significance of the intercept (beta0)
+summary(SLM_no_outliers)$coefficients["(Intercept)", "Pr(>|t|)"]
+summary(SLM_no_outliers)$coefficients["X", "Pr(>|t|)"]
+```
+
+As we can see from the above output, a small p-value (typically ≤ 0.05) indicates that we can reject the null hypothesis.
+
+For Intercept:
+
+The t-value of 1923.0 is a measure of how many standard deviations our coefficient estimate is far from 0. A large t-value indicates it's far away from 0.
+
+The very small p-value (close to zero and less than 0.05) indicates that we can reject the null hypothesis and conclude the intercept is statistically significant.
+
+For Slope:
+
+The t-value of 143.2 again suggests that the slope is far from 0.
+
+The very small p-value (close to zero and less than 0.05) indicates that the slope is statistically significant.
+
+The very small p-value (close to zero and less than 0.05) indicates that we can reject the null hypothesis and conclude the Slope is statistically significant.
+
+```{r}
+# Calculate confidence intervals for the coefficients
+confint(SLM_no_outliers)
+```
+
+The 95% confidence interval for the intercept ranges from approximately 12.2200 to 12.2225. Since this interval does not contain 0, it reaffirms that the intercept is significantly different from zero.
+
+The 95% confidence interval for the slope ranges from approximately 0.00003955 to 0.0000406. Again, since this interval doesn't contain 0, it confirms the slope is significantly different from zero.
+
+Both the intercept and the slope are statistically significant, suggesting that the true slope and intercept of the regression model of log(price) on area are significantly different than zero. The positive slope indicates a positive relationship between area and log(price).
+
+h\) **Solution**
+
+```{r}
+# Create a new data frame with the desired area value
+new_data <- data.frame(X = 1500)
+
+# Obtain predictions and 95% prediction intervals
+predictions <- predict(SLM_no_outliers, newdata = new_data, interval = "prediction", level = 0.95)
+
+# Print the results
+print(predictions)
+
+
+exp_predictions <- exp(predictions)
+print(exp_predictions)
+```
+
+The expected log price for a house with a living area of 1500 square feet is approximately 12.81.
+
+There is a 95% probability that the true log price of a house with a living area of 1500 square feet is greater than 12.08.
+
+There is a 95% probability that the true log price of a house with a living area of 1500 square feet is less than 13.54.
+
+The expected price for a house with a living area of 1500 square feet is approximately \$367676.
+
+The range from \$176677.4 to \$765155.4 represents the 95% prediction interval for the price of houses with 1500 square feet of living area.
+
+## Q2)
+
+Loading required libraries and datasets
+
+```{r}
+library(carData)
+library(ggplot2)
+library(car)
+
+# Load the Duncan dataset
+data("Duncan")
+duncan_data=Duncan
+head(duncan_data,5)
+```
+
+a\) **Solution**
+
+```{r}
+par(mfrow = c(1, 2))
+
+plot(duncan_data$education, duncan_data$prestige, xlab = "Education", ylab = "Prestige", main = "Scatterplot of Prestige vs. Education")
+
+abline(lm(prestige ~ education, data = duncan_data), col = "red")
+
+
+plot(duncan_data$income, duncan_data$prestige, xlab = "Income", ylab = "Prestige", main = "Scatterplot of Prestige vs. Income")
+
+abline(lm(prestige ~ income, data = duncan_data), col = "blue")
+```
+
+The red trend line suggests a positive relationship between education and prestige. As education increases, the prestige of the occupation tends to increase as well.
+
+The spread of data points around the trend line shows some variability, indicating that while there's a general trend, there are other factors besides education that influence prestige.
+
+The blue trend line indicates a positive relationship between income and prestige. As the income level of an occupation rises, its prestige tends to rise as well.
+
+The spread around this trend line is tighter compared to the education plot, indicating a more consistent relationship between income and prestige across the occupations.
+
+The clustering at the lower ends of both plots highlights that many occupations don't require high levels of education, don't earn high incomes, and aren't considered highly prestigious.
+
+b\) **Solution**
+
+```{r}
+par(mfrow = c(1, 2))
+boxplot(duncan_data$income~factor(duncan_data$type))
+boxplot(duncan_data$prestige~factor(duncan_data$type))
+```
+
+Professionals tend to have the highest income on average with the median income being around 60-65, followed by white-collar occupations, and then blue-collar occupations. However, there's significant variability within the professional category, as shown by the presence of an outlier.
+
+Professional occupations are perceived as having the highest prestige with a median around 80, the spread of prestige scores in this group is quite large, and there are multiple outliers, suggesting that there are a few professional jobs with prestige scores that are notably different from the rest, followed by white-collar occupations. Blue-collar occupations have the lowest prestige scores on average.
+
+c\) **Solution**
+
+```{r}
+
+model <- lm(prestige ~ education + income + factor(type), data = Duncan)
+
+summary(model)
+
+```
+
+Intercept(-0.185) is the expected prestige when all predictor variables are 0, and for the reference group of the type bc.
+
+The coefficient for education is 0.34532, indicating that a one-unit increase in education is associated with an increase of approximately 0.34532 units in prestige.
+
+The coefficient for income is 0.59755, suggesting that a one-unit increase in income is associated with an increase of approximately 0.59755 units in prestige.
+
+The coefficients for type represent the differences in prestige for each occupation type compared to the reference category ( bc as it's not shown). For example, prof has a coefficient of 16.65751, indicating that prof occupation type has a higher prestige compared to the reference category.
+
+The multiple R-squared is 0.9131, suggesting that approximately 91.31% of the variance in prestige is explained by the predictors in the model.
+
+The F-statistc is highly significant (p-value \< 2.2e-16), indicating that at least one of the predictors is related to prestige.
+
+d\) **Solution**
+
+```{r}
+model_interaction <- lm(prestige ~ education * income * factor(type), data = Duncan)
+
+summary(model_interaction)
+```
+
+For every one-unit increase in education, there is a decrease of 0.55965 in prestige
+
+For every one-unit increase in income, there is a decrease of 0.29036 in prestige
+
+The positive coefficient of 0.03918 suggests that the combined effect of education and income on prestige is more than the sum of their individual effects.
+
+The coefficient of 2.03495 indicates that the relationship between education and prestige is stronger for professionals than for blue-collar workers.
+
+The positive coefficient of 2.49297 indicates that the effect of income on prestige is stronger for professionals compared to blue-collar workers.
+
+The model explains a significant amount of variation in prestige (Adjusted R\^2 = 91.82%)
+
+The significant interactions mean that the effect of one predictor on the outcome (prestige) varies depending on the levels/values of other predictors
+
+Ex: The effect of education on prestige is not just a simple linear relationship; it changes based on income and job type.
+
+e\) **Solution**
+
+```{r}
+res<-residuals(model)
+plot(model,which=1)
+plot(model,which=2)
+```
+
+From the Residuals vs Fitted, the line seems reasonably flat, suggesting that the linear form of the predictors is appropriate. However, some fluctuations hint that there may be some non-linearities that the model isn't capturing.
+
+In this plot, the spread of residuals seems somewhat consistent across the fitted values, which is a good sign, which proves constant variance.
+
+There are a few data points that stand out (for instance, the "minister" and "machinist" points), which suggests that for these particular occupations, the model's predictions might not be very accurate.
+
+In the Q-Q Residual plot , most of the points are closely aligned with the dashed line, indicating that the residuals are approximately normally distributed.
+
+There are a few points that deviate from the line, particularly the points labeled "minister" and "machinist", suggesting that the residuals for these observations do not follow the expected normal distribution.
+
+f\) **Solution**
+
+```{r}
+confined_model=lm(prestige~education+income,data=duncan_data)
+confined_residuals<-residuals(confined_model)
+summary(confined_model)
+```
+
+The intercept is -6.06466. This is the estimated prestige when both education and income are zero.
+
+The coefficient for education is 0.54583, indicating that a one-unit increase in education is associated with an increase of approximately 0.54583 units in prestige while holding income constant.
+
+The coefficient for income is 0.59873, suggesting that a one-unit increase in income is associated with an increase of approximately 0.59873 units in prestige while holding education constant.
+
+The model provides a good fit to the data, explaining a substantial proportion(82%) of the variance in prestige.
+
+This simplified model with two predictors (education and income) offers a straightforward understanding of how these variables influence prestige, and it appears to adequately describe the relationship between these predictors and the response variable.
+
+```{r}
+confined_model_interaction=lm(prestige~education*income,data=duncan_data)
+summary(confined_model_interaction)
+```
+
+**Intercept** (-8.250934) is the predicted value of prestige when both education and income are 0, assuming there's no interaction between them.
+
+**Education** (0.606030) indicates that for every unit increase in education (holding income constant), prestige is expected to increase by approximately 0.606 units.
+
+**Income** (0.655621) indicates that for every unit increase in income (holding education constant), prestige is expected to increase by approximately 0.6556 units.
+
+**Education:Income Interaction (-0.001237):** This coefficient represents the change in the effect of education on prestige for each unit increase in income (and vice versa). The negative value indicates that the effect of education on prestige decreases slightly as income increases, but this interaction is not statistically significant with a p-value of 0.71673.
+
+indicates that approximately 82.87% of the variability in "prestige" is explained by the model. This is a good value, suggesting a decent fit.
+
+```{r}
+plot(confined_model,which=1)
+plot(confined_model,which=2)
+```
+
+Most of the data points (residuals) closely follow the 45-degree line, suggesting that they are approximately normally distributed.
+
+We observe a few points that deviate from the line (like "minister", "contractor", and "reporter"). These could be potential outliers or influential points in the dataset.
+
+The tails of the plot (especially the right tail) show some deviation from the 45-degree line. This could indicate some skewness in the residuals or the presence of a few outliers that don't fit the model as well as the other observations.
+
+As we move from left to right across the scatter plot, the spread of residuals seems fairly consistent. This suggests that the assumption of homoscedasticity (constant variance of residuals) might be met.
+
+The plot shows a relatively random scatter, which is a good sign.
+
+g\) **Solution**
+
+**Partial Regression PLots**
+
+Partial regression plots illustrate the relationship between a single predictor variable and the response variable while holding all other predictors constant.
+
+To construct Partial regression plot, we need residual from 2 models:
+
+1\) If we are building the Partial regression plot for education then:
+
+We calculate residuals of income predicting prestige and residuals of income predicting education, then we plot the residuals from both the models.
+
+There is an inbuilt function in R, we will create the plot for education manually and for income we will use the in built function.
+
+**Manual building of the Partial Regression plot for education:**
+
+```{r}
+y=residuals(lm(prestige~income,data=duncan_data))
+x=residuals(lm(education~income,data=duncan_data))
+plot(x,y)
+```
+
+The plot suggests a positive association between the residuals of "education" (after accounting for "income") and the residuals of "prestige" (also after accounting for "income"). This indicates that, when the influence of income is removed, there still exists a positive relationship between the education level and prestige.w
+
+**Inbuilt function for calculating partial regression plot for income:**
+
+```{r}
+avPlots(confined_model,terms = c('income'))
+```
+
+The x-axis (**`income | others`**) represents the residuals from regressing "income" on other variables in the model excluding "prestige".
+
+The y-axis (**`prestige | others`**) represents the residuals from regressing "prestige" on all other variables excluding "income".
+
+The blue line has a positive slope, indicating a positive association between the residuals of "income" and "prestige" after accounting for the effects of other variables in the model. In simpler terms, even after adjusting for other variables, as "income" increases, "prestige" also tends to increase.
+
+Partial regression plots are useful for visualizing the relationship between a particular independent variable and the dependent variable after controlling for the effects of other independent variables in the model.
+
+**Partial Residual PLots**
+
+```{r}
+library(car)
+par(mfrow = c(1, 2))
+crPlots(confined_model, terms = "education")
+crPlots(confined_model, terms = "income")
+
+```
+
+**Partial Residual Plot for Education:**
+
+The general trend, as indicated by the solid line, seems to suggest a positive association between education and prestige after adjusting for the effect of income. In other words, as education levels increase, prestige also tends to increase, keeping income constant.
+
+**Partial Residual Plot for Income** :
+
+This plot also indicates a positive relationship between income and prestige when the effect of education is accounted for. As income values increase, prestige also tends to increase when keeping education constant.
+
+Partial regression plots show the relationship between the predictor and the response, adjusting for other predictors.
+
+Partial residual plots show how residuals from the response variable relate to residuals from a predictor, after adjusting for other predictors.
+
+If both plots show strong linear trends, it indicates that both education and income are individually important predictors of prestige, even when the effect of the other is controlled for.
+
+While both types adjust for other predictors, they provide different insights: partial regression plots focus on the adjusted relationship between a predictor and the response, while partial residual plots emphasize the uniqueness of a predictor relative to the others in explaining the response.
+
+h\) **Solution**
+
+```{r}
+summary(confined_model)$r.squared
+
+```
+
+Effect size in the context of regression is a measure of the strength or magnitude of the relationships in your model. There are several ways to compute effect size in regression analysis, with the most common being the coefficient of determination, $R^2$
+
+The effect size, as given by the R-squared value of 0.8287, is quite large. This indicates that the regression model with education and income as predictors can explain approximately 82.87% of the variability in prestige. The adjusted R-Squared value of 0.8162 further confirms that the predictors are indeed contributing significantly to explaining the variance in prestige.

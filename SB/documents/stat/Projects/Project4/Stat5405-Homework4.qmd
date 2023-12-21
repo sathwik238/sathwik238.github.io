@@ -1,0 +1,401 @@
+---
+title: "Analyzing Tensile Strength Dataset"
+author: "Sathwik Bollepalli"
+date: "10/01/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+**Q1. (5 points).** Interpret this statement in your own words using a criterion you have studied: *The one-factor ANOVA* $F$-stat is very small, so that the chance of getting an $F$-statistic value which is as small or smaller than the $F$-stat obtained from the observed data is only $0.00004$.
+
+**Solution:**
+
+The one-factor ANOVA F-statistic is a test statistic that helps us assess whether these group means are significantly different or if the observed differences could have occurred by random chance.
+
+It is mentioned that the one-factor ANOVA F-statistic is very small. The $F$-statistic is calculated by dividing the variation between group means by the variation within groups. When the $F$-statistic is small, it suggests that the variation between groups is not much larger than the variation within groups, which means that the group means are relatively similar.
+
+The statement goes on to quantify the significance of this small F-statistic by providing a p-value of 0.00004. The p-value represents the probability of obtaining an F-statistic value as extreme as, or even smaller than, the one observed in the actual data, assuming that there is no real difference between the groups, . In this case, the extremely low p-value of 0.00004 suggests that the chance of observing such a small F-statistic by random chance, without any true differences between the groups, is very rare.
+
+We can conclude that there is strong evidence to reject the null hypothesis, indicating that there are likely significant differences between the groups being compared.
+
+**Q2. (45 points).** Consider the dataset tensile from the R package *ACSWR*. You looked at the one-factor ANOVA $F$-test in HW3. Now, use suitable R functions to answer these questions.
+
+(a) Obtain solutions of the effects of the levels of ***CWP*** in the one-factor ANOVA model you fit for the response.
+
+    **Solution:**
+
+    ```{r}
+    # Load the ACSWR package and the tensile dataset
+    library(ACSWR)
+    data(tensile)
+
+
+    aovmod <- aov(Tensile_Strength ~ factor(CWP), data = tensile)
+    summary(lm(aovmod))
+
+    ```
+
+    $$
+    H_o: \mu_1=\mu_2=\mu_3 . . . .. =\mu_a
+    $$
+
+    $$
+    H_a:At\ least\ one\ of\ the\ \mu_i\ is\ different\ from\ others. 
+    $$
+
+    The associated p-value (p-value: 9.128e-06) indicates that the model is statistically significant, suggesting that at least one of the predictor variables (levels of CWP) has a significant effect on the response variable.
+
+    Multiple R-squared measures the proportion of variability in the response variable explained by the model.
+
+    In this case, the model explains approximately 74.69% of the variability in the response variable, which is relatively high.
+
+    Residual standard error is the estimate of the standard deviation of the residuals, it indicates the typical magnitude of the differences between the observed and predicted values.
+
+    Tensile_Strength of factor level 20, on average, is 5.6 units more than that of factor level 15.
+
+    Tensile_Strength of factor level 25, on average, is 7.8 units more than that of factor level 15.
+
+    Tensile_Strength of factor level 30, on average, is 11.8 units more than that of factor level 15.
+
+    Tensile_Strength of factor level 35, on average, is 1 unit more than that of factor level 15.
+
+(b) Obtain point estimates, and 95% C.I. estimates of the true means $\mu_i$ of the five groups.
+
+    **Solution:**
+
+    ```{r}
+    pred.CWP <- expand.grid(CWP=unique(tensile$CWP))
+    lsmeans <- predict(aovmod, newdata=pred.CWP, se=TRUE, interval="confidence")
+    cbind(pred.CWP, lsmeans$fit)
+    ```
+
+(c) Use the Bonferroni multiple comparison procedures to conduct pairwise tests of equality of the group means. Interpret the results.
+
+    **Solution:**
+
+    ```{r}
+    pairwise.t.test(tensile$Tensile_Strength, factor(tensile$CWP), 
+                p.adjust.method = "bonf")
+    ```
+
+    This table shows the pairwise comparisons between the levels of the CWP factor (15, 20, 25, 30, and 35).
+
+    Each cell in the table contains a p-value.
+
+    If the p-value is less than the chosen significance level (often 0.05), it suggests that there is evidence of a statistically significant difference between the two compared groups, if the p-value is greater than the significance level, it suggests that there is not enough evidence to conclude a significant difference between the two groups.
+
+    For Example, if we see the first cell with p-value 0.0541, this p-value suggests that the difference in means between the groups with CWP levels 15 and 20 is not statistically significant at the 0.05 significance level after Bonferroni correction.
+
+    Whereas, if we check the value between CWP levels 15 and 30 which is 2.1e-05 is very much less than the significance level 0.05, this says that there is a statistically significant difference between the two compared groups.
+
+    Comparisons between (15,35), (20,25), (20,35), (25,30), (15,20) groups are not significant.
+
+(d) Use the Tukey multiple comparison procedures to conduct pairwise tests of equality of the group means. Interpret the results.
+
+    **Solution:**
+
+    ```{r}
+    TukeyHSD(aovmod)
+    ```
+
+    Tukey's method is used to compare the means of different levels of the CWP factor.
+
+    Each row in the table represents a pairwise comparison between two levels of the CWP factor.
+
+    **p adj** represents the adjusted p-value, which indicates whether the difference in means is statistically significant after adjusting for multiple testing.
+
+    For example, the first row 20-15 represents the comparison between the "CWP" levels 20 and 15. The adjusted p-value for this comparison is 0.0385, which is less than 0.05, indicating that the **means of these two groups are statistically significantly different.**
+
+    In contrast, the row 30-25 represents the comparison between the "CWP" levels 30 and 25.The adjusted p-value for this comparison is very high (0.21), indicating that the means of these two groups are not statistically significantly different, which indicates the means of these groups are similar.
+
+    The comparisons between (15,35), (20.25), (20,35), (25,30) groups are not significant.
+
+    This pretty much aligns with what we saw using the Bonferroni adjustments.
+
+(e) Compute and interpret a suitable effect size to see whether the levels of ***CWP*** have a practically meaningful effect on tensile strength.
+
+    **Solution:**
+
+    ```{r}
+    library(sjstats)
+    library(effectsize)
+
+    eta_sq <- eta_squared(aovmod)
+    print(eta_sq)
+
+    ```
+
+The calculated value of Eta-squared is 0.75. This means that approximately 75% of the total variation in the dependent variable can be attributed to the effect of the independent variable (factor(CWP)).
+
+A Eta-squared value of 0.75 is relatively high, suggesting a strong and substantial relationship between the independent variable (factor(CWP)) and the dependent variable.
+
+The 95% confidence interval for Eta-squared is provided as \[0.53, 1.00\]. This interval gives us a range of values within which the true Eta-squared is likely to fall with 95% confidence.
+
+**Q3. (50 points)** Consider the ToothGrowth dataset from the R package *datasets*. The response is ***len***, the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) denoted as the factor ***dose*** (Factor A) by one of two delivery methods, orange juice or ascorbic acid (a form of vitamin C and coded as VC), denoted as the factor ***supp*** (Factor B).
+
+(a) Fit and interpret a one-factor ANOVA model relating the response ***len*** to ***dose*** (Factor A).
+
+    **Solution:**
+
+    ```{r}
+    boxplot(ToothGrowth$len)
+    shapiro.test(ToothGrowth$len)
+    table(ToothGrowth$supp)
+    table(ToothGrowth$dose)
+    ```
+
+    We can see that the dpendent variable len is normally disributed and data is equally distributed on each of the groups.
+
+    ```{r}
+    library(ggplot2)
+    pb <- ggplot(ToothGrowth, aes(x=factor(dose),  y=len, fill=factor(dose))) + geom_boxplot(show.legend = F)
+    ggplot(ToothGrowth, aes(x=factor(dose),  y=len, fill=factor(dose))) + 
+       geom_boxplot(show.legend = F)
+    ```
+
+    ```{r}
+    x <- 1:length(ToothGrowth$len)
+
+    # Create the scatterplot
+    plot(x, ToothGrowth$len)
+    points(x, ToothGrowth$len, pch = 16, col = "blue")
+
+    library(car)
+    leveneTest(ToothGrowth$len, group = factor(ToothGrowth$dose))
+    ```
+
+    There's no pattern present in the scatter plot. This implies that the len is independent and identically distributed.
+
+    Equal variances: Let's try the Levene's test:
+
+    For Levene's test, we assume the following hypotheses:
+
+    $H_0 : \sigma_1=\sigma_2=........=\sigma_n$
+
+    $H_1$: At least one of the group has a different variance.
+
+    ```{r}
+    library(car)
+    leveneTest(ToothGrowth$len, group = factor(ToothGrowth$dose))
+    ```
+
+    We fail to reject the null hypothesis and conclude that the variances of the populations are equal.
+
+    Normality of the response variable: We already saw that `len` is normally distributed.
+
+    Now that all the assumptions are satisfied, let's fit the data to the ANOVA model.
+
+    Null Hypothesis $H_0$ : The means of tooth growth are the same across all levels of vitamin C doses. In other words, the dose of vitamin C has no effect on tooth growth.
+
+    $$
+    H_o: \mu_1 = \mu_2 = \mu_3 
+    $$
+
+    Alternative Hypothesis $H_a$ : At least one of the means of tooth growth across the different vitamin C dose levels is different.
+
+    ```{r}
+    # Fit a one-factor ANOVA model
+    anova_dose <- aov(len ~ factor(dose), data = ToothGrowth)
+
+    summary(anova_dose)
+    summary(lm(anova_dose))
+    ```
+
+    The estimated intercept (10.6050) represents the predicted tooth growth when the dose of vitamin C is zero.
+
+    The estimated coefficient for "dose = 1" is 9.1300. It has a t-value of 6.806 and a very low p-value (6.70e-09), indicating it is highly significant.
+
+    The estimated coefficient for "dose = 2" is 15.4950. It has a t-value of 11.551 and an extremely low p-value (\< 2e-16), indicating it is highly significant.
+
+    The residual standard error is approximately 4.242. It represents the estimate of the standard deviation of the residuals and measures the variability of the observed data points around the regression line.
+
+    The multiple R-squared value is 0.7029, indicating that approximately 70.29% of the variance in the dependent variable is explained by the predictors in the model.
+
+    The p-value is 9.53e-16. This strongly suggests that we reject the null hypothesis and say that there are some significant differences among the population means of the different groups. In other words, mean `len` is not same for all three levels of `dose`.
+
+    Let's validate our ANOVA model by checking the normality of the residuals. If the residuals are normally distributed, then we can rely on the results. If not, the p-values obtained from our ANOVA test may not be valid, leading to a potential increase in Type I or Type II errors
+
+    ```{r}
+    aovres1 <- residuals(anova_dose)
+    qqPlot(aovres1, main = NA, pch = 19, col = 2, cex = 0.7)
+    shapiro.test(aovres1)
+    ```
+
+    Since the residuals are following the normal distribution, we can say that our ANOVA model is reliable.
+
+(b) Fit and interpret a one-factor ANOVA model relating the response ***len*** to ***supp*** (Factor B).
+
+    **Solution:**
+
+    Equality of variances assumption for the `supp` using the Levene's test
+
+    $H_0 : \sigma_1=\sigma_2=........=\sigma_n$
+
+    $H_1$: At least one group has a different variance.
+
+    ```{r}
+    leveneTest(ToothGrowth$len, group = factor(ToothGrowth$supp))
+    ```
+
+    The p-value is 0.2752. Hence, we fail to reject the $H_0$ and conclude that the variance of the populations for all the factor levels of `supp` is equal.
+
+    Null Hypothesis $H_0$: The means of tooth growth are the same for both types of supplements. $\mu_{oj}$ = $\mu_{vc}$ Where:
+
+    $\mu_{oj}$ is the mean tooth growth for the orange juice supplement.
+
+    $\mu_{vc}$​ is the mean tooth growth for the ascorbic acid (VC) supplement.
+
+    Alternative Hypothesis $H_1$: The means of tooth growth are not the same for the two types of supplements.
+
+    ```{r}
+    # Fit a one-factor ANOVA model
+    anova_supp <- aov(len ~ factor(supp), data = ToothGrowth)
+
+    summary(anova_supp)
+    summary(lm(anova_supp))
+
+    ```
+
+    The estimated intercept (20.663) represents the predicted tooth growth when the supplement type is OJ (orange juice). It's the average tooth growth when suppVC (supplement type ascorbic acid) is zero.
+
+    The estimated coefficient for the "suppVC" variable (-3.700) suggests that using ascorbic acid is associated with an **average decrease** in tooth growth of approximately 3.700 units compared to using orange juice.
+
+    This value (7.482) represents the estimated standard deviation of the residuals. It provides a measure of the variability of the data points around the regression line.
+
+    The model explains a relatively small portion (5.948%) of the variability in tooth growth.
+
+    The p-value is 0.0604. This strongly suggests that we fail reject the null hypothesis and say that there are no significant differences among the population means of the different groups. In other words, mean `len` is same for all three levels of `supp`
+
+    Let's check the residuals now in order to validate our model.
+
+    ```{r}
+    aovres2 <- residuals(anova_supp)
+    qqPlot(aovres2, main = NA, pch = 19, col = 2, cex = 0.7)
+    shapiro.test(aovres2)
+    ```
+
+    The residuals are normally distributed. So we can rely on our model.
+
+(c) Fit and interpret an additive two-factor ANOVA model relating the response ***len*** to ***dose*** (Factor A) and ***supp*** (Factor B).
+
+    **Solution:**
+
+    Null Hypothesis $H_0$ : means of response variable len are the same across all levels for both the factors
+
+    Alternative Hypothesis $H_1$ : means of response variable len are not the same across all levels for both the factors
+
+    ```{r}
+    # Fit a two-factor ANOVA model without interaction
+    anova_additive <- aov(len ~ factor(dose) + factor(supp), data = ToothGrowth)
+
+    summary(anova_additive)
+    summary(lm(anova_additive))
+    ```
+
+    The intercept is 12.4550, indicating the estimated mean value of the dependent variable when all categorical predictors are at their reference levels.
+
+    These coefficients represent the estimated effects of the categorical predictors "dose" and "supp" on the dependent variable. For example, a "dose" of 1 is associated with an estimated increase of 9.1300 in the dependent variable compared to the reference level, and "supp = VC" is associated with an estimated decrease of 3.7000.
+
+    The multiple R-squared is 0.7623, suggesting that approximately 76.23% of the variance in the dependent variable is explained by the model.
+
+    Since the p-value is less than 0.05 for both the factors, we reject the null hypothesis and conclude that the means of the response variable (`len`) are not the same across all the levels for both the factors.
+
+    ```{r}
+    aovres_additive <- residuals(anova_additive)
+    qqPlot(aovres_additive, main = NA, pch = 19, col = 2, cex = 0.7)
+    shapiro.test(aovres_additive)
+    ```
+
+    Residuals are normally distributed, the results are reliable.
+
+(d) Fit and interpret a two-factor ANOVA model with interaction relating the response ***len*** to ***dose*** (Factor A) and ***supp*** (Factor B).
+
+    **Solution:**
+
+    Null Hypothesis (H0): There is no interaction effect between supp and doseon the outcome variable len This means that the effect of supp on len is the same at all levels of dose, and vice versa.
+
+    Formally, The effect of supp on len is independent of the level of dose.
+
+    Alternative Hypothesis (Ha): There is an interaction effect between supp and dose on the outcome variable len. This means that the effect of supp on len differs depending on the level of dose, and vice versa.
+
+    Formally, The effect of sup on len depends on the level of dose
+
+    ```{r}
+    # Fit a two-factor ANOVA model with interaction
+    anova_interaction <- aov(len ~ factor(dose) * factor(supp), data = ToothGrowth)
+
+    summary(anova_interaction)
+    summary(lm(anova_interaction))
+
+    ```
+
+    The estimated intercept (constant) is 13.230. It is highly significant with an extremely low p-value (3.60e-16).
+
+    The estimated coefficient for "dose = 1" is 9.470. It is significant with a low p-value (3.18e-07).
+
+    The estimated coefficient for "dose = 2" is 12.830. It is highly significant with an extremely low p-value (1.43e-10).
+
+    The estimated coefficient for "supp = VC" is -5.250. It is significant with a p-value of 0.00209.
+
+    The estimated coefficient for the interaction between "dose = 1" and "supp = VC" is -0.680. It is not statistically significant (p-value of 0.76831).
+
+    The estimated coefficient for the interaction between "dose = 2" and "supp = VC" is 5.330. It is significant with a p-value of 0.02411.
+
+    These coefficients represent the estimated effects of the predictors and their interactions on the dependent variable in the linear regression model. The p-values indicate the significance of each coefficient.
+
+    The multiple R-squared value is 0.7937, indicating that approximately 79.37% of the variance in the dependent variable is explained by the predictors and their interactions in the model.
+
+    Since the p-values is less than 0.05 for all the factors, we reject the null hypothesis for all the factors and conclude that the means of the response variables (`len`) are the not same across all the levels for both the factors. However, we don't have evidence strong enough for the interaction between `dose` and `supp`.
+
+    ```{r}
+    aovres_interaction <- residuals(anova_interaction)
+    qqPlot(aovres_interaction, main = NA, pch = 19, col = 2, cex = 0.7)
+    shapiro.test(aovres_interaction)
+    ```
+
+    Residuals are normally distributed, the results are reliable.
+
+(e) Summarize what you learned from the analyses in (a) - (d).
+
+    **Solution:**
+
+    Effect of Vitamin C Dose on Tooth Growth
+
+    There is a statistically significant difference in tooth growth across the different doses of vitamin C. The extremely small p-value (9.53e-16) clearly indicates that the vitamin C dosage has a strong influence on tooth growth. The larger Mean Square value relative to the residuals suggests that different doses of vitamin C result in variations in tooth growth.
+
+    Effect of Supplement Type on Tooth Growth:
+
+    The p-value (0.0604) is slightly above the conventional 0.05 threshold for significance, suggesting a marginal effect of supplement type on tooth growth. This implies that the type of vitamin C delivery might have a suggestive influence on tooth growth, but the evidence isn't strong enough to make a conclusive statement at the 5% significance level
+
+    Additive Model
+
+    Both factors - dose and supplement type - are statistically significant, with the dose having a more pronounced effect (p-value of 6.31e-16 for dose versus 0.0013 for supplement type). This suggests that while both factors influence tooth growth, the dosage of vitamin C has a stronger effect than the method of delivery.
+
+    Interaction between Dose and Supplement Type
+
+    There's a statistically significant interaction between dose and supplement type (p-value of 0.024631). This means that the combined effect of dose and supplement type on tooth growth is not just the sum of their individual effects; they interact in a more complex manner. The presence of this interaction implies that the effect of one factor (like dosage) might differ depending on the level of the other factor (like supplement type).
+
+    KEY INSIGHTS:
+
+    Amount of Dose: Regardless of other variables or conditions, every time the amount of vitamin C (dose) was analyzed in the studies, it showed a clear and strong influence on tooth growth. So, if you were only to change the dose while keeping everything else constant, you would observe significant changes in tooth growth.
+
+    Supplement Type's Suggestive Influence: When the type of vitamin C delivery was studied alone (in isolation), the evidence suggesting its effect on tooth growth was borderline (just slightly above the conventional threshold for statistical significance). However, when this supplement type was combined with the dose, it showed clearer evidence of having an impact. This suggests that while the method of vitamin C delivery does have an effect, it might not be as strong or consistent as the effect of the dosage itself.
+
+    Interaction: The studies found that the combined effect of dose and supplement type on tooth growth is not simply the sum of their individual effects. They influence tooth growth in a way that's more intricate, where the effect of one factor might change depending on the levels of the other. There is a need to consider both how much vitamin C to use (dosage) and how to deliver it (e.g., via orange juice or ascorbic acid), and understand that these two factors might influence outcomes differently when combined.
+
+    KEY TAKEAWAYS
+
+    Dosage Influence: The amount of vitamin C consistently and significantly impacts tooth growth.
+
+    Delivery Method: Its effect on growth is less conclusive when considered in isolation but is clearer when combined with dosage.
+
+    Interaction Significance: The combined effect of dose and delivery isn't a simple sum; they jointly influence tooth growth in a complex manner. Both quantity and delivery method are essential considerations for understanding tooth development outcomes.

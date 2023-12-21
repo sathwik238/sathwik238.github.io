@@ -1,0 +1,334 @@
+---
+title: "Analyzing Prisoners Stress Dataset"
+author: "Sathwik Bollepalli"
+date: "09/17/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+**Q1) a**
+
+```{r}
+library(PairedData)
+library(car)
+data(PrisonStress)
+data(Loblolly)
+sports_data<-PrisonStress[PrisonStress$Group=='Sport',]
+control_data<-PrisonStress[PrisonStress$Group=='Control',]
+shapiro.test(sports_data$PSSafter-sports_data$PSSbefore) 
+qqPlot(sports_data$PSSafter-sports_data$PSSbefore, main="", ylab="PSSafter", col="red", col.lines = "orange")
+
+```
+
+As we can see from the above visuals and the result of Shapiro Wilk Test that the differences distributions (PSSbefore, PSSafter) for Sports Group follow Normal Distribution, we can proceed with the Paired t-test as the testing group is same.
+
+H0: The difference in mean stress levels after and before sport training is 0.
+
+$$
+H_o: \mu_{after} - \mu_{before} = 0
+$$
+
+Ha: The difference in mean stress levels after and before training is less than 0, indicating a reduction in stress levels.
+
+$$
+H_a: \mu_{after} - \mu_{before} < 0
+$$
+
+```{r}
+result <- t.test(sports_data$PSSafter,sports_data$PSSbefore, paired = TRUE, alternative = "less")
+print(result)
+```
+
+From the Paired t-test results we can see that the p-value: 0.0088 \< 0.05 (significance level), we can reject the Null Hypothesis, therefore claiming that the sport training can be helpful in reducing stress in inmates.
+
+```{r}
+library(effsize)
+cohen.d(sports_data$PSSafter,sports_data$PSSbefore, paired = TRUE)
+```
+
+The Cohen's d estimate of -0.544 indicates a medium-sized effect. In other words, the difference between the two groups being compared has a moderate impact. This suggests that there is a noticeable and meaningful difference between the two groups.
+
+This suggests that the observed effect is statistically significant and not likely due to random chance, and the direction of the effect is negative, meaning one group is expected to have lower values than the other.
+
+**Q1) b.**
+
+```{r}
+summary(PrisonStress$PSSafter[PrisonStress$Group=='Sport'])
+summary(PrisonStress$PSSafter[PrisonStress$Group=='Control'])
+```
+
+The summary statistics gives us the information such as the mean, median, quartiles, and other key values for stress levels in both the Sport and Control groups. Maximum value is same for both the groups.
+
+The Sport group has a lower mean (20) compared to the Control group (approximately 23.73), indicating that, on average, the Sports group's stress levels are lower.
+
+The interquartile range (IQR) in the Sports group is from 14 to 24, while in the Control group, it's from 20.50 to 28.50. This suggests that the spread of stress levels is slightly narrower in the Sport group compared to the Control group.
+
+```{r}
+
+library(PairedData)
+library(ggplot2)
+
+
+data(PrisonStress)
+
+exit_data <- subset(PrisonStress,(Group == "Sport" | Group == "Control"))
+
+ggplot(exit_data, aes(x = Group, y = PSSafter)) +
+  geom_boxplot() +
+  labs(x = "Group", y = "Stress Levels at Exit") +
+  ggtitle("Comparison of Stress Levels between Sport and Control Groups at Exit")
+```
+
+From he box plot we can see that the width of the boxes are approximately same, so we can conclude that they have same variance.
+
+```{r}
+
+hist(PrisonStress$PSSafter[PrisonStress$Group == "Sport"], col = "blue", xlab = "Stress Level", ylab = "Frequency", main = "Stress Levels in Sport Group")
+hist(PrisonStress$PSSafter[PrisonStress$Group == "Control"], col = "red", xlab = "Stress Level", ylab = "Frequency", main = "Stress Levels in Control Group")
+
+# Density Plots
+plot(density(PrisonStress$PSSafter[PrisonStress$Group == "Sport"]), col = "blue", main = "Density Plot: Stress Levels in Sport Group", xlab = "Stress Level", ylab = "Density")
+lines(density(PrisonStress$PSSafter[PrisonStress$Group == "Control"]), col = "red")
+legend("topright", legend = c("Sport", "Control"), fill = c("blue", "red"))
+
+```
+
+The distribution of stress levels in the Sport group appears to be slightly positively skewed, as there is a longer tail on the right side of the histogram.
+
+The density plot for the Control group is shifted to the right (higher stress levels) compared to the Sport group.
+
+The overlap between the two density plots suggests that there is some commonality in the stress levels between the two groups, but there are also differences.
+
+**Q1) c.**
+
+```{r}
+  ggplot(exit_data, aes(x = Group, y = PSSafter)) +
+    geom_boxplot() +
+    labs(x = "Group", y = "Stress Levels at Exit") +
+    ggtitle("Comparison of Stress Levels Variability between Sport and Control Groups at Exit")
+
+```
+
+From he box plot we can see that the widht of the boxes are approximately same, so we can conclude that they have same variance.
+
+F-Test for comparing variances
+
+```{r}
+var.test(sports_data$PSSafter,control_data$PSSafter)
+```
+
+The output you provided is from an F-test conducted to compare the variances of two datasets, specifically the PSSafter measurements from two groups: the Sports group and the Control group
+
+Since the p-value (0.8951) is greater than the typical significance level (e.g., 0.05), we do not have enough evidence to reject the null hypothesis. This suggests that there is no significant difference in the variances between the "Sports" group and the "Control" group.
+
+The 95 percent confidence interval for the ratio of variances includes 1 (the null hypothesis value). This further supports the conclusion that the variances are not significantly different.
+
+**Q1) d.**
+
+```{r}
+qqPlot(sports_data$PSSafter, main="", ylab="PSSafter", col="red", col.lines = "orange")
+shapiro.test(sports_data$PSSafter) 
+qqPlot(control_data$PSSafter, main="", ylab="PSSafter", col="red", col.lines = "orange")
+shapiro.test(control_data$PSSafter) 
+
+var.test(sports_data$PSSafter,control_data$PSSafter)
+```
+
+As we can see from the above visualization that the independent features follow normal distriution as the point lies on the striaght kline withing the confidence band and also the Shapiro wilk test's p-value \>0.05, which means that the distributions follow normal distribution.
+
+Now, from the F test, which is used to compare two variances, gives us a p-value of 0.89 which is greater than 0.05 the significance level, we can conclude that the vairance of the two distributions are equal.
+
+Therefore form the above tests we can see that the distributiuons have equal variance and they both follow normal distribution, so we can apply Pooled t-Test, whcih is the mist powerful independent two sample test.
+
+The Pooled t-test for two independent samples:
+
+Our Null-Hypothesis would be:
+
+$$ H_o: \mu_{Sports} = \mu_{Control} $$
+
+Our Alternative Hypothesis would be:
+
+$$ H_o: \mu_{Sports} \neq \mu_{Control} $$
+
+```{r}
+t.test(sports_data$PSSafter,control_data$PSSafter,pooled=TRUE)
+```
+
+The p-value (0.1956) is greater than the typical significance level (e.g., 0.05), indicating that we do not have enough evidence to reject the null hypothesis. This suggests that there is no significant difference in the means of the PSSafter variable between the Sports group and the Control group.
+
+The t-statistic is -1.3361. This statistic measures how many standard errors the sample means are away from each other. A negative value suggests that the mean of the Sports group is smaller than the mean of the Control group.
+
+**Q1) e.**
+
+Cohen's d is a measure of effect size that quantifies the difference between two group means in terms of standard deviations. It helps us understand the practical significance or magnitude of the difference between the two groups.
+
+$$
+\text{Cohen's d}_{\text{Welch}} = \frac{\overline{Y}_1 - \overline{Y}_2}{Pooled \ SD}
+$$
+
+$$
+\text{Pooled SD For equal Sized Samples=} {\sqrt{\frac{S_1^2}{2} + \frac{S_2^2}{2}}}
+$$
+
+$$ 
+\text{Pooled SD 
+For Un-equal Sized Samples=}{\sqrt{\frac{(n_1-1)*S_1^2 + (n_2-1)*S_2^2}{n_1+n_2-2}}}
+$$
+
+```{r}
+
+mean_sport <- mean(PrisonStress$PSSafter[PrisonStress$Group == "Sport"])
+sd_sport <- sd(PrisonStress$PSSafter[PrisonStress$Group == "Sport"])
+
+
+mean_control <- mean(PrisonStress$PSSafter[PrisonStress$Group == "Control"])
+sd_control <- sd(PrisonStress$PSSafter[PrisonStress$Group == "Control"])
+
+n_sport <- sum(PrisonStress$Group == "Sport")
+n_control <- sum(PrisonStress$Group == "Control")
+pooled_sd <- sqrt(((n_sport - 1) * sd_sport^2 + (n_control - 1) * sd_control^2) / (n_sport + n_control - 2))
+cohen_d <- (mean_sport - mean_control) / pooled_sd
+cohen_d
+```
+
+**Verification of Manual Calculation :**
+
+```{r}
+library(effsize)
+cohen.d(PrisonStress$PSSafter[PrisonStress$Group == "Sport"],PrisonStress$PSSafter[PrisonStress$Group == "Control"],pooled = FALSE)
+```
+
+Glass's delta estimate of -0.5238873 with a **medium** effect size indicates a moderate difference in means between the two groups.
+
+Cohen's d helps you quantify the magnitude of the difference between group means and provides insight into the practical significance of that difference. In this case, a medium effect size suggests a meaningful but not extremely large difference in stress levels between the Sports and Control groups.
+
+**Q2)**
+
+```{r}
+summary(Loblolly)
+```
+
+```{r}
+filtered_data<-Loblolly[Loblolly$age==20 | Loblolly$age==25,]
+ggplot(filtered_data, aes(x = factor(age), y = height)) +
+  geom_boxplot() +
+  labs(x = "Age", y = "Height") +
+  ggtitle("Comparison of height between 20 and 25 year old pine trees")
+```
+
+```{r}
+qqPlot(filtered_data$height[filtered_data$age==20], main="", ylab="Height", col="red", col.lines = "orange")
+shapiro.test(filtered_data$height[filtered_data$age==20]) 
+
+
+qqPlot(filtered_data$height[filtered_data$age==25], main="", ylab="Height", col="red", col.lines = "orange")
+shapiro.test(filtered_data$height[filtered_data$age==25])
+
+shapiro.test(filtered_data$height[filtered_data$age==20])
+
+var.test(filtered_data$height[filtered_data$age==25],filtered_data$height[filtered_data$age==20])
+```
+
+Both the distribution are normally distributed, now we take the difference between them.
+
+```{r}
+diffs <- filtered_data$height[filtered_data$age==25]-filtered_data$height[filtered_data$age==20]
+
+boxplot(diffs)
+# Histogram of differences
+hist(diffs, breaks = 15, main = "Histogram of Paired Differences", xlab = "Differences (Age25 - Age20)", ylab = "Frequency")
+shapiro.test(diffs)
+```
+
+As we can see from the above boxplot that the difference data is right skewed and also from the shapiro test we can conclude that the difference data does not follow normal distribution, so, we cannot proceed with t-test.
+
+Also the data does not even follow symmetry we cannot procced with Wilcoxon-Signed Rank test.
+
+So we will proceed with Fischers Signed test.
+
+$$ H_o: \theta_{d} = 0 $$
+
+$$ H_a: \theta_{d} \neq 0 $$
+
+```{r}
+result <- BSDA::SIGN.test(diffs, md = 0, alternative = "two.sided")
+print(result)
+```
+
+The very low p-value (0.0001221) suggests strong evidence against the null hypothesis, indicating that the median of the differences is significantly different from zero.
+
+The 95 percent confidence interval (8.2534 to 9.5482) also supports this conclusion. The entire confidence interval lies above zero, indicating that we can be reasonably confident that the true median of the differences is greater than zero.
+
+```{r}
+cohen.d(filtered_data$height[filtered_data$age==25],filtered_data$height[filtered_data$age==20])
+```
+
+Cohen's d provides a standardized measure of the difference between two group means, and its interpretation involves considering the magnitude and direction.
+
+Negative Cohen's d: Indicates that the first group has a lower mean than the second group.
+
+The value of Cohen's d is 3.936919, and it is described as "large." This indicates a substantial difference between the two groups being compared.
+
+**Q3)**
+
+The **pooled t-test** typically refers to the standard independent samples t-test, also known as the two-sample t-test with equal variances.
+
+It is used to compare the means of two independent groups to assess whether there is a significant difference between them.
+
+It assumes the data to be:\
+1. Approximately normally distributed.
+
+2\. Variances of the two groups should be approximately equal (homogeneity of variances).
+
+If the data are close to normally distributed, the t-test can be more powerful because it leverages information about means and variances.
+
+The **Wilcoxon Rank-Sum Test**, is a non-parametric statistical test used to determine whether there is a significant difference between the distributions of two independent groups. It is particularly useful when the assumptions required for the independent samples t-test (parametric test) are not met, such as when the data are not normally distributed or when the variances between groups are unequal.
+
+It operates based on the ranks of the data values. As a result, it is more robust to deviations from normality and can be powerful when dealing with non-normally distributed data or when there are concerns about outliers.
+
+The power of a statistical test depends on the size of the effect you are trying to detect. If the effect size is large, both tests can be powerful and should detect the difference.
+
+If the effect size is small, the pooled t-test may have higher power because it is specifically designed to detect differences in means, which is sensitive to small differences. The Wilcoxon rank-sum test focuses on rank ordering and may be less sensitive to small effect sizes.
+
+The paired t-test is powerful for detecting differences within pairs (e.g., treatment effects over time) when the assumptions are met.
+
+While t-test is vulnerable to outliers, the wilcoxon rank sum test is more robust towards outliers.
+
+Often its a good idea to perform both the tests, based on the output of both the tests, a lot of the times they give same conclusion which is not problematic, but if we come to different conclusions then we need to make more sense of our data. But Wilcoxon test which is robust towards outliers it **uses less information in our data**, it **disregards how far data points are apart from each** other so we loose some of the information using the robust test.
+
+The *t*-test achieves modest power advantages under some conditions, that superiority is never particularly large, whereas the Wilcoxon test achieves sizable and consistent power advantages in many cases in which the *t*-test's assumptions are not satisfied.
+
+**Q4)**
+
+link: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4858512/>
+
+**The Debate About P-Values**:
+
+P-values combine signal (treatment difference) and noise (random variation) into a single measure of evidence.
+
+Debate surrounds whether p-values contribute to the failure to replicate scientific findings.
+
+Some argue for abandoning p-values in favor of alternative statistical measures.
+
+Others argue that p-values alone are not responsible for irreproducibility.
+
+P-values are statistical measures that indicate the strength of evidence against a null hypothesis in a hypothesis test. However, the controversy arises because p-values have been widely misinterpreted and misused.
+
+The p-value controversy has been a prominent topic in the field of statistics and data science. It centers around the misuse and misinterpretation of p-values, which are often misunderstood as measures of the strength of evidence against a null hypothesis. One key takeaway as an emerging data scientists is that p-values should not be the sole determinant of the significance of a finding.
+
+![](images/p_value.png)
+
+**Banning P-Values is Not a Solution**:
+
+To address the controversy, statisticians and researchers are encouraged to adopt a more holistic approach to statistical inference. This includes considering **effect sizes**, **confidence intervals**, and the **context of the problem** alongside p-values. Additionally, transparency in reporting methods and results is crucial. As a statistician, it's essential to educate both researchers and the public about the proper interpretation and limitations of p-values to improve the quality of scientific research and decision-making.
+
+It's essential to be aware of the limitations of p-values and to adopt a holistic approach to statistical inference that takes into account the context and the broader picture of the data analysis. Understanding the controversy surrounding p-values helps in making more informed and responsible decisions when conducting statistical analyses and drawing conclusions from data.

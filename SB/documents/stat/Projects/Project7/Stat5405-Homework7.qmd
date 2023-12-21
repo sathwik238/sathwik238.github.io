@@ -1,0 +1,390 @@
+---
+title: "Analyzing Snails Dataset"
+author: "Sathwik Bollepalli"
+date: "10/22/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+Reading the sanils.csv
+
+```{r}
+snails = read.csv('data/snails.csv')
+head(snails)
+```
+
+**Data Pre-Processing**
+
+Combining Aspect levels (1 and 2) and (5 and 6), and saving the categorical variables as factor variables.
+
+```{r}
+snails$Aspect[snails$Aspect == 6] = 5
+snails$Aspect[snails$Aspect == 2] = 1
+snails$Aspect <- as.factor(snails$Aspect)
+snails$Soil <- as.factor(snails$Soil)
+snails$CC <- as.factor(snails$CC)
+snails$LC <- as.factor(snails$LC)
+```
+
+Splitting the data into train and test sets
+
+```{r}
+set.seed(123457)
+train.prop <- 0.80
+trnset <-
+  sort(sample(1:nrow(snails), ceiling(nrow(snails) * train.prop)))
+# create the training and test sets
+train.set <- snails[trnset, ]
+test.set  <- snails[-trnset, ]
+```
+
+```{r}
+n1=dim(train.set)[1]
+n2=dim(test.set)[1]
+n1
+n2
+```
+
+a\. **Poisson LogLinear Model**
+
+```{r}
+gaenig.pf <-glm(
+    Gaenig ~ Elevation + Slope + Aspect + Soil + CC + CO + LC + PA.sp + PA.other,
+    family = 'poisson',
+    data = train.set
+  )
+summary(gaenig.pf)
+```
+
+**Model Coefficients:**
+
+The **Intercept** which is is 0.433161 indicates the log count of **Gaenig** when all predictors are zero.
+
+For every unit increase in elevation, the log count of Gaenig increases by 0.002851.
+
+For every unit increase in slope, the log count of Gaenig decreases by 0.007304.
+
+Being in the **Soil4** category decreases the log count of Gaenig by 0.946090. This predictor is significant at the 0.01 level.
+
+For every unit increase in **PA.Other**, the log count of Gaenig decreases by 0.011724. This predictor is significant at the 0.05 level.
+
+The NULL Deviance is 205.68 on 120 degrees of freedom. This represents the goodness of fit of the model with no predictors.
+
+The Residual deviance is 174.65 on 104 degrees of freedom. This represents the goodness of fit of the model. The reduction in deviance (from 205.68 to 174.65) suggests that the predictors are explaining some of the variability in Gaenig.
+
+The number of Fisher Scoring iterations(6) tells us how many iterations the algorithm took to converge. Convergence in a small number of iterations is generally a good sign.
+
+**Dispersion Parameter:**
+
+```{r}
+disp.est <- gaenig.pf$deviance/gaenig.pf$df.residual
+disp.est
+```
+
+A value of 1.67 (greater than 1) suggests that the observed variance is 67% larger than what the Poisson model expects. Which means there's more variability in the data than what the Poisson model can account for using the given predictors.
+
+As the variance of count data exceeds its mean, there's overdispersion. This breaks the Poisson regression's assumption where the mean equals the variance.
+
+**Model Adequacy:**
+
+$$
+H_0:\text{Data prefers Full model}\\
+H_a:\text{Data does not prefer the Full model}
+$$
+
+```{r}
+with(gaenig.pf, cbind(deviance = deviance, df = df.residual,
+     p = pchisq(deviance, df.residual, lower.tail=FALSE)))
+```
+
+The observed chi-squared test statistic is 174.6 with 104 d.f. and the p-value is very small than 0.05. We reject H0, and conclude that the fitted model is inadequate.
+
+```{r}
+deviance_residuals <- resid(gaenig.pf, type = "deviance")
+plot(deviance_residuals, main = "Deviance Residuals", ylab = "Deviance Residual", xlab = "Index")
+abline(h = 0, col = "red")
+hist(deviance_residuals, main = "Histogram of Deviance Residuals", xlab = "Deviance Residual")
+plot(predict(gaenig.pf, type = "response"), deviance_residuals, 
+     main = "Deviance Residuals vs Fitted Values", xlab = "Fitted Values", ylab = "Deviance Residuals")
+abline(h = 0, col = "red")
+#plot(residuals(gaenig.pf, type = "deviance") ~ fitted(gaenig.pf))
+
+```
+
+The residual seem to be spread linearly near 0.
+
+But from the histogram, we see that they are not normally distributed.
+
+The main concern from the deviance residual vs fitted plot is the potential non-linearity suggested by the curvature.
+
+**Information Criteria:**
+
+```{r}
+gaenig.pn <- glm(Carcar~1, 
+                 family='poisson', data=train.set)
+AIC(gaenig.pn, gaenig.pf)
+```
+
+AIC is a balance of model fit and complexity(it penalises the model for having more number of predictors).
+
+The better model is the one which gives the smaller AIC, here the full model with AIC = 378.72.
+
+```{r}
+BIC(gaenig.pn,gaenig.pf)
+```
+
+Model woth Lower BIC is preferred, in our case which is the model with all the parameters.
+
+BIC is similar to AIC, difference is it penalises more than AIC.
+
+AIC is better suited for predictive modeling, while BIC is better suited for explanatory modeling.
+
+**In-Sample MAD**
+
+```{r}
+train_predicted <- predict(gaenig.pf, type = "response")
+sum(abs(train.set$Gaenig-train_predicted))/n1
+```
+
+The model has a slightly better fit to the training data with an In-Sample MAD of 0.9860363.
+
+**Out-Sample MAD**
+
+```{r}
+predicted<-predict(gaenig.pf,type='link',newda=test.set)
+sum(abs(test.set$Gaenig-predicted))/n2
+```
+
+The Out-Sample MAD is slightly higher at 1.035444, suggesting that the model's predictions on new and unseen data are on average off by about 1.035444 units.
+
+**b. quasi-Poisson loglinear model**
+
+```{r}
+gaenig.qpf <-glm(
+    Gaenig ~ Elevation + Slope + Aspect + Soil + CC + CO + LC + PA.sp + PA.other,
+    family = quasipoisson(link = "log"),
+    data = train.set
+  )
+summary(gaenig.qpf)
+```
+
+**Model Coefficients:**
+
+The Intercept, which is 0.433161, indicates the log count of Gaenig when all predictors are zero. This means that when all predictors are at zero, the expected log count of Gaenig is approximately 0.433.
+
+For every unit increase in **elevation**, the log count of Gaenig **increases by 0.002851**.
+
+For every unit increase in **slope**, the log count of Gaenig **decreases by 0.007304**.
+
+Being in the Soil4 category decreases the log count of Gaenig by 0.946090. This is statistically significant at the 0.05 level (p-value of 0.0253).
+
+The Null Deviance is 205.68 on 120 degrees of freedom.
+
+The Residual Deviance is 174.65 on 104 degrees of freedom. This represents the goodness of fit of the fitted model. The reduction in deviance from 205.68 (Null Deviance) to 174.65 (Residual Deviance) suggests that the predictors in the model are explaining some of the variability in Gaenig, although perhaps not very effective because most predictors are not statistically significant.
+
+The number of Fisher Scoring iterations(6) tells us how many iterations the algorithm took to converge. Convergence in a small number of iterations is generally a good sign.
+
+**Dispersion Parameter:**
+
+```{r}
+disp.est <- gaenig.qpf$deviance/gaenig.qpf$df.residual
+disp.est
+```
+
+The dispersion parameter for the Quasi-Poisson family is estimated to be 1.67. Since it's greater than 1, it means that overdispersion is present, making the Quasi-Poisson model more appropriate than a simple Poisson model.
+
+**Model Adequacy:**
+
+$$
+H_0:\text{Data prefers Full model}\\
+H_a:\text{Data does not prefer the Full model}
+$$
+
+```{r}
+with(gaenig.qpf, cbind(deviance = deviance, df = df.residual,
+     p = pchisq(deviance, df.residual, lower.tail=FALSE)))
+```
+
+The observed chi-squared test statistic is 174.6 with 104 d.f. and the p-value is very small than 0.05. We reject H0, and conclude that the fitted model is inadequate.
+
+```{r}
+# Diagnostic plots
+plot(gaenig.qpf)
+
+```
+
+The residual does not ssem to be normal, it also has some outliers.
+
+The slight curve in the residuals suggests that there may be some non-linearity in the relationship between the predictors and the response variable.
+
+**Information Criteria:**
+
+```{r}
+gaenig.qpn <- glm(Carcar~1, 
+                 family=quasipoisson, data=train.set)
+AIC(gaenig.qpn, gaenig.qpf)
+BIC(gaenig.qpn, gaenig.qpf)
+```
+
+The Quasi-poisson model does not give any AIC & BIC are based on Likelihood function and Quasi-poisson does not assume the data to be coming from any distribution.
+
+**In-Sample MAD:**
+
+```{r}
+sum(abs(train.set$Gaenig-fitted(gaenig.qpf)))/n1
+```
+
+A value of 0.9860363 means that, on average, the model's predictions are off by about 0.986 units when predicting training data.
+
+**Out-Sample MAD:**
+
+```{r}
+predicted<-predict(gaenig.qpf,type='link',newda=test.set)
+sum(abs(test.set$Gaenig-predicted))/n2
+```
+
+A value of 1.035444 means that, on average, the model's predictions are off by about 1.035 units when predicting on new, unseen data.
+
+**c. Negative binomial loglinear model**
+
+```{r}
+library(MASS)
+
+gaenig.nbf <-glm.nb(
+    Gaenig ~ Elevation + Slope + Aspect + Soil + CC + CO + LC + PA.sp + PA.other,
+    data = train.set
+  )
+summary(gaenig.nbf)
+```
+
+The Intercept, which is approximately -0.161, represents the expected log count of Gaenig when all predictors are zero.
+
+For every unit increase in **elevation**, the log count of Gaenig **increases by approximately 0.004123**.
+
+For every unit increase in **slope**, the log count of Gaenig **decreases by approximately 0.006415**.
+
+Being in the **Soil4** category decreases the log count of Gaenig by approximately 0.911459. This predictor is **statistically significant at the 0.05 level.**
+
+The dispersion parameter for the Negative Binomial distribution is estimated to be approximately 2.87.
+
+The Null Deviance is 153.75 on 120 degrees of freedom. This represents the goodness of fit of a model with no predictors.
+
+The Residual Deviance is 132.03 on 104 degrees of freedom. This represents the goodness of fit of the fitted model. The reduction in deviance from 153.75 (Null Deviance) to 132.03 (Residual Deviance) suggests that the predictors in the model are explaining some variability in Gaenig.
+
+**Dispersion Parameter**:
+
+```{r}
+dispersion_nb <- gaenig.nbf$theta
+dispersion_nb
+```
+
+The dispersion parameter is 2.871689 whcih indicates that the observed variability in Gaenig counts is larger than what the Poisson model would predict
+
+**Model Adequacy:**
+
+$$
+H_0:\text{Data prefers Full model}\\
+H_a:\text{Data does not prefer the Full model}
+$$
+
+```{r}
+with(gaenig.nbf, cbind(deviance = deviance, df = df.residual,
+     p = pchisq(deviance, df.residual, lower.tail=FALSE)))
+```
+
+The p-value of 0.033 which is less than 0.05, suggests that the model does not fit the data properly.
+
+**Information Criteria:**
+
+```{r}
+gaenig.nbn <- glm.nb(Carcar~1, data=train.set)
+AIC(gaenig.nbn, gaenig.nbf)
+```
+
+An AIC value of 374 suggests that the Negative Binomial model provides a reasonable fit to the data while considering model complexity.
+
+**In-Sample MAD:**
+
+```{r}
+train_predicted <- predict(gaenig.nbf, type = "response")
+sum(abs(train.set$Gaenig-train_predicted))/n1
+```
+
+In-sample MAD of 0.9921456 indicates that, on average, the model's predictions on the training data are approximately 0.9921456 units away from the actual counts.
+
+**Out-Sample MAD:**
+
+```{r}
+test_predicted_nb <- predict(gaenig.nbf, newdata = test.set, type = "response")
+sum(abs(test.set$Gaenig-test_predicted_nb))/n2
+```
+
+Out-of-sample MAD of 1.019177 indicates that, on average, the model's predictions on the test data are approximately 1.019177 units away from the actual counts.
+
+The difference in MAD values here is relatively small, suggesting reasonable model generalization.
+
+**Comparing the 3 Models:**
+
+**Lower values of Residual Deviance** are better, as they indicate a better fit. The **Negative Binomial** model has the lowest residual deviance (132.03) compared to the Poisson (174.65) and Quasi-Poisson (174.65).
+
+**Lower AIC** values indicate a better fit. The **Negative Binomial** model has an AIC of 374.27, while the Poisson model has an AIC of 378.72. The Quasi-Poisson model does not provide AIC.
+
+Both in-sample and out-of-sample MAD are lowest for the Negative Binomial model (0.9921456 in-sample and 1.019177 out-of-sample).
+
+Based on the above parameters, the **Negative Binomial** model seems to be the best choice. It has the lowest AIC, lowest residual deviance, and accounts for overdispersion.
+
+In the selected negative binomial loglinear model, Soil and PA.other predictors look significant:
+
+**Soil4** variable has a statistically significant coefficient with a p-value of 0.0152.
+
+The negative coefficient suggests that as the level of this soil type increases, the count of Gaenig is likely to decrease
+
+**PA.other** variable also shows some level of significance with a p-value of 0.0703.
+
+Lets fit a negative binomial loglinear model using only the above two predictors:
+
+```{r}
+gaenig.nbf1 <-glm.nb(
+    Gaenig ~  Soil + PA.other  ,
+    data = train.set
+  )
+summary(gaenig.nbf1)
+```
+
+The negative sign of the coefficient of Soil4 indicates that the presence of the Soil4 type is associated with a decrease in the count of Gaenig.
+
+The positive coefficient suggests that the presence of Soil6 would be associated with an increase in the Gaenig count.
+
+The negative coefficient indicates that an increase in the PA.other variable is associated with a decrease in the log-count of Gaenig.
+
+The Akaike Information Criterion (AIC) is reduced from 374.27 in the previous model to 358.06 in the updated model, which suggests that the newer model is a better fit when taking into account the complexity of the model.
+
+```{r}
+with(gaenig.nbf1, cbind(deviance = deviance, df = df.residual,
+     p = pchisq(deviance, df.residual, lower.tail=FALSE)))
+```
+
+The residual deviance has slightly decreased, which is good because it implies that the model fits the data better.
+
+Also the p-vslue which is greater than 0.05 suggests that the data prefers the model with Soil and PA.other predictors.
+
+```{r}
+train_predicted <- predict(gaenig.nbf1, type = "response")
+sum(abs(train.set$Gaenig-train_predicted))/n1
+```
+
+```{r}
+test_predicted_nb <- predict(gaenig.nbf1, newdata = test.set, type = "response")
+sum(abs(test.set$Gaenig-test_predicted_nb))/n2
+```
+
+The in-sample MAD has increased slightly, but the out-of-sample MAD has decreased, which may suggest that the model generalizes better to new data.

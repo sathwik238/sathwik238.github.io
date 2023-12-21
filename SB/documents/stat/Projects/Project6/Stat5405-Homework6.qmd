@@ -1,0 +1,371 @@
+---
+title: "Analyzing Deforestation Dataset"
+author: "Sathwik Bollepalli"
+date: "10/15/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+## Q1)
+
+```{r}
+deforest_data=read.csv('data/deforest.csv')
+head(deforest_data)
+```
+
+a\) **Solution**
+
+```{r}
+library(ggplot2)
+
+hist(sqrt(deforest_data$fcover), breaks=30, col="blue", main="Distribution of sqrt fcover", xlab="sqrt fcover", ylab="Frequency")
+
+hist(log(deforest_data$fcover+1), breaks=30, col="yellow", main="Distribution of log fcover ", xlab="log(fcover)", ylab="Frequency")
+       
+```
+
+**For Log(fcover)**
+
+The distribution seems to have a longer right tail, which indicates positive skewness. This means that there are some larger values of log fcover that occur less frequently than the smaller ones.
+
+When comparing it to a normal distribution, the log fcover distribution has more pronounced peaks and isn't symmetrical.
+
+**For sqrt(fcover)**
+
+The tail on both sides seem fairly balanced, though there might be a slight positive skewness, but it's much less pronounced than in the log fcover.
+
+Of the two transformations , SQRT fcover appears more norm ally distributed than log fcover. While it's not a perfect bell curve, its symmetry and single peak resemble the typical characteristics of a normal distribution more closely.
+
+In regression, it's beneficial to have data that closely follows a normal distribution. This is because such a distribution aligns well with the prerequisites of many statistical methods and models. In out case, the SQRT transformation seems to be a more fitting choice.
+
+```{r}
+model_sqrt_fcover <- lm(sqrt(fcover) ~ area + tpop + apop + gdp1 + gdp2 + gdp3 + distpvc +distport + hwaylen + explen + plain + elev + prec + slope + temp + temp0 + policy, data=deforest_data)
+summary(model_sqrt_fcover)
+```
+
+The intercept value 6.928 in the model signifies the predicted sqrt-transformed area when all other factors in the model are set to zero.
+
+As we can see from the High R-Squared value, the model fits the data quite well. It means the model explains 83% of the variability in the sqrt(area).
+
+Variables like are, distport, slope, and plain are very important for predicting fcover. For instance, when area cover goes up, the fcover also tends to go up.
+
+For every unit increase in area, the sqrt_fcover increases by 1.9e-05 units, holding all other predictors constant.
+
+The residuals range from -14.9651 to 4.8991, and the Residual Standard Error is 1.922. This gives an idea about the dispersion of the residuals.
+
+The F-statistic is 113.1 with a p-value of \< 2.2e-16, strongly suggesting that the model is statistically significant.
+
+```{r}
+residuals<-residuals(model_sqrt_fcover)
+plot(model_sqrt_fcover)
+```
+
+The points generally follow the 45-degree line, suggesting that the residuals are mostly normally distributed.
+
+The square root transformation seems to have made the distribution of residuals closer to normal, but there are still some deviations.
+
+The red line representing the smoothed residuals has a gentler slope and less curvature than in the log-transformed plot. This suggests an improved linearity in the relationship between the predictor variables and the transformed dependent variable.
+
+```{r}
+# Using log(fcover) as response
+model_fcover_log <- lm(log(fcover+1) ~ area + tpop + apop + gdp1 + gdp2 + gdp3 + distpvc + distport + hwaylen + explen + plain + elev + prec + slope + temp + temp0 + policy, data=deforest_data)
+summary(model_fcover_log)
+```
+
+When all predictors are zero, the expected logarithm of fcover is approximately 3.829, which is represented by the intercept.
+
+For every unit increase in area, the logarithm of fcover increases by 0.00000303, holding all other predictors constant.
+
+The model provides a reasonably good fit to the data, explaining about 77% of the variance in the logarithm of fcover.
+
+Variables such as tpop, gdp3, hwaylen, explen, elev, and policy have p-values greater than 0.05, indicating they are not statistically significant.
+
+The F-statistic is 76 with a p-value of \< 2.2e-16, strongly suggesting that the model is statistically significant.
+
+```{r}
+residuals<-residuals(model_fcover_log)
+plot(model_fcover_log)
+```
+
+The residuals in this plot also mostly follow the 45-degree line, suggesting a relatively normal distribution.
+
+This indicates that the log transformation also seems effective in making the residuals more normally distributed.
+
+The tails, especially on the right side, seem to deviate from the line, suggesting the tails of the residual distribution are not perfectly normal.
+
+Point 187 continues to deviate significantly from the expected line, reaffirming that it might be an influential point or an outlier in our dataset.
+
+The residuals should be evenly scattered around the horizontal line at 0 across all levels of fitted values. In this plot, there seems to be a slight funnel shape, especially noticeable at lower and higher fitted values. This might suggest the presence of heteroscedasticity.
+
+**Comparing the Log and SQRT transformation models:**
+
+The model using sqrt(fcover) has a higher R-squared, indicating it explains a larger proportion of the variance in the dependent variable.
+
+The model using sqrt(fcover) also has a higher F-statistic, indicating a better overall fit. However, both models have a very low p-value for the F-statistic, indicating that both are statistically significant.
+
+The model using log(fcover) has a lower RSE, suggesting that the prediction errors are smaller on average for this model.
+
+**I would prefer** using the **sqrt transformed** model because it explains the variability in the response variable higher than compared to the log transformed model and also its residual follow normal distrobution which means the results are reliable.
+
+b\) **Solution**
+
+The Box-Cox transformation is a family of power transformations that are used to stabilize variance and make the data more closely follow a normal distribution.
+
+The Box-Cox transformation equation looks like:
+
+$$
+log(y) \ when\  \lambda=0 \\
+(y^\lambda-1)/\lambda \ otherwise
+$$
+
+If we check the raw distribtuion of the fcover we see that:
+
+The original distribution appears right-skewed with most values clustered in the lower range and a few higher values stretching the distribution's tail to the right.
+
+```{r}
+hist(deforest_data$fcover,breaks=30)
+```
+
+For fcover, given its skewness, applying the Box-Cox transformation might help in identifying an optimal transformation (value of $\lambda$) that makes the data more normal.
+
+```{r}
+library(MASS)
+
+# Determine optimal lambda
+
+lambda_range <- seq(-2, 2, by = 0.1)
+
+lambda_optimal <- boxcox(deforest_data$fcover ~ 1, lambda = lambda_range, plotit = TRUE)$lambda
+```
+
+The shape of the curve gives a visual representation of how the log-likelihood changes with different λ values. The peak of the curve represents the optimal λ value for the Box-Cox transformation, which is the value that maximizes the log-likelihood.
+
+As we can see from the result of boxcox transformation that the optimal value for lambda lies around 0.5.
+
+The λ value of 0.5 corresponds to the square root transformation. When λ is 0.5, the Box-Cox formula simplifies to the square root of the original data.
+
+Applying the square root transformation can help stabilize variance and make the distribution more symmetric.
+
+Lets check the distribution of fcover after applying sqrt transformation.
+
+```{r}
+hist(sqrt(deforest_data$fcover),breaks=30)
+```
+
+After applying the square root transformation, the data looks more symmetric and less skewed compared to the original distribution. This indicates that the square root transformation has had a positive effect in terms of normalizing the data.
+
+Therefore **using** the **square root of fcover as the response in the MLR model seems reasonable.**
+
+## Q2)
+
+```{r}
+library('RobStatTM')
+data('waste')
+head(waste)
+```
+
+a\) **Solution**
+
+```{r}
+model=lm(SolidWaste~.,data=waste)
+residuals<-residuals(model)
+summary(model)
+```
+
+Checking normality Assumption
+
+```{r}
+car::qqPlot(residuals, main = NA, pch = 19, col = 2, cex = 0.7)
+shapiro.test(residuals)
+```
+
+The W statistic is 0.96842. Values of W close to 1 indicate that the data are well-modeled by a normal distribution.
+
+The p-value is 0.3203. Typically, a p-value greater than 0.05 indicates that we fail to reject the null hypothesis, which means that we do not have sufficient evidence to say that the data are not normally distributed.
+
+The test suggests that the residuals are approximately normally distributed.
+
+Most of the data points are closely aligned with the blue line, which indicates that the residuals are approximately normally distributed.
+
+However, there are some noticeable deviations. Particularly, there's an observation labeled '2' that lies outside the confidence band on the top right of the plot and an observation labeled '8' on the bottom left. These points might be outliers or influential points.
+
+While the residuals of the model mostly seem to follow the normal distribution, a few potential outliers or influential points.
+
+Checking Linearity Assumption and constant variance
+
+```{r}
+plot(model)
+```
+
+**Residuals vs Fitted** plot is used to detect non-linearity and unequal error variances. Ideally, we'd like to see a random scatter of points. The red line should be horizontal and close to 0.The slightly curved red line in our plot suggests that the model might not be capturing some non-linearity in the data.
+
+**Scale-Location** plot is used to check the assumption of equal variance (homoscedasticity). A horizontal red line with points randomly scattered around it is ideal. Again, there seems to be a pattern here, suggesting that the variances of the residuals are not constant.
+
+b\) **Solution**
+
+```{r}
+studentized_residuals <- rstudent(model)
+potential_outliers <- which(abs(studentized_residuals) > 2)
+outlier_data <- waste[potential_outliers, ]
+print(outlier_data)
+
+```
+
+Outliers are the data points that do not fit the trend. They can be either very high or very low values.
+
+Outliers are observations that have unusually large or small residuals.
+
+Outliers can unduly influence the estimates of the model parameters, making the model less reliable for predictions.
+
+**Land**: Observations 31 and 40 have considerably high values compared to others, suggesting they might have an unusually large amount of land.
+
+**Metals**: Observation 40 stands out with a value of 2046, which is much higher compared to the other observations in the outlier list.
+
+**Trucking**: Observations 2 and 40 have values 2616 and 3719 respectively, indicating potentially high trucking figures compared to the other outliers.
+
+**Retail**: Observations 2, 8, and 15 have higher values compared to 31 and 40. Especially, observation 2 has a value of 953, which is notably high.
+
+**Restaurant**: The values range, but observation 8 has a higher value of 540, followed by observation 2 at 132. The rest have lower values, with observation 40 being the lowest at 7.
+
+Observations 2, 8, 15, 31, and 40 were flagged as potential outliers. Among these, observations 2, 31 and 40 appear to have unusual values in multiple variables, especially in **`Land`**, **`Metals`**, and **`Trucking`**.
+
+c\) **Solution**
+
+```{r}
+par(mfrow=c(1,1))
+
+n <- nrow(waste)
+p <- ncol(waste)-1
+(hilev <- which(influence(model)$hat > max(2*(p+1)/n,0.5)))
+
+plot(rstandard(model)^2, influence(model)$hat, pch =19, cex=0.5, col="blue",
+     xlab = "squared residual", ylab = "leverage")
+inf0 <- which(influence(model)$hat > 0.5)
+text(rstandard(model)[hilev]^2, influence(model)$hat[hilev], 
+     labels = inf0, cex = 0.9, font =2, pos =1)
+```
+
+```{r}
+
+hat_vals <- hatvalues(model)
+
+threshold <- 2 * length(coef(model)) / nrow(waste)
+
+
+high_leverage_points <- which(hat_vals > threshold)
+
+
+print(waste[high_leverage_points, ])
+
+```
+
+High leverage points can have a significant influence on the fit of the model, potentially skewing the results and leading to incorrect or misleading interpretations.
+
+Points with high leverage have extreme predictor values (X values).
+
+In this plot, the y-axis represents leverage. Points that are higher up on the y-axis have higher leverage.
+
+**Land**: Observations 31 and 40 have notably high values compared to others, suggesting they might possess an unusually vast amount of land.
+
+**Metals**: Observation 40 has a significant value of 2046, whereas the rest have much lower values, with observation 15 having the smallest value of 4.
+
+**Retail**: Observation 2 leads with a value of 953, followed by observation 35 with 418. The other values are relatively lower, with observation 40 having the least value of 31.
+
+**Restaurant**: The values range widely, with observation 15 having the highest value of 61 and observation 4 having the lowest at 16.
+
+Observations 31, 15, 40, and 2 have notably higher leverage than the other points, indicating they are high leverage points. These values make these observations stand out and thereby increase their leverage in the model.
+
+d\) **Solution**
+
+```{r}
+cooks_d <- cooks.distance(model)
+influential_cooks <- which(cooks_d > 4/40)
+print(waste[influential_cooks, ])
+
+```
+
+Cook's distance measures the influence of each observation on all the fitted values. It's a combination of leverage and residuals.
+
+**Cook's distance** measures how much **all the predicted values** would change if a specific observation were excluded. It accounts for the impact of an observation on the entire model.
+
+When an observation has a large Cook's distance, it indicates that the inclusion of that data point significantly affects the position and slope of the regression line.
+
+```{r}
+library(car)
+dffits_vals <- dffits(model)
+
+# Using the rule of thumb
+threshold_dffits <- 2*sqrt(length(coef(model))/nrow(waste))
+influential_dffits <- which(abs(dffits_vals) > threshold_dffits)
+print(waste[influential_dffits, ])
+
+```
+
+DFFITS is an acronym for "Difference in Fits." It measures the change in predicted value for an observation when that specific observation is left out of the regression.
+
+**DFFITS** focuses on the impact of omitting a specific observation on its own predicted value. It pinpoints how much the predicted score for an **individual data point** would change if that point were not included in the regression.
+
+## Q3)
+
+Variance inflation factor measures how much the behavior (variance) of an independent variable is influenced, or inflated, by its interaction/correlation with the other independent variables.
+
+VIF equal to 1 = variables are not correlated
+
+VIF between 1 and 5 = variables are moderately correlated 
+
+VIF greater than 5 = variables are highly correlated
+
+```{r}
+vif_values <- vif(model)
+print(vif_values)
+```
+
+The variable Land has a VIF value of 1.415870, suggesting no significant multicollinearity.
+
+Metals, Trucking, Retail, and Restaurants have VIF values greater than 5, indicating high multicollinearity among these predictors.
+
+As several predictors have VIF values greater than 5, there is evidence of multicollinearity in the model. In this case multicollinearity can inflate the variance of the regression coefficients, making them unstable.
+
+It might be beneficial to employ ridge regression, which can help in managing multicollinearity by adding a penalty to the coefficients. Ridge regression can shrink the coefficients towards zero, reducing the impact of multicollinearity.
+
+```{r}
+
+library(glmnet)
+
+
+x <- as.matrix(waste[, -ncol(waste)])
+y <- waste$SolidWaste 
+
+ridge_model <- glmnet(x, y, alpha=0) 
+
+
+cv.ridge <- cv.glmnet(x, y, alpha=0)
+best_lambda=cv.ridge$lambda.min
+
+final_ridge_model <- glmnet(x, y, alpha = 0, lambda = best_lambda)
+coefficients <- coef(final_ridge_model)
+coefficients  
+```
+
+Ridge regression applies a penalty to large coefficients. This diminishes the impact of correlated predictors, ensuring no single variable dominates the model due to multicollinearity.
+
+The estimated value of the SolidWaste variable when all predictor variables are zero is 1.793e-01.
+
+For every unit increase in Land, holding all other predictors constant, the response variable is expected to decrease by 1.21847e-05 units.
+
+For every unit increase in Metals, holding all other predictors constant, the response variable is expected to increase by 1.16727e-04 units.
+
+For every unit increase in Trucking, holding all other predictors constant, the response variable is expected to increase by 1.14874e-04 units.
+
+For every unit increase in Retail, holding all other predictors constant, the response variable is expected to increase by 3.91010e-04 units.
+
+For every unit increase in Restaurants, holding all other predictors constant, the response variable is expected to increase by 4.753197e-03 units.\

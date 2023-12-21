@@ -1,0 +1,464 @@
+---
+title: "Important Statistical functions"
+author: "Sathwik Bollepalli"
+date: "09/24/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+**Q1) a.**
+
+The **qnorm** function is used in hypothesis testing and confidence interval calculations to find critical values based on a specified significance level (probability) and the characteristics of the normal distribution.
+
+```{r}
+qnorm(0.025, mean = 0, sd = 1, lower.tail = TRUE)
+
+```
+
+**Q1) b.**
+
+```{r}
+qnorm(0.975, mean = 0, sd = 1, lower.tail = TRUE)
+```
+
+**Q1) c.**
+
+The **qt** function is used in hypothesis testing to find critical values for t-tests and confidence interval calculations when working with sample data. The degrees of freedom (df) are typically related to the sample size and the number of parameters being estimated in the statistical analysis.
+
+First, calculate the degrees of freedom (df) for the t-distribution using the formula:\
+**df=n1+n2-2**
+
+df=11+13-2
+
+df=22
+
+```{r}
+alfa<-0.05
+n1<-11
+n2<-13
+qt(1-alfa/2, df = n1+n2-2)
+
+```
+
+**Q1) d.**
+
+The **qchisq** function is used when performing chi-squared tests or constructing confidence intervals for variances in statistical analyses.
+
+The degrees of freedom indicate the number of independent random variables that are squared and summed to obtain a chi-squared random variable.
+
+```{r}
+
+qchisq(0.95, df = 17)
+
+```
+
+**Q1 e.**
+
+The **qf** function is used to calculate quantiles (critical values) for the F-distribution. The F-distribution is commonly used in statistical hypothesis testing, especially in analysis of variance (ANOVA) and regression analysis, to **compare** **variances** between two or more groups or populations.
+
+```{r}
+qf(0.95, df1 = 4, df2 = 18)
+
+```
+
+**Q2) a.**
+
+```{r}
+library(vcd)
+
+data(Arthritis)
+
+#Arthritis$Improved <- ifelse(Arthritis$Improved %in% c("Some", "Marked"), "Improved", Arthritis$Improved)
+#Arthritis$Improved[Arthritis$Improved=="1"]<-'None'
+
+Arthritis$Improved <- ifelse(Arthritis$Improved %in% c("Some", "Marked"), "Improved", "None")
+
+cross_tab<-table(Arthritis$Treatment,Arthritis$Improved)
+addmargins(cross_tab)
+```
+
+**Q2) b.**
+
+$\pi_{1|1}$ = is the estimated true proportion of individuals who improved in the "Treated" group. This is based on the sample data collected from the individuals who received the treatment.
+
+$\pi_{1|2}$ = is the estimated true proportion of individuals who improved in the "Placebo" group. This is based on the sample data collected from the individuals who received the placebo.
+
+```{r}
+
+# Compute the sample estimate of π₁|₁ (proportion of Improved patients in Treated group)
+pi1_1 <- cross_tab[2, "Improved"] / sum(cross_tab[2, ])
+
+# Compute the sample estimate of π₁|₂ (proportion of Improved patients in Placebo group)
+pi1_2 <- cross_tab[1, "Improved"] / sum(cross_tab[1, ])
+
+cat("Sample estimate of π₁|₁ (Treated group):", pi1_1, "\n")
+cat("Sample estimate of π₁|₂ (Placebo group):", pi1_2, "\n")
+
+```
+
+From the output of the above chunk of code we can conclude that 68.29% of people who were treated showed improvement and 32.55% of people who were given the placebo showed improvement.
+
+These estimates help us understand the distribution of a particular attribute or characteristic within each group.
+
+We are comparing two groups of patients those who received Treatment and those who received Placebo ${\pi_{1|1}}$ would represent the estimated proportion of patients in Treatement Group who experienced a positive outcome or side effect due to Treatment.
+
+Similarly, $\pi_{1|2}$ would represent the estimated proportion of patients in Placebo Group who experienced the same outcome or side effect due to Placebo.
+
+$$ As\ {\pi_{1|1}} \ is\ significantly\ higher\ than\ {\pi_{1|2}},\ we\ might\ concule\ that\ treatment\ is\ more\ effective\ at\ producing\ the\ desired\ outcome\ compared\ to\ Placebo.$$
+
+**Q2) c.**
+
+We can construct an approximate 100(1 − α)% C.I. estimate for π1\|1 − π1\|2 as the z-interval
+
+$$
+\hat{\pi}_{1|1}-\hat{\pi}_{1|2} \pm {z}_{\alpha/2}SE_{(\hat{\pi}_{1|1}-\hat{\pi}_{1|2})}
+$$
+
+```{r}
+alpha <- 0.05  # Significance level (for a 95% confidence interval)
+z <- qnorm(1 - alpha/2)  # Critical value for a two-tailed test
+
+pi1_1 <- cross_tab[2, "Improved"] / sum(cross_tab[2, ])
+pi1_2 <- cross_tab[1, "Improved"] / sum(cross_tab[1, ])
+n1<-sum(cross_tab[2, ])
+n2<-sum(cross_tab[1, ])
+
+se <- sqrt((pi1_1 * (1 - pi1_1) / n1) + (pi1_2 * (1 - pi1_2) / n2))
+margin_of_error <- z * se
+lower_limit <- (pi1_1 - pi1_2) - margin_of_error
+upper_limit <- (pi1_1 - pi1_2) + margin_of_error
+
+# Print the confidence interval
+cat("95% Confidence Interval for (pi1|1 - pi1|2): [", lower_limit, ",", upper_limit, "]\n")
+```
+
+If the confidence interval does not include the value of 0, it suggests that there is a statistically significant difference between the two proportions. In **our case**, we have evidence to conclude that the proportions in the **Treated and Placebo groups are different**.
+
+If the confidence interval includes the value of 0, it suggests that there is no statistically significant difference between the two proportions. In other words, we do not have enough evidence to conclude that the proportions in the Treated and Placebo groups are different.
+
+**Q2) d.**
+
+Null Hypothesis : There is no significant difference between the proportions in the Treated and Placebo groups
+
+$$
+H_o : {\pi}_{1|1}={\pi}_{1|2}
+$$
+
+Alternative Hypothesis (Ha): There is a significant difference between the proportions in the Treated and Placebo groups
+
+$$
+H_a : {\pi}_{1|1}\ne{\pi}_{1|2}
+$$
+
+```{r}
+# Perform two-sided hypothesis test
+test_result <- prop.test(x = c(pi1_1 * n1, pi1_2 * n2), 
+                         n = c(n1, n2), 
+                         alternative = "two.sided")
+
+test_result
+```
+
+Since the p-value is very low (less than 0.05, which is a common significance level), it indicates strong evidence against the null hypothesis.
+
+This rejection suggests that there is strong statistical evidence to conclude that the **proportions of Improved patients** in the **Treated group and the Placebo group are not equal**.
+
+The confidence interval (0.1337610, 0.5809298) provides a range of plausible values for the true difference in proportions, and it does not include zero. This also supports the conclusion that there's a significant difference between the groups
+
+**Q3) a.**
+
+Odds represent the likelihood of an event happening compared to the likelihood of it not happening.
+
+```{r}
+# Load the vcd package and the Arthritis dataset
+library(vcd)
+data("Arthritis")
+# Combine "Some" and "Marked" into "Improved" status
+Arthritis$Improved <- ifelse(Arthritis$Improved %in% c("Some", "Marked"), "Improved", "None")
+
+cross_tab<-table(Arthritis$Treatment,Arthritis$Improved)
+cross_tab
+
+pi1_1 <- cross_tab[2, "Improved"] / sum(cross_tab[2, ])
+pi1_2 <- cross_tab[1, "Improved"] / sum(cross_tab[1, ])
+
+w1<-pi1_1/(1-pi1_1)
+
+w2<-pi1_2/(1-pi1_2)
+
+cat("Odds of Improvement in Placebo Group",w2,"\n")
+cat("Odds of Improvement in Treatment Group",w1)
+```
+
+The sample odds of Improvement in the Placebo group are 14:29 whcih is 0.48, while the odds of improvementin the treatment groupis 28 : 13 which is 2.15.
+
+This implies that, for every person in treatement group who had no improvement after treatment there are 2.15 persons who had improvement.
+
+Similarly, for every person in placebo group who had no improvement after treatment there are 0.48 persons who had improvement.
+
+The odds of improvement in the Treatment group (2.154) are higher than the odds in the Placebo group (0.483).
+
+This indicates that individuals in the Treatment group had higher odds of improvement compared to those in the Placebo group.
+
+**Q3) b.**
+
+```{r}
+
+odds_ratio=w1/w2
+odds_ratio
+
+
+tab_1 <- table(Arthritis$Treatment, Arthritis$Improved)
+library(epitools)
+oddsratio(tab_1)
+
+
+```
+
+As we can see the odd-ratio is: 4.46 from our manual calculation, from the oddsratio function we get 1:0.2299601 which is \~ 4.4, the values are equal and verified.
+
+If the odds ratio is equal to 1, it suggests that there is no association or difference in the odds of the event between the two groups being compared.
+
+If the odds ratio is greater than 1, it indicates that the event is more likely to occur in the first group compared to the second group.
+
+If the odds ratio is less than 1, it suggests that the event is less likely to occur in the first group compared to the second group.
+
+In our Casr as the oddsratioj(4.4)\>1, so we can colclude that, the **patients who got the treatment are more likely to show improvements compared to patients who got placebo**.
+
+**Q4) a.**
+
+```{r}
+library("ACSWR")
+
+data(tensile)
+
+boxplot(Tensile_Strength ~ CWP, data = tensile, xlab = "CWP", ylab = "Tensile Strength", col='green')
+
+```
+
+As we can see from the side-by-side box plot that, there is a clear relation depicted between the Tensile strength and CWP.
+
+The tensile strength increases when cotton weight percentage(CWP) increases from 15% to 30%, but increasing ***CWP*** further causes a sharp drop in tensile strength.
+
+**Q4) b.**
+
+```{r}
+library(ggplot2)  # For ggplot2-based plotting (optional)
+levels=unique(tensile$CWP)
+for (i in levels){
+  shapiro_test<-shapiro.test(tensile$Tensile_Strength[tensile$CWP==i])
+  print(i)
+  print(shapiro_test)
+}
+
+shapiro.test(tensile$Tensile_Strength)
+```
+
+For the Bartletts to be effective, the individual group's must follow normal distribution, but we can see from the output of shapiro-wilk test that only 3 out of the 5 groups follow normal distribution, so the barteletts test cannot be much reliable.
+
+```{r}
+library(car)
+bartlett.test(Tensile_Strength ~ CWP, data = tensile)
+leveneTest(Tensile_Strength ~ factor(CWP), data = tensile)
+```
+
+In Bartlette's Test for Homogeneity of Variance,
+
+The p-value is 0.9198, which is greater than the significance level of 0.05 (or 0.01). Since the p-value is not statistically significant (greater than 0.05), we do not have enough evidence to reject the null hypothesis.
+
+Based on the results of Bartlett's test, we fail to reject the null hypothesis. This suggests that there is **no significant difference in variances among the groups** defined by the CWP variable.
+
+In Levene's Test for Homogeneity of Variance,
+
+Null hypothesis ($H_0$): The variances are equal across all groups. $\mu_1$ = $\mu_2$ = .... $\mu_a$
+
+Alternative hypothesis ($H_1$) : At least one group has a different variance. (or) The variances of the groups are unequal.
+
+In Levene's Test for Homogeneity of Variance, the null hypothesis (H0) is that the variances of the groups are equal, while the alternative hypothesis (Ha) is that at least one group has a different variance than the others.
+
+The p-value (Pr(\>F)) is 0.8626, which is greater than the significance level . Since the p-value is greater than 0.05, we do not have enough evidence to reject the null hypothesis.
+
+Therefore, based on the results of Levene's Test, we fail to reject the null hypothesis. This suggests that there is **no significant difference in variances among the groups**.
+
+**Differences Between the Leven's and Bartlett's Test**:
+
+Bartlett's test assumes the population data to ne normally distributed, whereas Leven's test is less sensitive to departures from normality and is considered more robust.
+
+Bartlett's test uses the ratio of the sum of squares of the differences between group means to the expected value of the sum of squares, whereas Leven's test uses the absolute deviations from group means.
+
+Bartlett's test is sensitive to outliers and departures from normality, whereas Leven's test is less sensitive to outliers and departures from normality, which makes it more appropriate when dealing with non-normally distributed data.
+
+**Q4) c.**
+
+**Null Hypothesis (H0):** The mean tensile strengths are equal for all levels of CWP.
+
+$$
+H_o: \mu_1=\mu_2=\mu_3=\mu_4=.......=\mu_a
+$$
+
+**Alternative Hypothesis (Ha):** At least one level of CWP has a different mean tensile strength compared to the others.
+
+$$
+H_a: Not\ all\ \mu_i\ are\ equal
+$$
+
+$$
+or
+$$
+
+$$
+H_a:At\ Least\ onne\ of\ the\ \mu_i\ is\ different\ from\ others.
+$$
+
+Equivalently, we can write the null and alternative hypotheses in terms of Tau(T) effects as:
+
+$$
+H_o: \tau_1=\tau_2=\tau_3=\tau_4=.......=\tau_a
+$$
+
+$$
+H_a: Not\ all\ tretatment\ effects\ \tau_i\ are\ equal
+$$
+
+$$or$$
+
+$$
+H_a:At\ Least\ onne\ of\ the\ \tau_i\ is\ different\ from\ others.
+$$
+
+**Q4) d.**
+
+```{r}
+qqPlot(tensile$Tensile_Strength, main="", ylab="Residuals", cex=0.6,pch=19, col="red", 
+       col.lines = "orange")
+shapiro.test(tensile$Tensile_Strength)
+# Create a univariate scatterplot for Tensile Strength - to check for independence
+
+ggplot(tensile, aes(x = seq_along(Tensile_Strength), y = Tensile_Strength)) +
+  geom_point() +
+  labs(x = "Observation Index", y = "Tensile Strength") +
+  ggtitle("Univariate Scatterplot of Tensile Strength") +
+  theme_minimal()
+
+```
+
+As we can from the univariate scatter plot that there is no dependence between the different groups, so the groups are independent of each other.
+
+To perform Anova test the data must be normally distributed, as we can see from the normal QQplot and shapiro-wilk test that the tensile\$tensile_strength follows normal distributio, as the point lie on the strainght line between the confidence bands in the qqplot and a p-value of 0.27 which is greater than 0.05 aslo suggests that the distribution is normal.
+
+```{r}
+# Fit a one-factor ANOVA model
+model <- aov(Tensile_Strength ~ factor(CWP), data = tensile)
+
+
+anova_result <- summary(lm(model))
+
+
+print(anova_result)
+
+```
+
+The median residual is 0.4, indicating that, on an average, the model tends to be off by 0.4 units from the actual observations.
+
+The F-statistic (14.76) is used to test whether the overall regression model is statistically significant. A high F-statistic suggests that at least one of the predictor variables is related to the response variable.
+
+The p-value associated with the F-statistic is very small (p-value: 9.128e-06), which is typically interpreted as being less than the chosen significance level (e.g., α = 0.05).
+
+Based on the results of the F-test and associated p-value, we should **reject the null hypothesis** and conclude that there is a **significant difference in mean tensile strength between the levels of CWP**.
+
+**Pairwise comparison of means**
+
+```{r}
+pairwise.t.test(tensile$Tensile_Strength, tensile$CWP, 
+                p.adjust.method = "none")
+```
+
+```{r}
+
+TukeyHSD(model)
+```
+
+At the 5% confidence level, the comparison between levels 35-15, 25-20, 35-20, 30-25 are not significant, after accounting for multiple testing.
+
+**Q4) e.**
+
+**Residual**: The difference between the observed and fitted responses:
+
+$$
+e_{ij}=Y_{ij}-\hat Y_{ij}
+$$
+
+```{r}
+# Extract residuals from the ANOVA model
+residuals <- residuals(model)
+
+# Create a Normal QQPlot of residuals
+car::qqPlot(residuals, main = NA, pch = 19, col = 2, cex = 0.7)
+
+shapiro.test(residuals)
+```
+
+We can also see from the Normal-QQ Plot that the residuals follow normal distribution.
+
+Since the p-value (0.1818) is greater than the common significance level of 0.05 , we do not have enough evidence to reject the null hypothesis.
+
+Therefore, based on the Shapiro-Wilk test, we fail to reject the null hypothesis, indicating that there is **no significant departure from normality in the residuals**.
+
+**Q5)**
+
+Cherry picking, in statistical analysis, refers to the practice of **selectively choosing** or highlighting **specific data** or results that support a particular hypothesis or viewpoint while **ignoring or omitting other data** or results that may contradict it. It **involves the biased selection** of evidence to present a more favorable or **misleading picture of the data**.
+
+Cherry picking can also be applied to the process of conducting an experiment, where the researcher intentionally uses limited categories of selection for their participants, in order to carry out their experiment.
+
+Example:
+
+If a mutual fund manager want the investors to invest in S&P500 instead of Gold, he might advertise the following:
+
+In thsi case the fund manager chose the data from 2012 to 2017 to show the performances of S&P 500 and Gold, and mentioned S&P 500 is worth 80% more compared woth 2012 where as gold has reduced its value since 2012.
+
+![](images/Screenshot%202023-09-23%20205038-01.png){width="426"}
+
+![](images/Screenshot%202023-09-23%20205050-01.png){width="424"}
+
+Here the fund manager has cherry Picked the data from 2012 to 2017, when the S&P 500 has performed well.
+
+But if we zoom out the picture and see the same data point in the 21th century:
+
+![](images/Screenshot%202023-09-23%20205926.png){width="407"}
+
+![](images/Screenshot%202023-09-23%20205934-01.png){width="402"}
+
+We can see gold being worth 4.6X worth compared to 2001 and S&P 500 is only worth 2.3X more, In other words Gold has performed 2X better than S&P 500 between 2001 and 2017.
+
+We can clearly see from the above example that how cherry picking mislead users in making decisions.
+
+Cherry-picking in data analysis and argumentation can be considered unethical for several reasons:
+
+1\) Misleading Representation: Cherry-picking selectively presents data that supports a particular viewpoint while omitting or downplaying data that contradicts it.
+
+2\) Deception: Deliberately choosing data to deceive or manipulate others undermines trust and integrity in communication.
+
+3\) Distorting Facts: Cherry-picking distorts the facts and can lead to false conclusions.
+
+4\) Bias Confirmation: Cherry-picking often results from confirmation bias, where individuals seek out and emphasize information that aligns with their preconceived beliefs.
+
+5\) Misguided Decision-Making: Ethical decision-making in various domains, such as policy, healthcare, and business, relies on accurate and unbiased information.
+
+6\) Public Harm: When cherry-picking is used in public discourse, it can have far-reaching consequences.
+
+7\) Erosion of Trust: Repeated instances of cherry-picking can erode trust in individuals, organizations, or institutions.
+
+8\) Violation of Professional Codes: Many professional organizations and industries have codes of ethics that require honesty, integrity, and accuracy in data reporting and communication.
+
+9\) Legal Consequences: In some cases, deliberately misrepresenting data or selectively presenting it can have legal consequences, particularly if it results in harm or financial loss.
+
+Overall, cherry-picking is unethical because it involves manipulating information to serve one's interests, mislead others, and distort the truth. Ethical behavior in data analysis and communication requires a commitment to fairness, transparency, and the responsible use of data to inform decisions and foster understanding.

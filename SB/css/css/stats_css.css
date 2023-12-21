@@ -1,0 +1,80 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Use a similar font as the parent page */
+    background: #cce6ff; /* Adjust to match the parent page background */
+}
+
+/* Add a gradient background similar to the parent page */
+.header {
+    background: linear-gradient(to bottom right, #99ccff, #e6f2ff); 
+    padding: 50px 0; /* Add padding to match the parent page style */
+}
+
+.header h1 {
+    text-align: center;
+    font-size: 48px; /* Adjust size as needed */
+    color: #003366; /* Match the text color to the parent page */
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-rows: repeat(4, 1fr); /* 4 rows */
+    height: calc(100vh - 200px); /* Adjust height to take up remaining space */
+    width: 100%; /* Adjust width to cover the full page */
+    gap: 10px; /* Adjust gap between grid items */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.grid-item {
+    background-color: None; /* Match the grid item color to the parent page */
+    border: None; /* Match the border color to the parent page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+
+.grid-item button {
+    width: 90%;
+    height: 95%;
+    padding: 10px 25px; /* Padding inside the button */
+    font-size: 20px; /* Font size of the text inside the button */
+    border: none; /* No border */
+    background-color: #007bff; /* Initial background color */
+    background-image: linear-gradient(to right, #24C6DC, #514A9D); /* Gradient background */
+    color: white; /* Text color */
+    cursor: pointer; /* Cursor changes to pointer on hover */
+    border-radius: 15px; /* Rounded corners */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); /* Text shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for 3D effect */
+    transition: all 0.3s ease; /* Transition for smooth change on hover */
+}
+
+.grid-item button:hover {
+    background-color: #0056b3; /* Background color changes on hover */
+    background-image: linear-gradient(to right, #2ECC71, #55ACEE); /* Gradient color changes on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Box shadow size increases on hover */
+    transform: scale(1.05); /* Button scales up on hover */
+}
+.grid-item a {
+    display: inline-block; /* This will allow you to set width and height */
+    width: 90%; /* Full width of the grid item */
+    height: 95%; /* Full height of the grid item */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.grid-item a button {
+    width: 100%; /* Full width of the anchor tag */
+    height: 100%; /* Full height of the anchor tag */
+    padding: 10px 25px; /* Padding inside the button for larger clickable area */
+    /* Rest of your button styles */
+    /* Remove width, height from here if they're set to 100% in .grid-item a */
+}

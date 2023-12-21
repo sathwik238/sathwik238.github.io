@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<!--
+  Flaticon icon font: Flaticon
+  Creation date: 22/06/2016 15:05
+-->
+<html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flaticon WebFont</title>
+    <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="flaticon.css">
+    <meta charset="UTF-8">
+    <style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+        display: block;
+    }
+    body {
+        line-height: 1;
+    }
+    ol, ul {
+        list-style: none;
+    }
+    blockquote, q {
+        quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    body {
+        font-family: 'Varela Round', Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        color: #222;
+    }
+    a {
+        color: #333;
+        border-bottom: 1px solid #a9fd00;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    * {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+        font-family: Flaticon;
+        font-size: 30px;
+        font-style: normal;
+        margin-left: 20px;
+        color: #333;
+    }
+    .wrapper {
+        max-width: 600px;
+        margin: auto;
+        padding: 0 1em;
+    }
+    .title {
+        font-size: 1.25em;
+        text-align: center;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+    }
+    header {
+        text-align: center;
+        background-color: #222;
+        color: #fff;
+        padding: 1em;
+    }
+    header .logo {
+        width: 210px;
+        height: 38px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+        border: none;
+    }
+    header strong {
+        font-size: 1.95em;
+        font-weight: bold;
+        vertical-align: middle;
+        margin-top: 5px;
+        display: inline-block;
+    }
+    .demo {
+        margin: 2em auto;
+        line-height: 1.25em;
+    }
+    .demo ul li {
+        margin-bottom: 1em;
+    }
+    .demo ul li .num {
+        color: #222;
+        border-radius: 20px;
+        display: inline-block;
+        width: 26px;
+        padding: 3px;
+        height: 26px;
+        text-align: center;
+        margin-right: 0.5em;
+        border: 1px solid #222;
+    }
+    .demo ul li code {
+        background-color: #222;
+        border-radius: 4px;
+        padding: 0.25em 0.5em;
+        display: inline-block;
+        color: #fff;
+        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+        font-weight: lighter;
+        margin-top: 1em;
+        font-size: 0.8em;
+        word-break: break-all;
+    }
+    .demo ul li code.big {
+        padding: 1em;
+        font-size: 0.9em;
+    }
+    .demo ul li code .red {
+        color: #EF3159;
+    }
+    .demo ul li code .green {
+        color: #ACFF65;
+    }
+    .demo ul li code .yellow {
+        color: #FFFF99;
+    }
+    .demo ul li code .blue {
+        color: #99D3FF;
+    }
+    .demo ul li code .purple {
+        color: #A295FF;
+    }
+    .demo ul li code .dots {
+        margin-top: 0.5em;
+        display: block;
+    }
+    #glyphs {
+        border-bottom: 1px solid #ccc;
+        padding: 2em 0;
+        text-align: center;
+    }
+    .glyph {
+        display: inline-block;
+        width: 9em;
+        margin: 1em;
+        text-align: center;
+        vertical-align: top;
+        background: #FFF;
+    }
+    .glyph .glyph-icon {
+        padding: 10px;
+        display: block;
+        font-family:"Flaticon";
+        font-size: 64px;
+        line-height: 1;
+    }
+    .glyph .glyph-icon:before {
+        font-size: 64px;
+        color: #222;
+        margin-left: 0;
+    }
+    .class-name {
+        font-size: 0.65em;
+        background-color: #222;
+        color: #fff;
+        border-radius: 4px 4px 0 0;
+        padding: 0.5em;
+        color: #FFFF99;
+        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    }
+    .author-name {
+        font-size: 0.6em;
+        background-color: #fcfcfd;
+        border: 1px solid #DEDEE4;
+        border-top: 0;
+        border-radius: 0 0 4px 4px;
+        padding: 0.5em;
+    }
+    .class-name:last-child {
+        font-size: 10px;
+        color:#888;
+    }
+    .class-name:last-child a {
+        font-size: 10px;
+        color:#555;
+    }
+    .class-name:last-child a:hover {
+        color:#a9fd00;
+    }
+    .glyph > input {
+        display: block;
+        width: 100px;
+        margin: 5px auto;
+        text-align: center;
+        font-size: 12px;
+        cursor: text;
+    }
+    .glyph > input.icon-input {
+        font-family:"Flaticon";
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .attribution .title {
+        margin-top: 2em;
+    }
+    .attribution textarea {
+        background-color: #fcfcfd;
+        padding: 1em;
+        border: none;
+        box-shadow: none;
+        border: 1px solid #DEDEE4;
+        border-radius: 4px;
+        resize: none;
+        width: 100%;
+        height: 150px;
+        font-size: 0.8em;
+        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+        -webkit-appearance: none;
+    }
+    .iconsuse {
+        margin: 2em auto;
+        text-align: center;
+        max-width: 1200px;
+    }
+    .iconsuse:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+    .iconsuse .image {
+        float: left;
+        width: 25%;
+        padding: 0 1em;
+    }
+    .iconsuse .image p {
+        margin-bottom: 1em;
+    }
+    .iconsuse .image span {
+        display: block;
+        font-size: 0.65em;
+        background-color: #222;
+        color: #fff;
+        border-radius: 4px;
+        padding: 0.5em;
+        color: #FFFF99;
+        margin-top: 1em;
+        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    }
+    #footer {
+        text-align: center;
+        background-color: #4C5B5C;
+        color: #7c9192;
+        padding: 1em;
+    }
+    #footer a {
+        border: none;
+        color: #a9fd00;
+        font-weight: normal;
+    }
+    @media (max-width: 960px) {
+        .iconsuse .image {
+            width: 50%;
+        }
+    }
+    @media (max-width: 560px) {
+        .iconsuse .image {
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+
+<body class="characters-off">
+
+    <header>
+        <a href="http://www.flaticon.com" target="_blank" class="logo">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 560.875 102.036" enable-background="new 0 0 560.875 102.036" xml:space="preserve">
+                <defs>
+                </defs>
+                <g>
+                    <g class="letters">
+                        <path fill="#ffffff" d="M141.596,29.675c0-3.777,2.985-6.767,6.764-6.767h34.438c3.426,0,6.15,2.728,6.15,6.15
+                        c0,3.43-2.724,6.149-6.15,6.149h-27.674v13.091h23.719c3.429,0,6.151,2.724,6.151,6.15c0,3.43-2.723,6.149-6.151,6.149h-23.719
+                        v17.574c0,3.773-2.986,6.761-6.764,6.761c-3.779,0-6.764-2.989-6.764-6.761V29.675z"></path>
+                        <path fill="#ffffff" d="M193.844,29.149c0-3.781,2.985-6.767,6.764-6.767c3.776,0,6.763,2.985,6.763,6.767v42.957h25.039
+                        c3.426,0,6.149,2.726,6.149,6.153c0,3.425-2.723,6.15-6.149,6.15h-31.802c-3.779,0-6.764-2.986-6.764-6.768V29.149z"></path>
+                        <path fill="#ffffff" d="M241.891,75.71l21.438-48.407c1.492-3.341,4.215-5.357,7.906-5.357h0.792
+                        c3.686,0,6.323,2.017,7.815,5.357l21.439,48.407c0.436,0.967,0.701,1.845,0.701,2.723c0,3.602-2.809,6.501-6.414,6.501
+                        c-3.161,0-5.269-1.845-6.499-4.655l-4.132-9.661h-27.059l-4.301,10.102c-1.144,2.631-3.426,4.214-6.237,4.214
+                        c-3.517,0-6.24-2.81-6.24-6.325C241.1,77.64,241.451,76.677,241.891,75.71z M279.932,58.666l-8.521-20.297l-8.526,20.297H279.932
+                        z"></path>
+                        <path fill="#ffffff" d="M314.864,35.387H301.86c-3.429,0-6.239-2.813-6.239-6.238c0-3.429,2.811-6.24,6.239-6.24h39.533
+                        c3.426,0,6.237,2.811,6.237,6.24c0,3.425-2.811,6.238-6.237,6.238h-13.001v42.785c0,3.773-2.99,6.761-6.764,6.761
+                        c-3.779,0-6.764-2.989-6.764-6.761V35.387z"></path>
+                        <path fill="#A9FD00" d="M352.615,29.149c0-3.781,2.985-6.767,6.767-6.767c3.774,0,6.761,2.985,6.761,6.767v49.024
+                        c0,3.773-2.987,6.761-6.761,6.761c-3.781,0-6.767-2.989-6.767-6.761V29.149z"></path>
+                        <path fill="#A9FD00" d="M374.132,53.836v-0.179c0-17.481,13.178-31.801,32.065-31.801c9.22,0,15.459,2.458,20.557,6.238
+                        c1.402,1.054,2.637,2.985,2.637,5.357c0,3.692-2.985,6.59-6.681,6.59c-1.845,0-3.071-0.702-4.044-1.319
+                        c-3.776-2.813-7.729-4.393-12.562-4.393c-10.364,0-17.831,8.611-17.831,19.154v0.173c0,10.542,7.291,19.329,17.831,19.329
+                        c5.715,0,9.492-1.756,13.359-4.834c1.049-0.874,2.458-1.491,4.039-1.491c3.429,0,6.325,2.813,6.325,6.236
+                        c0,2.106-1.056,3.78-2.282,4.834c-5.539,4.834-12.036,7.733-21.878,7.733C387.572,85.464,374.132,71.493,374.132,53.836z"></path>
+                        <path fill="#A9FD00" d="M433.009,53.836v-0.179c0-17.481,13.79-31.801,32.766-31.801c18.981,0,32.592,14.143,32.592,31.628v0.173
+                        c0,17.483-13.785,31.807-32.769,31.807C446.625,85.464,433.009,71.32,433.009,53.836z M484.224,53.836v-0.179
+                        c0-10.539-7.725-19.326-18.626-19.326c-10.893,0-18.449,8.611-18.449,19.154v0.173c0,10.542,7.73,19.329,18.626,19.329
+                        C476.676,72.986,484.224,64.378,484.224,53.836z"></path>
+                        <path fill="#A9FD00" d="M506.233,29.321c0-3.774,2.99-6.763,6.767-6.763h1.401c3.252,0,5.183,1.583,7.029,3.953l26.093,34.265
+                        V29.059c0-3.692,2.99-6.677,6.681-6.677c3.683,0,6.671,2.985,6.671,6.677v48.934c0,3.78-2.987,6.765-6.764,6.765h-0.436
+                        c-3.257,0-5.188-1.581-7.034-3.953l-27.056-35.492v32.944c0,3.687-2.985,6.676-6.678,6.676c-3.683,0-6.673-2.989-6.673-6.676
+                        V29.321z"></path>
+                    </g>
+                    <g class="insignia">
+                        <path fill="#ffffff" d="M48.372,56.137h12.517l11.156-18.537H37.186L25.688,18.539h57.825L94.668,0H9.271
+                        C5.925,0,2.842,1.801,1.198,4.716c-1.644,2.907-1.593,6.482,0.134,9.343l50.38,83.501c1.678,2.781,4.689,4.476,7.938,4.476
+                        c3.246,0,6.257-1.695,7.935-4.476l2.898-4.804L48.372,56.137z"></path>
+                        <g class="i">
+                            <path fill="#A9FD00" d="M93.575,18.539h0.031v0.004l21.652,0.004l2.705-4.488c1.727-2.861,1.778-6.436,0.133-9.343
+                            C116.454,1.801,113.371,0,110.026,0h-5.294L93.575,18.539z"></path>
+                            <polygon fill="#A9FD00" points="88.291,27.356 64.725,66.486 75.519,84.404 109.942,27.356"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </a>
+        <strong>Font Demo</strong>
+    </header>
+
+
+    <section class="demo wrapper">
+
+        <p class="title">Instructions</p>
+
+        <ul>
+            <li>
+                <span class="num">1</span>Copy the "Fonts" files and CSS files to your website CSS folder.
+            </li>
+            <li>
+                <span class="num">2</span>Add the CSS link to your website source code on header.
+                <code class="big">
+                    &lt;<span class="red">head</span>&gt;
+                    <br/><span class="dots">...</span>
+                    <br/>&lt;<span class="red">link</span> <span class="green">rel</span>=<span class="yellow">"stylesheet"</span> <span class="green">type</span>=<span class="yellow">"text/css"</span> <span class="green">href</span>=<span class="yellow">"your_website_domain/css_root/flaticon.css"</span>&gt;
+                    <br/><span class="dots">...</span>
+                    <br/>&lt;/<span class="red">head</span>&gt;
+                </code>
+            </li>
+
+            <li>
+                <p>
+                    <span class="num">3</span>Use the icon class on <code>"<span class="blue">display</span>:<span class="purple"> inline</span>"</code> elements:
+                    <br />
+                    Use example: <code>&lt;<span class="red">i</span> <span class="green">class</span>=<span class="yellow">&quot;flaticon-airplane49&quot;</span>&gt;&lt;/<span class="red">i</span>&gt;</code> or <code>&lt;<span class="red">span</span> <span class="green">class</span>=<span class="yellow">&quot;flaticon-airplane49&quot;</span>&gt;&lt;/<span class="red">span</span>&gt;</code>
+            </li>
+        </ul>
+
+    </section>
+
+
+
+
+   <section id="glyphs">          
+    
+      
+        <div class="glyph"><div class="glyph-icon flaticon-3d-data-analytics-bars-graphic"></div>
+            <div class="class-name">.flaticon-3d-data-analytics-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="3d-data-analytics-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-3d-data-analytics-bars-graphic-1"></div>
+            <div class="class-name">.flaticon-3d-data-analytics-bars-graphic-1</div>
+            <div class="author-name">Author: <a data-file="3d-data-analytics-bars-graphic-1" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-3d-data-analytics-dual-bars-graphic"></div>
+            <div class="class-name">.flaticon-3d-data-analytics-dual-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="3d-data-analytics-dual-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-3d-location-graph"></div>
+            <div class="class-name">.flaticon-3d-location-graph</div>
+            <div class="author-name">Author: <a data-file="3d-location-graph" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-3d-pie-chart-graphic"></div>
+            <div class="class-name">.flaticon-3d-pie-chart-graphic</div>
+            <div class="author-name">Author: <a data-file="3d-pie-chart-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-analysis-process"></div>
+            <div class="class-name">.flaticon-analysis-process</div>
+            <div class="author-name">Author: <a data-file="analysis-process" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-analytics-monitor"></div>
+            <div class="class-name">.flaticon-analytics-monitor</div>
+            <div class="author-name">Author: <a data-file="analytics-monitor" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-analytics-settings"></div>
+            <div class="class-name">.flaticon-analytics-settings</div>
+            <div class="author-name">Author: <a data-file="analytics-settings" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-balancing-data"></div>
+            <div class="class-name">.flaticon-balancing-data</div>
+            <div class="author-name">Author: <a data-file="balancing-data" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-bars-and-line-ascending-graphic-of-data-analytics"></div>
+            <div class="class-name">.flaticon-bars-and-line-ascending-graphic-of-data-analytics</div>
+            <div class="author-name">Author: <a data-file="bars-and-line-ascending-graphic-of-data-analytics" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-bars-chart-interface-ascending-symbol"></div>
+            <div class="class-name">.flaticon-bars-chart-interface-ascending-symbol</div>
+            <div class="author-name">Author: <a data-file="bars-chart-interface-ascending-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-bars-chart-page-symbol"></div>
+            <div class="class-name">.flaticon-bars-chart-page-symbol</div>
+            <div class="author-name">Author: <a data-file="bars-chart-page-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-binary-code-loading-symbol"></div>
+            <div class="class-name">.flaticon-binary-code-loading-symbol</div>
+            <div class="author-name">Author: <a data-file="binary-code-loading-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-binary-data-search-symbol"></div>
+            <div class="class-name">.flaticon-binary-data-search-symbol</div>
+            <div class="author-name">Author: <a data-file="binary-data-search-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-binary-mind"></div>
+            <div class="class-name">.flaticon-binary-mind</div>
+            <div class="author-name">Author: <a data-file="binary-mind" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-binary-processed-mobile-analysis"></div>
+            <div class="class-name">.flaticon-binary-processed-mobile-analysis</div>
+            <div class="author-name">Author: <a data-file="binary-processed-mobile-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-box-plot-chart-interface-symbol"></div>
+            <div class="class-name">.flaticon-box-plot-chart-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="box-plot-chart-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-box-plot-graphic"></div>
+            <div class="class-name">.flaticon-box-plot-graphic</div>
+            <div class="author-name">Author: <a data-file="box-plot-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-boxed-line-stocks-graphic"></div>
+            <div class="class-name">.flaticon-boxed-line-stocks-graphic</div>
+            <div class="author-name">Author: <a data-file="boxed-line-stocks-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-businessman-talking-about-data-analysis"></div>
+            <div class="class-name">.flaticon-businessman-talking-about-data-analysis</div>
+            <div class="author-name">Author: <a data-file="businessman-talking-about-data-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-cart-graphic"></div>
+            <div class="class-name">.flaticon-cart-graphic</div>
+            <div class="author-name">Author: <a data-file="cart-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-cloud-analysis"></div>
+            <div class="class-name">.flaticon-cloud-analysis</div>
+            <div class="author-name">Author: <a data-file="cloud-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-connected-data-flow-chart"></div>
+            <div class="class-name">.flaticon-connected-data-flow-chart</div>
+            <div class="author-name">Author: <a data-file="connected-data-flow-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-connected-folder-data"></div>
+            <div class="class-name">.flaticon-connected-folder-data</div>
+            <div class="author-name">Author: <a data-file="connected-folder-data" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-connected-users-in-flow-chart"></div>
+            <div class="class-name">.flaticon-connected-users-in-flow-chart</div>
+            <div class="author-name">Author: <a data-file="connected-users-in-flow-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-continuous-data-graphic-wave-chart"></div>
+            <div class="class-name">.flaticon-continuous-data-graphic-wave-chart</div>
+            <div class="author-name">Author: <a data-file="continuous-data-graphic-wave-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-cube-graphic-of-squares"></div>
+            <div class="class-name">.flaticon-cube-graphic-of-squares</div>
+            <div class="author-name">Author: <a data-file="cube-graphic-of-squares" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-currency-value"></div>
+            <div class="class-name">.flaticon-currency-value</div>
+            <div class="author-name">Author: <a data-file="currency-value" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-cylindrical-data-graphic"></div>
+            <div class="class-name">.flaticon-cylindrical-data-graphic</div>
+            <div class="author-name">Author: <a data-file="cylindrical-data-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analyser"></div>
+            <div class="class-name">.flaticon-data-analyser</div>
+            <div class="author-name">Author: <a data-file="data-analyser" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analysis-interface-symbol-of-a-monitor-with-a-bars-graphic-with-a-magnifier"></div>
+            <div class="class-name">.flaticon-data-analysis-interface-symbol-of-a-monitor-with-a-bars-graphic-with-a-magnifier</div>
+            <div class="author-name">Author: <a data-file="data-analysis-interface-symbol-of-a-monitor-with-a-bars-graphic-with-a-magnifier" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analysis-pie-chart"></div>
+            <div class="class-name">.flaticon-data-analysis-pie-chart</div>
+            <div class="author-name">Author: <a data-file="data-analysis-pie-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analysis-pie-chart-interface-symbol"></div>
+            <div class="class-name">.flaticon-data-analysis-pie-chart-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analysis-pie-chart-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analysis-symbol"></div>
+            <div class="class-name">.flaticon-data-analysis-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analysis-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-ascendant-line-graphic-symbol-for-interface"></div>
+            <div class="class-name">.flaticon-data-analytics-ascendant-line-graphic-symbol-for-interface</div>
+            <div class="author-name">Author: <a data-file="data-analytics-ascendant-line-graphic-symbol-for-interface" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-ascending-line-chart"></div>
+            <div class="class-name">.flaticon-data-analytics-ascending-line-chart</div>
+            <div class="author-name">Author: <a data-file="data-analytics-ascending-line-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-bars-chart-with-descendant-line"></div>
+            <div class="class-name">.flaticon-data-analytics-bars-chart-with-descendant-line</div>
+            <div class="author-name">Author: <a data-file="data-analytics-bars-chart-with-descendant-line" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-bars-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-circular-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-circular-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-circular-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-circular-symbol"></div>
+            <div class="class-name">.flaticon-data-analytics-circular-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analytics-circular-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-content"></div>
+            <div class="class-name">.flaticon-data-analytics-content</div>
+            <div class="author-name">Author: <a data-file="data-analytics-content" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-cylinder-symbol"></div>
+            <div class="class-name">.flaticon-data-analytics-cylinder-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analytics-cylinder-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-descendant-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-descendant-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-descendant-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-descending-line-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-descending-line-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-descending-line-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-descending-line-graphic-1"></div>
+            <div class="class-name">.flaticon-data-analytics-descending-line-graphic-1</div>
+            <div class="author-name">Author: <a data-file="data-analytics-descending-line-graphic-1" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-dual-bars-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-dual-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-dual-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-flow-chart-symbol"></div>
+            <div class="class-name">.flaticon-data-analytics-flow-chart-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analytics-flow-chart-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-graphic-on-a-presentation-screen"></div>
+            <div class="class-name">.flaticon-data-analytics-graphic-on-a-presentation-screen</div>
+            <div class="author-name">Author: <a data-file="data-analytics-graphic-on-a-presentation-screen" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-interface-symbol"></div>
+            <div class="class-name">.flaticon-data-analytics-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analytics-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-interface-symbol-of-connected-circles"></div>
+            <div class="class-name">.flaticon-data-analytics-interface-symbol-of-connected-circles</div>
+            <div class="author-name">Author: <a data-file="data-analytics-interface-symbol-of-connected-circles" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-line-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-line-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-line-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-line-graphic-1"></div>
+            <div class="class-name">.flaticon-data-analytics-line-graphic-1</div>
+            <div class="author-name">Author: <a data-file="data-analytics-line-graphic-1" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-lines-on-spherical-grid"></div>
+            <div class="class-name">.flaticon-data-analytics-lines-on-spherical-grid</div>
+            <div class="author-name">Author: <a data-file="data-analytics-lines-on-spherical-grid" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-presentation-screen"></div>
+            <div class="class-name">.flaticon-data-analytics-presentation-screen</div>
+            <div class="author-name">Author: <a data-file="data-analytics-presentation-screen" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-settings-symbol"></div>
+            <div class="class-name">.flaticon-data-analytics-settings-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analytics-settings-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-symbol"></div>
+            <div class="class-name">.flaticon-data-analytics-symbol</div>
+            <div class="author-name">Author: <a data-file="data-analytics-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-upgoing-bars-chart"></div>
+            <div class="class-name">.flaticon-data-analytics-upgoing-bars-chart</div>
+            <div class="author-name">Author: <a data-file="data-analytics-upgoing-bars-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-analytics-wheel-graphic"></div>
+            <div class="class-name">.flaticon-data-analytics-wheel-graphic</div>
+            <div class="author-name">Author: <a data-file="data-analytics-wheel-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-circular-chart"></div>
+            <div class="class-name">.flaticon-data-circular-chart</div>
+            <div class="author-name">Author: <a data-file="data-circular-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-coding-symbol"></div>
+            <div class="class-name">.flaticon-data-coding-symbol</div>
+            <div class="author-name">Author: <a data-file="data-coding-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-connected-circular-graphic-interface-symbol"></div>
+            <div class="class-name">.flaticon-data-connected-circular-graphic-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="data-connected-circular-graphic-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-connection-graphic"></div>
+            <div class="class-name">.flaticon-data-connection-graphic</div>
+            <div class="author-name">Author: <a data-file="data-connection-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-export-symbol-of-a-window-with-an-arrow"></div>
+            <div class="class-name">.flaticon-data-export-symbol-of-a-window-with-an-arrow</div>
+            <div class="author-name">Author: <a data-file="data-export-symbol-of-a-window-with-an-arrow" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-flow"></div>
+            <div class="class-name">.flaticon-data-flow</div>
+            <div class="author-name">Author: <a data-file="data-flow" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-flow-chart"></div>
+            <div class="class-name">.flaticon-data-flow-chart</div>
+            <div class="author-name">Author: <a data-file="data-flow-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-funnelling"></div>
+            <div class="class-name">.flaticon-data-funnelling</div>
+            <div class="author-name">Author: <a data-file="data-funnelling" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-graphic"></div>
+            <div class="class-name">.flaticon-data-graphic</div>
+            <div class="author-name">Author: <a data-file="data-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-import-interface-symbol"></div>
+            <div class="class-name">.flaticon-data-import-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="data-import-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-interconnected"></div>
+            <div class="class-name">.flaticon-data-interconnected</div>
+            <div class="author-name">Author: <a data-file="data-interconnected" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-interconnected-symbol"></div>
+            <div class="class-name">.flaticon-data-interconnected-symbol</div>
+            <div class="author-name">Author: <a data-file="data-interconnected-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-looping-interface-symbol"></div>
+            <div class="class-name">.flaticon-data-looping-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="data-looping-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-message-closed-envelope-back-with-a-speech-bubble-symbol"></div>
+            <div class="class-name">.flaticon-data-message-closed-envelope-back-with-a-speech-bubble-symbol</div>
+            <div class="author-name">Author: <a data-file="data-message-closed-envelope-back-with-a-speech-bubble-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-page"></div>
+            <div class="class-name">.flaticon-data-page</div>
+            <div class="author-name">Author: <a data-file="data-page" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-search-interface-symbol-of-a-bars-graphic-with-a-magnifier-tool"></div>
+            <div class="class-name">.flaticon-data-search-interface-symbol-of-a-bars-graphic-with-a-magnifier-tool</div>
+            <div class="author-name">Author: <a data-file="data-search-interface-symbol-of-a-bars-graphic-with-a-magnifier-tool" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-search-symbol-for-interface"></div>
+            <div class="class-name">.flaticon-data-search-symbol-for-interface</div>
+            <div class="author-name">Author: <a data-file="data-search-symbol-for-interface" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-settings-symbol-of-a-window-with-gears"></div>
+            <div class="class-name">.flaticon-data-settings-symbol-of-a-window-with-gears</div>
+            <div class="author-name">Author: <a data-file="data-settings-symbol-of-a-window-with-gears" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-viewer"></div>
+            <div class="class-name">.flaticon-data-viewer</div>
+            <div class="author-name">Author: <a data-file="data-viewer" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-wave"></div>
+            <div class="class-name">.flaticon-data-wave</div>
+            <div class="author-name">Author: <a data-file="data-wave" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-window-lock-symbol-with-a-key"></div>
+            <div class="class-name">.flaticon-data-window-lock-symbol-with-a-key</div>
+            <div class="author-name">Author: <a data-file="data-window-lock-symbol-with-a-key" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-windows-symbol"></div>
+            <div class="class-name">.flaticon-data-windows-symbol</div>
+            <div class="author-name">Author: <a data-file="data-windows-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-data-writing-board-interface-symbol"></div>
+            <div class="class-name">.flaticon-data-writing-board-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="data-writing-board-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-database-analysing"></div>
+            <div class="class-name">.flaticon-database-analysing</div>
+            <div class="author-name">Author: <a data-file="database-analysing" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-database-analysis"></div>
+            <div class="class-name">.flaticon-database-analysis</div>
+            <div class="author-name">Author: <a data-file="database-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-database-interconnected"></div>
+            <div class="class-name">.flaticon-database-interconnected</div>
+            <div class="author-name">Author: <a data-file="database-interconnected" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-database-secure-connection"></div>
+            <div class="class-name">.flaticon-database-secure-connection</div>
+            <div class="author-name">Author: <a data-file="database-secure-connection" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-decreasing-bars-chart"></div>
+            <div class="class-name">.flaticon-decreasing-bars-chart</div>
+            <div class="author-name">Author: <a data-file="decreasing-bars-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-decreasing-stocks-bars-graphic"></div>
+            <div class="class-name">.flaticon-decreasing-stocks-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="decreasing-stocks-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-depleting-chart"></div>
+            <div class="class-name">.flaticon-depleting-chart</div>
+            <div class="author-name">Author: <a data-file="depleting-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-descending-data-analytics-line-graphic"></div>
+            <div class="class-name">.flaticon-descending-data-analytics-line-graphic</div>
+            <div class="author-name">Author: <a data-file="descending-data-analytics-line-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-dollar-analysis-bars-chart"></div>
+            <div class="class-name">.flaticon-dollar-analysis-bars-chart</div>
+            <div class="author-name">Author: <a data-file="dollar-analysis-bars-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-dual-bars-graphic-interface-symbol"></div>
+            <div class="class-name">.flaticon-dual-bars-graphic-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="dual-bars-graphic-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-dual-bars-graphic-interface-symbol-1"></div>
+            <div class="class-name">.flaticon-dual-bars-graphic-interface-symbol-1</div>
+            <div class="author-name">Author: <a data-file="dual-bars-graphic-interface-symbol-1" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-dual-stream-chart"></div>
+            <div class="class-name">.flaticon-dual-stream-chart</div>
+            <div class="author-name">Author: <a data-file="dual-stream-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-flow-chart-interface-symbol"></div>
+            <div class="class-name">.flaticon-flow-chart-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="flow-chart-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-folder-connected-circuit"></div>
+            <div class="class-name">.flaticon-folder-connected-circuit</div>
+            <div class="author-name">Author: <a data-file="folder-connected-circuit" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-footprints-direction-sketch"></div>
+            <div class="class-name">.flaticon-footprints-direction-sketch</div>
+            <div class="author-name">Author: <a data-file="footprints-direction-sketch" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-global-cart-interface-symbol"></div>
+            <div class="class-name">.flaticon-global-cart-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="global-cart-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-global-heart-beat"></div>
+            <div class="class-name">.flaticon-global-heart-beat</div>
+            <div class="author-name">Author: <a data-file="global-heart-beat" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-global-user-interface-symbol"></div>
+            <div class="class-name">.flaticon-global-user-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="global-user-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-global-window-interface-symbol"></div>
+            <div class="class-name">.flaticon-global-window-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="global-window-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-globe-analytics"></div>
+            <div class="class-name">.flaticon-globe-analytics</div>
+            <div class="author-name">Author: <a data-file="globe-analytics" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-globe-connected-circuit"></div>
+            <div class="class-name">.flaticon-globe-connected-circuit</div>
+            <div class="author-name">Author: <a data-file="globe-connected-circuit" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-hexagonal-interconnections"></div>
+            <div class="class-name">.flaticon-hexagonal-interconnections</div>
+            <div class="author-name">Author: <a data-file="hexagonal-interconnections" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-human-graphics"></div>
+            <div class="class-name">.flaticon-human-graphics</div>
+            <div class="author-name">Author: <a data-file="human-graphics" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-increasing-bars-graphic"></div>
+            <div class="class-name">.flaticon-increasing-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="increasing-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-increasing-data-graphic"></div>
+            <div class="class-name">.flaticon-increasing-data-graphic</div>
+            <div class="author-name">Author: <a data-file="increasing-data-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-increasing-stocks-graphic"></div>
+            <div class="class-name">.flaticon-increasing-stocks-graphic</div>
+            <div class="author-name">Author: <a data-file="increasing-stocks-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-increasing-stocks-graphic-of-bars"></div>
+            <div class="class-name">.flaticon-increasing-stocks-graphic-of-bars</div>
+            <div class="author-name">Author: <a data-file="increasing-stocks-graphic-of-bars" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-analysis"></div>
+            <div class="class-name">.flaticon-laptop-analysis</div>
+            <div class="author-name">Author: <a data-file="laptop-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-connected-to-cloud"></div>
+            <div class="class-name">.flaticon-laptop-connected-to-cloud</div>
+            <div class="author-name">Author: <a data-file="laptop-connected-to-cloud" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-data-analytics-graphic-on-screen-with-circles"></div>
+            <div class="class-name">.flaticon-laptop-data-analytics-graphic-on-screen-with-circles</div>
+            <div class="author-name">Author: <a data-file="laptop-data-analytics-graphic-on-screen-with-circles" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-pie-chart-on-screen"></div>
+            <div class="class-name">.flaticon-laptop-pie-chart-on-screen</div>
+            <div class="author-name">Author: <a data-file="laptop-pie-chart-on-screen" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-profits-graphics"></div>
+            <div class="class-name">.flaticon-laptop-profits-graphics</div>
+            <div class="author-name">Author: <a data-file="laptop-profits-graphics" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-screen-with-human-head-graphic"></div>
+            <div class="class-name">.flaticon-laptop-screen-with-human-head-graphic</div>
+            <div class="author-name">Author: <a data-file="laptop-screen-with-human-head-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-stream-graphic-symbol"></div>
+            <div class="class-name">.flaticon-laptop-stream-graphic-symbol</div>
+            <div class="author-name">Author: <a data-file="laptop-stream-graphic-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-with-analysis"></div>
+            <div class="class-name">.flaticon-laptop-with-analysis</div>
+            <div class="author-name">Author: <a data-file="laptop-with-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-laptop-with-cloud-data-symbol-on-screen"></div>
+            <div class="class-name">.flaticon-laptop-with-cloud-data-symbol-on-screen</div>
+            <div class="author-name">Author: <a data-file="laptop-with-cloud-data-symbol-on-screen" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-line-chart"></div>
+            <div class="class-name">.flaticon-line-chart</div>
+            <div class="author-name">Author: <a data-file="line-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-line-graphic-on-checkered-background"></div>
+            <div class="class-name">.flaticon-line-graphic-on-checkered-background</div>
+            <div class="author-name">Author: <a data-file="line-graphic-on-checkered-background" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-lock-graphic-interface-security-symbol"></div>
+            <div class="class-name">.flaticon-lock-graphic-interface-security-symbol</div>
+            <div class="author-name">Author: <a data-file="lock-graphic-interface-security-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-magnifier-tool-in-vertical-position-interface-symbol"></div>
+            <div class="class-name">.flaticon-magnifier-tool-in-vertical-position-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="magnifier-tool-in-vertical-position-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-mail-funneling"></div>
+            <div class="class-name">.flaticon-mail-funneling</div>
+            <div class="author-name">Author: <a data-file="mail-funneling" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-missing-data-on-analytics-line-graphic"></div>
+            <div class="class-name">.flaticon-missing-data-on-analytics-line-graphic</div>
+            <div class="author-name">Author: <a data-file="missing-data-on-analytics-line-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-mobile-phone-analitycs"></div>
+            <div class="class-name">.flaticon-mobile-phone-analitycs</div>
+            <div class="author-name">Author: <a data-file="mobile-phone-analitycs" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-mobile-phone-globally-connected-symbol"></div>
+            <div class="class-name">.flaticon-mobile-phone-globally-connected-symbol</div>
+            <div class="author-name">Author: <a data-file="mobile-phone-globally-connected-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-mobile-phone-text-data-symbol"></div>
+            <div class="class-name">.flaticon-mobile-phone-text-data-symbol</div>
+            <div class="author-name">Author: <a data-file="mobile-phone-text-data-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-mobile-stock-data"></div>
+            <div class="class-name">.flaticon-mobile-stock-data</div>
+            <div class="author-name">Author: <a data-file="mobile-stock-data" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-mobile-stock-data-analysis"></div>
+            <div class="class-name">.flaticon-mobile-stock-data-analysis</div>
+            <div class="author-name">Author: <a data-file="mobile-stock-data-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-monitor-with-message-envelopes-going-out-of-the-screen"></div>
+            <div class="class-name">.flaticon-monitor-with-message-envelopes-going-out-of-the-screen</div>
+            <div class="author-name">Author: <a data-file="monitor-with-message-envelopes-going-out-of-the-screen" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-bars-data-graphic"></div>
+            <div class="class-name">.flaticon-multiple-variable-bars-data-graphic</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-bars-data-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-continuous-chart"></div>
+            <div class="class-name">.flaticon-multiple-variable-continuous-chart</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-continuous-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-lines-graphic"></div>
+            <div class="class-name">.flaticon-multiple-variable-lines-graphic</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-lines-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-lines-graphic-1"></div>
+            <div class="class-name">.flaticon-multiple-variable-lines-graphic-1</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-lines-graphic-1" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-point-line-graphic-symbol"></div>
+            <div class="class-name">.flaticon-multiple-variable-point-line-graphic-symbol</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-point-line-graphic-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-points-line-chart"></div>
+            <div class="class-name">.flaticon-multiple-variable-points-line-chart</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-points-line-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-multiple-variable-vertical-bars-graphic"></div>
+            <div class="class-name">.flaticon-multiple-variable-vertical-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="multiple-variable-vertical-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-nodes-connections-interface-symbol-of-circles-connected-by-lines"></div>
+            <div class="class-name">.flaticon-nodes-connections-interface-symbol-of-circles-connected-by-lines</div>
+            <div class="author-name">Author: <a data-file="nodes-connections-interface-symbol-of-circles-connected-by-lines" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-page-setting-interface-symbol"></div>
+            <div class="class-name">.flaticon-page-setting-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="page-setting-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-person-explaining-data"></div>
+            <div class="class-name">.flaticon-person-explaining-data</div>
+            <div class="author-name">Author: <a data-file="person-explaining-data" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-person-explaining-strategy-on-a-board-with-a-sketch"></div>
+            <div class="class-name">.flaticon-person-explaining-strategy-on-a-board-with-a-sketch</div>
+            <div class="author-name">Author: <a data-file="person-explaining-strategy-on-a-board-with-a-sketch" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-person-in-data-analytics-presentation-with-a-graphic-on-a-screen"></div>
+            <div class="class-name">.flaticon-person-in-data-analytics-presentation-with-a-graphic-on-a-screen</div>
+            <div class="author-name">Author: <a data-file="person-in-data-analytics-presentation-with-a-graphic-on-a-screen" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-chart"></div>
+            <div class="class-name">.flaticon-pie-chart</div>
+            <div class="author-name">Author: <a data-file="pie-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-chart-1"></div>
+            <div class="class-name">.flaticon-pie-chart-1</div>
+            <div class="author-name">Author: <a data-file="pie-chart-1" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-chart-analysis-interface-symbol"></div>
+            <div class="class-name">.flaticon-pie-chart-analysis-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="pie-chart-analysis-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-chart-circular-graphic-interface-symbol"></div>
+            <div class="class-name">.flaticon-pie-chart-circular-graphic-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="pie-chart-circular-graphic-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-chart-information-on-money"></div>
+            <div class="class-name">.flaticon-pie-chart-information-on-money</div>
+            <div class="author-name">Author: <a data-file="pie-chart-information-on-money" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-graphic-comparison-interface-symbol-with-three-circles"></div>
+            <div class="class-name">.flaticon-pie-graphic-comparison-interface-symbol-with-three-circles</div>
+            <div class="author-name">Author: <a data-file="pie-graphic-comparison-interface-symbol-with-three-circles" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-pie-graphic-with-four-areas"></div>
+            <div class="class-name">.flaticon-pie-graphic-with-four-areas</div>
+            <div class="author-name">Author: <a data-file="pie-graphic-with-four-areas" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-polygonal-chart-of-triangles"></div>
+            <div class="class-name">.flaticon-polygonal-chart-of-triangles</div>
+            <div class="author-name">Author: <a data-file="polygonal-chart-of-triangles" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-profit-analysis"></div>
+            <div class="class-name">.flaticon-profit-analysis</div>
+            <div class="author-name">Author: <a data-file="profit-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-radar-chart-with-pentagon-shape"></div>
+            <div class="class-name">.flaticon-radar-chart-with-pentagon-shape</div>
+            <div class="author-name">Author: <a data-file="radar-chart-with-pentagon-shape" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-round-value-chart"></div>
+            <div class="class-name">.flaticon-round-value-chart</div>
+            <div class="author-name">Author: <a data-file="round-value-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-safe-box-outline"></div>
+            <div class="class-name">.flaticon-safe-box-outline</div>
+            <div class="author-name">Author: <a data-file="safe-box-outline" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-scatter-graphic-circle"></div>
+            <div class="class-name">.flaticon-scatter-graphic-circle</div>
+            <div class="author-name">Author: <a data-file="scatter-graphic-circle" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-search-analytics"></div>
+            <div class="class-name">.flaticon-search-analytics</div>
+            <div class="author-name">Author: <a data-file="search-analytics" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-search-shot-interface-symbol-with-a-magnifier-tool"></div>
+            <div class="class-name">.flaticon-search-shot-interface-symbol-with-a-magnifier-tool</div>
+            <div class="author-name">Author: <a data-file="search-shot-interface-symbol-with-a-magnifier-tool" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-searching-settings-interface-symbol"></div>
+            <div class="class-name">.flaticon-searching-settings-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="searching-settings-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-secure-database"></div>
+            <div class="class-name">.flaticon-secure-database</div>
+            <div class="author-name">Author: <a data-file="secure-database" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-setting-flow-interface-symbol"></div>
+            <div class="class-name">.flaticon-setting-flow-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="setting-flow-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-simple-graphic-chart-interface-symbol"></div>
+            <div class="class-name">.flaticon-simple-graphic-chart-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="simple-graphic-chart-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-sine-wave-graphic"></div>
+            <div class="class-name">.flaticon-sine-wave-graphic</div>
+            <div class="author-name">Author: <a data-file="sine-wave-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-speech-bubble-with-three-dots-inside"></div>
+            <div class="class-name">.flaticon-speech-bubble-with-three-dots-inside</div>
+            <div class="author-name">Author: <a data-file="speech-bubble-with-three-dots-inside" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-speech-data-interface-audio-symbol"></div>
+            <div class="class-name">.flaticon-speech-data-interface-audio-symbol</div>
+            <div class="author-name">Author: <a data-file="speech-data-interface-audio-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-spotted-data-graphic"></div>
+            <div class="class-name">.flaticon-spotted-data-graphic</div>
+            <div class="author-name">Author: <a data-file="spotted-data-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-stock-data-analysis"></div>
+            <div class="class-name">.flaticon-stock-data-analysis</div>
+            <div class="author-name">Author: <a data-file="stock-data-analysis" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-stock-data-analytics-interface-symbol-with-businessmen-and-bars-garphic-background"></div>
+            <div class="class-name">.flaticon-stock-data-analytics-interface-symbol-with-businessmen-and-bars-garphic-background</div>
+            <div class="author-name">Author: <a data-file="stock-data-analytics-interface-symbol-with-businessmen-and-bars-garphic-background" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-stock-dealing"></div>
+            <div class="class-name">.flaticon-stock-dealing</div>
+            <div class="author-name">Author: <a data-file="stock-dealing" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-stocks-graphic-on-laptop-monitor"></div>
+            <div class="class-name">.flaticon-stocks-graphic-on-laptop-monitor</div>
+            <div class="author-name">Author: <a data-file="stocks-graphic-on-laptop-monitor" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-strategy-sketch"></div>
+            <div class="class-name">.flaticon-strategy-sketch</div>
+            <div class="author-name">Author: <a data-file="strategy-sketch" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-stream-graphic"></div>
+            <div class="class-name">.flaticon-stream-graphic</div>
+            <div class="author-name">Author: <a data-file="stream-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-sun-flare"></div>
+            <div class="class-name">.flaticon-sun-flare</div>
+            <div class="author-name">Author: <a data-file="sun-flare" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-table-for-data"></div>
+            <div class="class-name">.flaticon-table-for-data</div>
+            <div class="author-name">Author: <a data-file="table-for-data" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-tablet-data-settings"></div>
+            <div class="class-name">.flaticon-tablet-data-settings</div>
+            <div class="author-name">Author: <a data-file="tablet-data-settings" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-tags"></div>
+            <div class="class-name">.flaticon-tags</div>
+            <div class="author-name">Author: <a data-file="tags" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-targeting"></div>
+            <div class="class-name">.flaticon-targeting</div>
+            <div class="author-name">Author: <a data-file="targeting" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-text-settings-symbol-of-a-cogwheel-with-a-speech-bubble"></div>
+            <div class="class-name">.flaticon-text-settings-symbol-of-a-cogwheel-with-a-speech-bubble</div>
+            <div class="author-name">Author: <a data-file="text-settings-symbol-of-a-cogwheel-with-a-speech-bubble" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-triangular-pyramid-graphic"></div>
+            <div class="class-name">.flaticon-triangular-pyramid-graphic</div>
+            <div class="author-name">Author: <a data-file="triangular-pyramid-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-data-analytics-symbol"></div>
+            <div class="class-name">.flaticon-user-data-analytics-symbol</div>
+            <div class="author-name">Author: <a data-file="user-data-analytics-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-data-speech-interface-symbol"></div>
+            <div class="class-name">.flaticon-user-data-speech-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="user-data-speech-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-exchange-symbol"></div>
+            <div class="class-name">.flaticon-user-exchange-symbol</div>
+            <div class="author-name">Author: <a data-file="user-exchange-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-setting-interface-symbol"></div>
+            <div class="class-name">.flaticon-user-setting-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="user-setting-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-settings-interface-symbol"></div>
+            <div class="class-name">.flaticon-user-settings-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="user-settings-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-settings-interface-symbol-of-a-man-with-a-cogwheel-on-the-head"></div>
+            <div class="class-name">.flaticon-user-settings-interface-symbol-of-a-man-with-a-cogwheel-on-the-head</div>
+            <div class="author-name">Author: <a data-file="user-settings-interface-symbol-of-a-man-with-a-cogwheel-on-the-head" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-user-warning"></div>
+            <div class="class-name">.flaticon-user-warning</div>
+            <div class="author-name">Author: <a data-file="user-warning" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-users-interconnected"></div>
+            <div class="class-name">.flaticon-users-interconnected</div>
+            <div class="author-name">Author: <a data-file="users-interconnected" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-value-chart"></div>
+            <div class="class-name">.flaticon-value-chart</div>
+            <div class="author-name">Author: <a data-file="value-chart" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-value-pointer"></div>
+            <div class="class-name">.flaticon-value-pointer</div>
+            <div class="author-name">Author: <a data-file="value-pointer" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-vertical-data-bars-graphic"></div>
+            <div class="class-name">.flaticon-vertical-data-bars-graphic</div>
+            <div class="author-name">Author: <a data-file="vertical-data-bars-graphic" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-web-stocks-data-line-graphic-interface-symbol"></div>
+            <div class="class-name">.flaticon-web-stocks-data-line-graphic-interface-symbol</div>
+            <div class="author-name">Author: <a data-file="web-stocks-data-line-graphic-interface-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+        <div class="glyph"><div class="glyph-icon flaticon-window-time-symbol"></div>
+            <div class="class-name">.flaticon-window-time-symbol</div>
+            <div class="author-name">Author: <a data-file="window-time-symbol" href="http://www.freepik.com">Freepik</a> </div> 
+        </div>        
+        
+
+    </section>
+
+
+
+    <section class="attribution wrapper"   style="text-align:center;">
+
+      <div class="title">License and attribution:</div><div class="attrDiv">Font generated by <a href="http://www.flaticon.com">flaticon.com</a>. <div><p>Under <a href="http://creativecommons.org/licenses/by/3.0/">CC</a>: <a data-file="value-chart" href="http://www.freepik.com">Freepik</a></p>  </div>
+      </div>
+      <div class="title">Copy the Attribution License:</div>
+
+    <textarea onclick="this.focus();this.select();">Font generated by &lt;a href=&quot;http://www.flaticon.com&quot;&gt;flaticon.com&lt;/a&gt;. <p>Under <a href="http://creativecommons.org/licenses/by/3.0/">CC</a>: <a data-file="value-chart" href="http://www.freepik.com">Freepik</a></p>  
+     </textarea>
+
+    </section>
+
+    <section class="iconsuse">
+
+          <div class="title">Examples:</div>            
+             
+            <div class="image">
+                <p>
+                    <i class="glyph-icon flaticon-3d-data-analytics-bars-graphic"></i> 
+                    <span>&lt;i class=&quot;flaticon-3d-data-analytics-bars-graphic&quot;&gt;&lt;/i&gt;</span>
+                </p>
+            </div>
+            
+            <div class="image">
+                <p>
+                    <i class="glyph-icon flaticon-3d-data-analytics-bars-graphic-1"></i> 
+                    <span>&lt;i class=&quot;flaticon-3d-data-analytics-bars-graphic-1&quot;&gt;&lt;/i&gt;</span>
+                </p>
+            </div>
+            
+            <div class="image">
+                <p>
+                    <i class="glyph-icon flaticon-3d-data-analytics-dual-bars-graphic"></i> 
+                    <span>&lt;i class=&quot;flaticon-3d-data-analytics-dual-bars-graphic&quot;&gt;&lt;/i&gt;</span>
+                </p>
+            </div>
+            
+            <div class="image">
+                <p>
+                    <i class="glyph-icon flaticon-3d-location-graph"></i> 
+                    <span>&lt;i class=&quot;flaticon-3d-location-graph&quot;&gt;&lt;/i&gt;</span>
+                </p>
+            </div>
+                       
+        </div>
+                            
+    </section>
+
+<div id="footer">
+    <div>Generated by <a href="http://www.flaticon.com">flaticon.com</a>
+    </div>
+</div>
+
+
+
+</body>
+</html>

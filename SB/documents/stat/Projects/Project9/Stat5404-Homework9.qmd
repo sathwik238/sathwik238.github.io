@@ -1,0 +1,488 @@
+---
+title: "Analyzing Kyphosis Dataset"
+author: "Sathwik Bollepalli"
+date: "11/11/2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+```{r}
+library(rpart)
+data(kyphosis)
+head(kyphosis)
+```
+
+**A)**
+
+Splittig the data into train and test in the ration 90:10.
+
+```{r}
+set.seed(123457)
+train.prop <- 0.90
+
+strats <- kyphosis$Kyphosis
+rr <- split(1:length(strats), strats)
+idx <- sort(as.numeric(unlist(sapply(rr, 
+        function(x) sample(x, length(x)*train.prop)))))
+kyphosis.train <- kyphosis[idx, ]
+kyphosis.test <- kyphosis[-idx, ]
+```
+
+```{r}
+dim(kyphosis.train)
+dim(kyphosis.test)
+```
+
+```{r}
+table(kyphosis$Kyphosis)
+summary(kyphosis$Kyphosis)/nrow(kyphosis)
+
+table(kyphosis.train$Kyphosis)
+summary(kyphosis.train$Kyphosis)/nrow(kyphosis.train)
+
+table(kyphosis.test$Kyphosis)
+summary(kyphosis.test$Kyphosis)/nrow(kyphosis.test)
+
+
+
+```
+
+As we can see from the output the proportion of the outcome binary response variable are approximately same in entire, train and test data set.
+
+If the proportions of the binary response are not equal in the train, test and entire data, the model might be trained on a non-representative dataset, which could bias its predictions. For example, if the training data has fewer instances of Kyphosis=present than the full dataset, the model might not learn to predict this class as effectively, leading to poor performance.
+
+**B)**
+
+```{r}
+model.full.logit <- glm(Kyphosis ~ . ,data = kyphosis.train, 
+                  family = binomial(link = "logit"))
+summary(model.full.logit)
+```
+
+The intercept coefficient is -1.047104 with a standard error of 1.584372. This value represents the log odds of the outcome when all the predictor variables are held at zero.
+
+The coefficient for Age is 0.009606 this suggests that with each additional month of age, the log odds of having Kyphosis increase by approximately 0.009606.
+
+The coefficient for Number is 0.317924 which implies that with each additional vertebral segment involved, the log odds of having Kyphosis increase by about 0.317924.
+
+The coefficient for Start is -0.260587 this means that with each additional level down the spine at which the surgery starts, the log odds of having Kyphosis decrease by about 0.260587. The p-value of 0.00103 indicates that this predictor is statistically significant at the 0.05 level.
+
+```{r}
+model.null.logit <- glm(Kyphosis ~ 1 ,data = kyphosis.train, 
+                  family = binomial(link = "logit"))
+summary(model.null.logit)
+```
+
+This model uses only an intercept and no predictor variables to classify the dependent variable.
+
+The estimate for the intercept is -1.3350 represents the log odds of having Kyphosis when no predictors are included in the model.
+
+$$
+H_0:\text{Data prefers Full model}\\
+H_a:\text{Data does not prefer the Full model}
+$$
+
+```{r}
+with(model.full.logit, cbind(deviance = deviance, df = df.residual,
+     p = pchisq(deviance, df.residual, lower.tail=FALSE)))
+```
+
+We can see that the null model has AIC of 73.6 and full model ahs AIC of 50.4.
+
+Also, as we can see from the chi-square test the high p-value of 0.9 indicates to fail to reject H0, therefore meaning that the data prefers the full model more than the null model.
+
+**C)**
+
+**ROC-Train data**
+
+```{r}
+library(pROC)
+
+pred.full <- predict(model.full.logit, newdata = kyphosis.train, type="response")
+pred.null <- predict(model.null.logit, newdata = kyphosis.train, type="response")
+
+roc.full <- roc(kyphosis.train$Kyphosis, pred.full, levels=c('absent','present'))
+roc.full
+
+roc.null <- roc(kyphosis.train$Kyphosis, pred.null, levels=c('absent','present'))
+roc.null
+```
+
+The full model has an AUC of 0.8819 on the train data, suggesting that the model has a very good ability to discriminate between patients with Kyphosis and those without it based on the predictors included in the full model.
+
+The null model has an AUC of 0.5, which is equivalent to random guessing.
+
+**ROC-Test Data**
+
+```{r}
+
+
+pred.full <- predict(model.full.logit, newdata = kyphosis.test, type="response")
+pred.null <- predict(model.null.logit, newdata = kyphosis.test, type="response")
+
+roc.full <- roc(kyphosis.test$Kyphosis, pred.full, levels=c('absent','present'))
+roc.full
+
+roc.null <- roc(kyphosis.test$Kyphosis, pred.null, levels=c('absent','present'))
+roc.null
+```
+
+The full model has an AUC of 0.5714 on the test data. An AUC of 0.5714 means the model can correctly distinguish between a patient with Kyphosis and one without it 57.14% of the time.
+
+The null model has an AUC of 0.5 on the test data.
+
+**D)**
+
+```{r}
+age_coef <- coef(model.full.logit)["Age"]
+age_coef
+```
+
+**Logit Interpretation:**
+
+For each one-unit increase in Age, the log odds of having Kyphosis present, increase by, 0.0096 considering that other factors are held constant.
+
+This is a relatively small increase, which suggests that Age, by itself, might not be a strong predictor of the presence of Kyphosis post-surgery.
+
+**Probability Interpretation**:
+
+$$
+P(\text{Kyphosis} = \text{present} \,|\, \text{Age}) = \frac{e^{\beta_0 + \beta_1 \times \text{Age}}}{1 + e^{\beta_0 + \beta_1 \times \text{Age}}}
+$$
+
+For example for a child aged 60 months we calculate the probability of Kyphosis being present :
+
+$$
+P(\text{Kyphosis} = \text{present} \,|\, \text{Age} = 60) = \frac{e^{-1.047104 + 0.009606 \times 60}}{1 + e^{-1.047104 + 0.009606 \times 60}}
+$$
+
+$$
+\begin{align*}P(\text{Kyphosis} = \text{present} \,|\, \text{Age} = 60) &= \frac{e^{-1.047104 + 0.009606 \times 60}}{1 + e^{-1.047104 + 0.009606 \times 60}} \\&= \frac{e^{-1.047104 + 0.57636}}{1 + e^{-1.047104 + 0.57636}} \\&= \frac{e^{-0.470744}}{1 + e^{-0.470744}} \\&= \frac{1}{1 + e^{0.470744}} \\&\approx \frac{1}{1 + 1.601} \\&\approx \frac{1}{2.601} \\&\approx 0.384\end{align*}
+$$
+
+For a child aged 60 months, the mode predicts the probability of Kyphosis presence if 0.384, given that other factors are held constant.
+
+**E)**
+
+$$
+   H_0: \beta_{\text{Age}} = 0  \\
+   H_a: \beta_{\text{Age}} \neq 0  
+$$
+
+In Words:
+
+$$
+H_0: \text{ Age Has no Effect} \\
+H_a: \text{ Age Has an Effect}
+$$
+
+```{r}
+# Coefficient and standard error for Age from the model output
+beta_age <- 0.009606
+se_age <- 0.007057
+
+# Calculate the Wald test statistic
+wald_test_statistic <- beta_age / se_age
+
+# Calculate the p-value for the test statistic
+# Note: This should be a two-tailed test since we're testing for inequality in the hypothesis
+p_value <- 2 * (1 - pnorm(abs(wald_test_statistic)))
+
+# Output the Wald test statistic and p-value
+list(wald_test_statistic = wald_test_statistic, p_value = p_value)
+
+```
+
+The z-value is given in the output as 1.361, and the p-value for this test is 0.17345.
+
+Given that the p-value is greater than 0.05, we would not reject the null hypothesis at the 5% significance level, meaning we do not have sufficient evidence to say that Age has a statistically significant effect on the probability of kyphosis presence.
+
+**F)**
+
+```{r}
+model.reduced.logit <- glm(Kyphosis ~ Age, data=kyphosis.train, family = binomial(link = "logit"))
+summary(model.reduced.logit)
+```
+
+The reduced model with only age as predictor ahs an AIC value of 72.8 which is higher than the full model.
+
+The age intercept which in non significant says that for each unit increase in age the log odds of kyphosis increases by 0.0046.
+
+If we go by AIC values, we prefer the full model.
+
+```{r}
+full_model_predictions <- predict(model.full.logit, newdata = kyphosis.test, type = "response")
+reduced_model_predictions <- predict(model.reduced.logit, newdata = kyphosis.test, type = "response")
+
+# Convert predictions to binary outcomes based on a 0.5 cutoff
+full_model_pred_class <- ifelse(full_model_predictions > 0.5, "present", "absent")
+reduced_model_pred_class <- ifelse(reduced_model_predictions > 0.5, "present", "absent")
+
+# Calculate the accuracy for both models
+full_model_accuracy <- mean(full_model_pred_class == kyphosis.test$Kyphosis)
+reduced_model_accuracy <- mean(reduced_model_pred_class == kyphosis.test$Kyphosis)
+
+full_model_accuracy
+reduced_model_accuracy
+```
+
+But, when we look at the accuray of both the full and reduced models, the reduced model does a good job than the full model in predicting correctly, this might be true or by chnace as the size of the test data set is very small.
+
+```{r}
+roc_full <- roc(kyphosis.test$Kyphosis, full_model_predictions)
+auc_full <- auc(roc_full)
+auc_full
+# ROC curve for the reduced model
+roc_reduced <- roc(kyphosis.test$Kyphosis, reduced_model_predictions)
+auc_reduced <- auc(roc_reduced)
+auc_reduced
+```
+
+if we see the ROC-AUC the recuced model beats the full model.
+
+**G)**
+
+```{r}
+library(rpart)
+tree_model <- rpart(Kyphosis ~ ., data = kyphosis.train,control = rpart.control(minsplit = 1, cp = 0.0001))
+
+printcp(tree_model) 
+```
+
+The variables Age, Number, and Start were used in constructing the tree.
+
+The smallest *xerror* from this output is 0.8.
+
+The corresponding CP is 0.1333.
+
+```{r}
+(cp= tree_model$cptable[which.min(tree_model$cptable[, "xerror"]), "CP"])
+(xerr = tree_model$cptable[which.min(tree_model$cptable[, "xerror"]), "xerror"])
+
+```
+
+```{r}
+plotcp(tree_model)
+```
+
+The least value of Xerror is around 0.7 with a CP value of around 0.054
+
+Visual representation of the tree:
+
+```{r}
+library(rpart.plot)
+rpart.plot(tree_model, extra = "auto")
+```
+
+**Computing Accuracy of the fitted tree**
+
+```{r}
+pred <- predict(tree_model, newdata = kyphosis.test, type = "class")
+(conf_matrix_base <- table(kyphosis.test$Kyphosis, pred)) #confusion matrix
+```
+
+The confusion matrix shows that 5 cases are correctly classified as absence of kyphosis, while 0 were correctly classified as presence of kyphosis. The rest were misclassified.
+
+```{r}
+library(caret)
+sensitivity(conf_matrix_base)
+specificity(conf_matrix_base)
+(mis.rate <- conf_matrix_base[1, 2] + 
+   conf_matrix_base[2, 1])/sum(conf_matrix_base) 
+```
+
+The sensitivity is 0.71 and the specificity is 0. while the overall misclassification rate is about 44%.
+
+```{r}
+prune_tree_model <- prune(tree_model, cp =
+    tree_model$cptable[which.min(tree_model$cptable[, "xerror"]), "CP"])
+rpart.plot(prune_tree_model, extra = "auto")
+
+```
+
+```{r}
+summary(prune_tree_model)
+```
+
+The start variable is the most important in predicting kyphosis, followed by number and age.
+
+Root node error is the proportion of the training set that was incorrectly classified by the root node of the tree, which is 0.208
+
+The primary split is on **`Start`** \< 8.5, indicating that the value of the **`Start`** variable is a strong predictor of Kyphosis presence.
+
+The tree suggests that Start is the most critical factor in predicting Kyphosis after surgery, with the age and number of vertebrae involved also playing significant roles. However, the model's cross-validation error suggests that a simpler model may generalize better.
+
+```{r}
+pred <- predict(prune_tree_model, newdata = kyphosis.test, type = "class")
+(conf_matrix_base <- table(kyphosis.test$Kyphosis, pred)) #confusion matrix
+```
+
+After Pruning, The sensitivity is 0.71 and the specificity is 0. while the overall misclassification rate is about 44%.
+
+**H)**
+
+```{r}
+library(ranger)
+
+fit.rf.ranger <- ranger(Kyphosis ~ ., data = kyphosis.train, 
+                   importance = 'impurity', mtry = 3)
+print(fit.rf.ranger)
+
+
+```
+
+```{r}
+library(vip)
+v1 <- vi(fit.rf.ranger)
+vip(v1)
+```
+
+After training a RF, we would like to understand which variables have the most predictive power. Variables with high importance will have a significant impact on the binary outcomes.
+
+In our case **Start** is the most important variable **followed by age** and **then Number**.
+
+```{r}
+pred <- predict(fit.rf.ranger, data = kyphosis.test)
+test_df <- data.frame(actual = kyphosis.test$Kyphosis, pred = NA)
+test_df$pred <- pred$predictions
+(conf_matrix_rf <- table(test_df$actual, test_df$pred)) 
+```
+
+```{r}
+# Sensitivity
+sensitivity(conf_matrix_rf)
+```
+
+The random forest model give us a sensitivity of 75%, which is better than the logit and decision tree model.
+
+```{r}
+# Specificity
+specificity(conf_matrix_rf)
+```
+
+The specificity still remains 0.
+
+```{r}
+# Missclassification error rate:
+(conf_matrix_rf[1,2] + conf_matrix_rf[2,1])/sum(conf_matrix_rf) 
+```
+
+The Missclassification error rate reduced from 44% from decision tree to 33% in Random forest Model.
+
+```{r}
+library(randomForestSRC)
+
+# Measure time for the ranger package
+
+system.time({
+  rf_ranger <- ranger(Kyphosis ~ ., data = kyphosis.train, probability = TRUE)
+})
+
+# Measure time for the randomForestSRC package
+system.time({
+  rf_randomForestSRC <- rfsrc(Kyphosis ~ ., data = kyphosis.train)
+})
+```
+
+It appears that both **`ranger`** and **`randomForestSRC`** have very fast execution times for the small dataset. There might be some difference inthe execution time when the data set size increases o number of trees in the forest and configuration of the hardware device used.
+
+```{r}
+predict(rf_randomForestSRC,newdata = kyphosis.test)
+```
+
+**I)**
+
+```{r}
+library(xgboost)
+library(Matrix)
+
+kyphosis.train$Kyphosis <- ifelse(kyphosis.train$Kyphosis=='present',1,0)
+kyphosis.test$Kyphosis <- ifelse(kyphosis.test$Kyphosis=='present',1,0)
+
+
+# Transform the predictor matrix using dummy (or indictor or one-hot) encoding 
+matrix_predictors.train <- 
+  as.matrix(sparse.model.matrix(Kyphosis ~., data = kyphosis.train))[, -1]
+matrix_predictors.test <- 
+  as.matrix(sparse.model.matrix(Kyphosis ~., data = kyphosis.test))[, -1]
+```
+
+```{r}
+# Train dataset
+pred.train.gbm <- data.matrix(matrix_predictors.train) # predictors only
+
+#convert factor to numeric
+kyphosis.train.gbm <- as.numeric(as.character(kyphosis.train$Kyphosis)) 
+
+dtrain <- xgb.DMatrix(data = pred.train.gbm, label = kyphosis.train.gbm)
+
+# Test dataset
+pred.test.gbm <- data.matrix(matrix_predictors.test) # predictors only
+
+ #convert factor to numeric
+kyphosis.test.gbm <- as.numeric(as.character(kyphosis.test$Kyphosis))
+dtest <- xgb.DMatrix(data = pred.test.gbm, label = kyphosis.test.gbm)
+
+```
+
+The above code is used for the data preparation for the inputs into the XGB model.
+
+```{r}
+watchlist <- list(train = dtrain, test = dtest)
+param <- list(max_depth = 2, eta = 1, nthread = 2,
+              objective = "binary:logistic", eval_metric = "auc")
+```
+
+The watchlist is used to observe the model's performance as it trains, and the parameters are tuned to guide the training process.
+
+```{r}
+model.xgb <- xgb.train(param, dtrain, nrounds = 2, watchlist)
+```
+
+The AUC score for the training dataset after the first iteration of model training is approximately 0.832.
+
+The AUC score for the test dataset is approximately 0.357. This is significantly lower than the training AUC, indicating that the model is not performing well on the test dataset.
+
+The AUC for the training dataset has increased to about 0.935. This improvement suggests that the model is fitting better to the training data with more iterations.
+
+The AUC score for the test dataset remains unchanged at about 0.357. This stagnation indicates that despite the model improving its performance on the training data, it is not translating to better performance on the test data.
+
+```{r}
+pred.y.train <- predict(model.xgb, pred.train.gbm)
+prediction.train <- as.numeric(pred.y.train > 0.5)
+# Measure prediction accuracy on train data
+(tab<-table(kyphosis.train.gbm, prediction.train))
+```
+
+```{r}
+sum(diag(tab))/sum(tab)
+```
+
+The accuracy is 87.5% on the training data. The model predicts whether a child has kyphosis after the operation 87 times correclty out of 100.
+
+Evaluating the XGB models performance on the test dataset:
+
+```{r}
+pred.y = predict(model.xgb, pred.test.gbm)
+prediction <- as.numeric(pred.y > 0.5)
+```
+
+```{r}
+# Measure prediction accuracy on test data
+(tab1<-table(kyphosis.test.gbm,prediction))
+```
+
+The proportion of total cases that were correctly identified is 66.6%.
+
+The model appears to have a significant issue with identifying positive cases of kyphosis, as evidenced by a recall of 0%.
+
+It's more effective at identifying negative cases, as shown by the higher specificity which is 85.7%.

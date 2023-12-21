@@ -1,0 +1,228 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 04/01/2019 13:45
+  	*/
+
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/flaticon/font/Flaticon.eot");
+  src: url("../fonts/flaticon/font/Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/flaticon/font/Flaticon.woff") format("woff"),
+       url("../fonts/flaticon/font/Flaticon.ttf") format("truetype"),
+       url("../fonts/flaticon/font/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/flaticon/font/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-3d-data-analytics-bars-graphic:before { content: "\f100"; }
+.flaticon-3d-data-analytics-bars-graphic-1:before { content: "\f101"; }
+.flaticon-3d-data-analytics-dual-bars-graphic:before { content: "\f102"; }
+.flaticon-3d-location-graph:before { content: "\f103"; }
+.flaticon-3d-pie-chart-graphic:before { content: "\f104"; }
+.flaticon-analysis-process:before { content: "\f105"; }
+.flaticon-analytics-monitor:before { content: "\f106"; }
+.flaticon-analytics-settings:before { content: "\f107"; }
+.flaticon-balancing-data:before { content: "\f108"; }
+.flaticon-bars-and-line-ascending-graphic-of-data-analytics:before { content: "\f109"; }
+.flaticon-bars-chart-interface-ascending-symbol:before { content: "\f10a"; }
+.flaticon-bars-chart-page-symbol:before { content: "\f10b"; }
+.flaticon-binary-code-loading-symbol:before { content: "\f10c"; }
+.flaticon-binary-data-search-symbol:before { content: "\f10d"; }
+.flaticon-binary-mind:before { content: "\f10e"; }
+.flaticon-binary-processed-mobile-analysis:before { content: "\f10f"; }
+.flaticon-box-plot-chart-interface-symbol:before { content: "\f110"; }
+.flaticon-box-plot-graphic:before { content: "\f111"; }
+.flaticon-boxed-line-stocks-graphic:before { content: "\f112"; }
+.flaticon-businessman-talking-about-data-analysis:before { content: "\f113"; }
+.flaticon-cart-graphic:before { content: "\f114"; }
+.flaticon-cloud-analysis:before { content: "\f115"; }
+.flaticon-connected-data-flow-chart:before { content: "\f116"; }
+.flaticon-connected-folder-data:before { content: "\f117"; }
+.flaticon-connected-users-in-flow-chart:before { content: "\f118"; }
+.flaticon-continuous-data-graphic-wave-chart:before { content: "\f119"; }
+.flaticon-cube-graphic-of-squares:before { content: "\f11a"; }
+.flaticon-currency-value:before { content: "\f11b"; }
+.flaticon-cylindrical-data-graphic:before { content: "\f11c"; }
+.flaticon-data-analyser:before { content: "\f11d"; }
+.flaticon-data-analysis-interface-symbol-of-a-monitor-with-a-bars-graphic-with-a-magnifier:before { content: "\f11e"; }
+.flaticon-data-analysis-pie-chart:before { content: "\f11f"; }
+.flaticon-data-analysis-pie-chart-interface-symbol:before { content: "\f120"; }
+.flaticon-data-analysis-symbol:before { content: "\f121"; }
+.flaticon-data-analytics-ascendant-line-graphic-symbol-for-interface:before { content: "\f122"; }
+.flaticon-data-analytics-ascending-line-chart:before { content: "\f123"; }
+.flaticon-data-analytics-bars-chart-with-descendant-line:before { content: "\f124"; }
+.flaticon-data-analytics-bars-graphic:before { content: "\f125"; }
+.flaticon-data-analytics-circular-graphic:before { content: "\f126"; }
+.flaticon-data-analytics-circular-symbol:before { content: "\f127"; }
+.flaticon-data-analytics-content:before { content: "\f128"; }
+.flaticon-data-analytics-cylinder-symbol:before { content: "\f129"; }
+.flaticon-data-analytics-descendant-graphic:before { content: "\f12a"; }
+.flaticon-data-analytics-descending-line-graphic:before { content: "\f12b"; }
+.flaticon-data-analytics-descending-line-graphic-1:before { content: "\f12c"; }
+.flaticon-data-analytics-dual-bars-graphic:before { content: "\f12d"; }
+.flaticon-data-analytics-flow-chart-symbol:before { content: "\f12e"; }
+.flaticon-data-analytics-graphic-on-a-presentation-screen:before { content: "\f12f"; }
+.flaticon-data-analytics-interface-symbol:before { content: "\f130"; }
+.flaticon-data-analytics-interface-symbol-of-connected-circles:before { content: "\f131"; }
+.flaticon-data-analytics-line-graphic:before { content: "\f132"; }
+.flaticon-data-analytics-line-graphic-1:before { content: "\f133"; }
+.flaticon-data-analytics-lines-on-spherical-grid:before { content: "\f134"; }
+.flaticon-data-analytics-presentation-screen:before { content: "\f135"; }
+.flaticon-data-analytics-settings-symbol:before { content: "\f136"; }
+.flaticon-data-analytics-symbol:before { content: "\f137"; }
+.flaticon-data-analytics-upgoing-bars-chart:before { content: "\f138"; }
+.flaticon-data-analytics-wheel-graphic:before { content: "\f139"; }
+.flaticon-data-circular-chart:before { content: "\f13a"; }
+.flaticon-data-coding-symbol:before { content: "\f13b"; }
+.flaticon-data-connected-circular-graphic-interface-symbol:before { content: "\f13c"; }
+.flaticon-data-connection-graphic:before { content: "\f13d"; }
+.flaticon-data-export-symbol-of-a-window-with-an-arrow:before { content: "\f13e"; }
+.flaticon-data-flow:before { content: "\f13f"; }
+.flaticon-data-flow-chart:before { content: "\f140"; }
+.flaticon-data-funnelling:before { content: "\f141"; }
+.flaticon-data-graphic:before { content: "\f142"; }
+.flaticon-data-import-interface-symbol:before { content: "\f143"; }
+.flaticon-data-interconnected:before { content: "\f144"; }
+.flaticon-data-interconnected-symbol:before { content: "\f145"; }
+.flaticon-data-looping-interface-symbol:before { content: "\f146"; }
+.flaticon-data-message-closed-envelope-back-with-a-speech-bubble-symbol:before { content: "\f147"; }
+.flaticon-data-page:before { content: "\f148"; }
+.flaticon-data-search-interface-symbol-of-a-bars-graphic-with-a-magnifier-tool:before { content: "\f149"; }
+.flaticon-data-search-symbol-for-interface:before { content: "\f14a"; }
+.flaticon-data-settings-symbol-of-a-window-with-gears:before { content: "\f14b"; }
+.flaticon-data-viewer:before { content: "\f14c"; }
+.flaticon-data-wave:before { content: "\f14d"; }
+.flaticon-data-window-lock-symbol-with-a-key:before { content: "\f14e"; }
+.flaticon-data-windows-symbol:before { content: "\f14f"; }
+.flaticon-data-writing-board-interface-symbol:before { content: "\f150"; }
+.flaticon-database-analysing:before { content: "\f151"; }
+.flaticon-database-analysis:before { content: "\f152"; }
+.flaticon-database-interconnected:before { content: "\f153"; }
+.flaticon-database-secure-connection:before { content: "\f154"; }
+.flaticon-decreasing-bars-chart:before { content: "\f155"; }
+.flaticon-decreasing-stocks-bars-graphic:before { content: "\f156"; }
+.flaticon-depleting-chart:before { content: "\f157"; }
+.flaticon-descending-data-analytics-line-graphic:before { content: "\f158"; }
+.flaticon-dollar-analysis-bars-chart:before { content: "\f159"; }
+.flaticon-dual-bars-graphic-interface-symbol:before { content: "\f15a"; }
+.flaticon-dual-bars-graphic-interface-symbol-1:before { content: "\f15b"; }
+.flaticon-dual-stream-chart:before { content: "\f15c"; }
+.flaticon-flow-chart-interface-symbol:before { content: "\f15d"; }
+.flaticon-folder-connected-circuit:before { content: "\f15e"; }
+.flaticon-footprints-direction-sketch:before { content: "\f15f"; }
+.flaticon-global-cart-interface-symbol:before { content: "\f160"; }
+.flaticon-global-heart-beat:before { content: "\f161"; }
+.flaticon-global-user-interface-symbol:before { content: "\f162"; }
+.flaticon-global-window-interface-symbol:before { content: "\f163"; }
+.flaticon-globe-analytics:before { content: "\f164"; }
+.flaticon-globe-connected-circuit:before { content: "\f165"; }
+.flaticon-hexagonal-interconnections:before { content: "\f166"; }
+.flaticon-human-graphics:before { content: "\f167"; }
+.flaticon-increasing-bars-graphic:before { content: "\f168"; }
+.flaticon-increasing-data-graphic:before { content: "\f169"; }
+.flaticon-increasing-stocks-graphic:before { content: "\f16a"; }
+.flaticon-increasing-stocks-graphic-of-bars:before { content: "\f16b"; }
+.flaticon-laptop-analysis:before { content: "\f16c"; }
+.flaticon-laptop-connected-to-cloud:before { content: "\f16d"; }
+.flaticon-laptop-data-analytics-graphic-on-screen-with-circles:before { content: "\f16e"; }
+.flaticon-laptop-pie-chart-on-screen:before { content: "\f16f"; }
+.flaticon-laptop-profits-graphics:before { content: "\f170"; }
+.flaticon-laptop-screen-with-human-head-graphic:before { content: "\f171"; }
+.flaticon-laptop-stream-graphic-symbol:before { content: "\f172"; }
+.flaticon-laptop-with-analysis:before { content: "\f173"; }
+.flaticon-laptop-with-cloud-data-symbol-on-screen:before { content: "\f174"; }
+.flaticon-line-chart:before { content: "\f175"; }
+.flaticon-line-graphic-on-checkered-background:before { content: "\f176"; }
+.flaticon-lock-graphic-interface-security-symbol:before { content: "\f177"; }
+.flaticon-magnifier-tool-in-vertical-position-interface-symbol:before { content: "\f178"; }
+.flaticon-mail-funneling:before { content: "\f179"; }
+.flaticon-missing-data-on-analytics-line-graphic:before { content: "\f17a"; }
+.flaticon-mobile-phone-analitycs:before { content: "\f17b"; }
+.flaticon-mobile-phone-globally-connected-symbol:before { content: "\f17c"; }
+.flaticon-mobile-phone-text-data-symbol:before { content: "\f17d"; }
+.flaticon-mobile-stock-data:before { content: "\f17e"; }
+.flaticon-mobile-stock-data-analysis:before { content: "\f17f"; }
+.flaticon-monitor-with-message-envelopes-going-out-of-the-screen:before { content: "\f180"; }
+.flaticon-multiple-variable-bars-data-graphic:before { content: "\f181"; }
+.flaticon-multiple-variable-continuous-chart:before { content: "\f182"; }
+.flaticon-multiple-variable-lines-graphic:before { content: "\f183"; }
+.flaticon-multiple-variable-lines-graphic-1:before { content: "\f184"; }
+.flaticon-multiple-variable-point-line-graphic-symbol:before { content: "\f185"; }
+.flaticon-multiple-variable-points-line-chart:before { content: "\f186"; }
+.flaticon-multiple-variable-vertical-bars-graphic:before { content: "\f187"; }
+.flaticon-nodes-connections-interface-symbol-of-circles-connected-by-lines:before { content: "\f188"; }
+.flaticon-page-setting-interface-symbol:before { content: "\f189"; }
+.flaticon-person-explaining-data:before { content: "\f18a"; }
+.flaticon-person-explaining-strategy-on-a-board-with-a-sketch:before { content: "\f18b"; }
+.flaticon-person-in-data-analytics-presentation-with-a-graphic-on-a-screen:before { content: "\f18c"; }
+.flaticon-pie-chart:before { content: "\f18d"; }
+.flaticon-pie-chart-1:before { content: "\f18e"; }
+.flaticon-pie-chart-analysis-interface-symbol:before { content: "\f18f"; }
+.flaticon-pie-chart-circular-graphic-interface-symbol:before { content: "\f190"; }
+.flaticon-pie-chart-information-on-money:before { content: "\f191"; }
+.flaticon-pie-graphic-comparison-interface-symbol-with-three-circles:before { content: "\f192"; }
+.flaticon-pie-graphic-with-four-areas:before { content: "\f193"; }
+.flaticon-polygonal-chart-of-triangles:before { content: "\f194"; }
+.flaticon-profit-analysis:before { content: "\f195"; }
+.flaticon-radar-chart-with-pentagon-shape:before { content: "\f196"; }
+.flaticon-round-value-chart:before { content: "\f197"; }
+.flaticon-safe-box-outline:before { content: "\f198"; }
+.flaticon-scatter-graphic-circle:before { content: "\f199"; }
+.flaticon-search-analytics:before { content: "\f19a"; }
+.flaticon-search-shot-interface-symbol-with-a-magnifier-tool:before { content: "\f19b"; }
+.flaticon-searching-settings-interface-symbol:before { content: "\f19c"; }
+.flaticon-secure-database:before { content: "\f19d"; }
+.flaticon-setting-flow-interface-symbol:before { content: "\f19e"; }
+.flaticon-simple-graphic-chart-interface-symbol:before { content: "\f19f"; }
+.flaticon-sine-wave-graphic:before { content: "\f1a0"; }
+.flaticon-speech-bubble-with-three-dots-inside:before { content: "\f1a1"; }
+.flaticon-speech-data-interface-audio-symbol:before { content: "\f1a2"; }
+.flaticon-spotted-data-graphic:before { content: "\f1a3"; }
+.flaticon-stock-data-analysis:before { content: "\f1a4"; }
+.flaticon-stock-data-analytics-interface-symbol-with-businessmen-and-bars-garphic-background:before { content: "\f1a5"; }
+.flaticon-stock-dealing:before { content: "\f1a6"; }
+.flaticon-stocks-graphic-on-laptop-monitor:before { content: "\f1a7"; }
+.flaticon-strategy-sketch:before { content: "\f1a8"; }
+.flaticon-stream-graphic:before { content: "\f1a9"; }
+.flaticon-sun-flare:before { content: "\f1aa"; }
+.flaticon-table-for-data:before { content: "\f1ab"; }
+.flaticon-tablet-data-settings:before { content: "\f1ac"; }
+.flaticon-tags:before { content: "\f1ad"; }
+.flaticon-targeting:before { content: "\f1ae"; }
+.flaticon-text-settings-symbol-of-a-cogwheel-with-a-speech-bubble:before { content: "\f1af"; }
+.flaticon-triangular-pyramid-graphic:before { content: "\f1b0"; }
+.flaticon-user-data-analytics-symbol:before { content: "\f1b1"; }
+.flaticon-user-data-speech-interface-symbol:before { content: "\f1b2"; }
+.flaticon-user-exchange-symbol:before { content: "\f1b3"; }
+.flaticon-user-setting-interface-symbol:before { content: "\f1b4"; }
+.flaticon-user-settings-interface-symbol:before { content: "\f1b5"; }
+.flaticon-user-settings-interface-symbol-of-a-man-with-a-cogwheel-on-the-head:before { content: "\f1b6"; }
+.flaticon-user-warning:before { content: "\f1b7"; }
+.flaticon-users-interconnected:before { content: "\f1b8"; }
+.flaticon-value-chart:before { content: "\f1b9"; }
+.flaticon-value-pointer:before { content: "\f1ba"; }
+.flaticon-vertical-data-bars-graphic:before { content: "\f1bb"; }
+.flaticon-web-stocks-data-line-graphic-interface-symbol:before { content: "\f1bc"; }
+.flaticon-window-time-symbol:before { content: "\f1bd"; }

@@ -1,0 +1,73 @@
+---
+title: "Stat5405-Practice Homework"
+author: "Sathwik Bollepalli"
+date: "Aug 31, 2023"
+format:
+  html:
+    embed-resources: true
+    theme: cosmo
+    code-line-numbers: true
+    number_examples: true
+    number_sections: true
+    number_chapters: true
+    linkcolor: blue
+editor: visual
+fig-cap-location: top
+---
+
+## Due: Sun. Sep. 3 2023 at 11:59 pm - submit on HuskyCT
+
+1.  Read this <https://quarto.org/docs/get-started/hello/rstudio.html> to understand using Quarto files.
+
+2.  Fill in your answer after =
+
+Let $X_i,~i=1,\ldots,n$ be a random sample from a population of interest. Suppose $n=4$. Let $X_1=2, X_2=3, X_3=2, X_4=5$. Then, the sample mean is $$
+ \overline{X} = \frac{1}{4}\sum_{i=1}^4 X_i = (2+3+2+5)/4 = 3
+$$
+
+3.  Here is a sample R code chunk. Evaluate it and show the answer.
+
+    ```{r}
+    data <- c(2,3,2,5)
+    samp.mean <- mean(data)
+    samp.mean
+    ```
+
+4.  In the YAML header,
+
+<!-- -->
+
+(a) after author:, replace my name with your full name.
+
+    Done
+
+(b) Insert the date between quotes in date: " "
+
+    Done
+
+<!-- -->
+
+5.  Save this as a qmd file in your local directory.
+
+    Done
+
+6.  Click on Render and practice rendering the qmd file to html. Save the qmd and html files in your directory.
+
+    Done
+
+7.  Create a new R script file to source the [trees]{style="color:green;"} data from the R package *datasets*. The extension should be treesdata.R. Then, write code to print the data. Save the R script file and submit.
+
+    Done
+
+8.  Upload the qmd, html, and R script files to the HuskyCT Assignment Tool under this link: Practice HW-no credit.
+
+    Done
+
+```         
+```
+
+```         
+```
+
+```         
+```

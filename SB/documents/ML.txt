@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistical Analyses</title>
+    <link rel="stylesheet" type="text/css" href="css/css/stats_css.css">
+</head>
+<body>
+    <div class="header">
+        <h1>My Statistical Analysis Projects</h1>
+    </div>
+    <div class="grid-container">
+        <!-- Row 1 -->
+        <div class="grid-item"><a href="documents/stat/Projects/FinalProject/Customer_Churn_Prediction.html" target="_blank"> <button>Customer Churn Prediction </button></a></div>
+        <div class="grid-item"><a href="documents/stat/Projects/Project9/Stat5404-Homework9.html" target="_blank"> <button>Analyzing Kyphosis Dataset</button></a></div>
+        <div class="grid-item"><a href="documents/stat/Projects/Project8/Stat5405-Homework8.html" target="_blank"> <button>Analyzing Caesarian Dataset</button></a></div>
+        
+        <!-- Row 2 -->
+        <div class="grid-item"><a href="documents/stat/Projects/Project7/Stat5405-Homework7.html" target="_blank"> <button>Analyzing Snails Dataset</button></a></div>
+        <div class="grid-item"><a href="documents/stat/Projects/Project6/Stat5405-Homework6.html" target="_blank"> <button>Analyzing Deforestation Dataset </button></a></div>
+        <div class="grid-item"><a href="documents/stat/Projects/Project5/Stat5405-Homework5.html" target="_blank"> <button>Analyzing House Price Dataset </button></a></div>
+
+        <!-- Row 3 -->
+        <div class="grid-item"><a href="documents/stat/Projects/Project4/Stat5405-Homework4.html" target="_blank"> <button>Analyzing Tensile Strength Dataset </button></a></div>
+        <div class="grid-item"><a href="documents/stat/Projects/Project3/Stat5405-Homework3.html" target="_blank"> <button>Inportant Statistical Functions</button></a></div>
+        <div class="grid-item"><a href="documents/stat/Projects/Project2/Stat5405-Homework2.html" target="_blank"> <button>Analyzing Prisoners Stress Dataset </button></a></div>
+
+        <!-- Row 4 -->
+        <div class="grid-item"><a href="documents/stat/Projects/Project1/Stat5405_Homework1.html" target="_blank"> <button>Basics of Statistics </button></a></div>
+       
+    </div>
+</body>
+</html>
