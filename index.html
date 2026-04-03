@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sathwik Bollepalli | Data Scientist</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Sathwik<span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about"      class="nav-link" data-section="about">About</a></li>
+        <li><a href="#skills"     class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#projects"   class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+        <li><a href="#hobbies"    class="nav-link" data-section="hobbies">Hobbies</a></li>
+        <li><a href="#contact"    class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="mobile-nav" id="mobileNav">
+    <ul class="mobile-nav-links">
+      <li><a href="#about"      class="mobile-nav-link">About</a></li>
+      <li><a href="#skills"     class="mobile-nav-link">Skills</a></li>
+      <li><a href="#projects"   class="mobile-nav-link">Projects</a></li>
+      <li><a href="#experience" class="mobile-nav-link">Experience</a></li>
+      <li><a href="#hobbies"    class="mobile-nav-link">Hobbies</a></li>
+      <li><a href="#contact"    class="mobile-nav-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section id="hero">
+    <canvas id="particleCanvas"></canvas>
+    <div class="hero-content">
+      <p class="hero-greeting">Hello, World! I'm</p>
+      <h1 class="hero-name glitch" data-text="Sathwik Bollepalli">Sathwik Bollepalli</h1>
+      <div class="hero-typewriter">
+        <span class="typewriter-prefix">~/$ </span>
+        <span id="typewriter-text"></span><span class="cursor">|</span>
+      </div>
+      <p class="hero-tagline">Turning raw data into actionable insights — improving model accuracy by 15% and reducing processing time by 70%.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact"  class="btn btn-outline">Get In Touch</a>
+        <a href="Sathwik_Bollepalli_Data_Scientist_Jan_2026.pdf" class="btn btn-ghost" target="_blank">
+          <i class="fa-solid fa-file-arrow-down"></i> Resume
+        </a>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">About Me</h2>
+      <div class="about-card reveal">
+        <div class="about-avatar-wrap">
+          <div class="avatar-placeholder">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="avatar-ring"></div>
+        </div>
+        <div class="about-text">
+          <h3 class="about-name">Sathwik Bollepalli</h3>
+          <p class="about-role">Associate Data Scientist &mdash; Kemper Insurance</p>
+          <p class="about-bio">
+            Data Scientist skilled in predictive modeling, machine learning, and data visualization,
+            with a track record of improving model accuracy by 15% and reducing processing time by 70%.
+            Proficient in Python, SQL, and Tableau for delivering actionable insights. Currently building
+            production-ready underwriting and pricing models at Kemper Insurance, working across the full
+            ML lifecycle from ETL and feature engineering to model validation and deployment.
+          </p>
+          <ul class="about-facts">
+            <li><i class="fa-solid fa-location-dot"></i> Remote, CT, USA</li>
+            <li><i class="fa-solid fa-graduation-cap"></i> M.S. Data Science &mdash; UConn (GPA 3.7)</li>
+            <li><i class="fa-solid fa-briefcase"></i> Associate Data Scientist @ Kemper Insurance</li>
+            <li><i class="fa-solid fa-envelope"></i> sathwik238@gmail.com</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Skills</h2>
+
+      <div class="skills-groups">
+        <div class="skills-group reveal">
+          <h3 class="skills-group-title"><i class="fa-solid fa-code"></i> Programming Languages</h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Python</span>
+                <span class="skill-pct">95%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="95"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">SQL (MySQL, PostgreSQL, Snowflake)</span>
+                <span class="skill-pct">90%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">R</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-group reveal">
+          <h3 class="skills-group-title"><i class="fa-solid fa-brain"></i> Machine Learning &amp; AI</h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">ML (XGBoost, LightGBM, CatBoost)</span>
+                <span class="skill-pct">93%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="93"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Statistical Modeling (H2O GLM, Tweedie)</span>
+                <span class="skill-pct">90%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Deep Learning (CNN, RNN, LSTM)</span>
+                <span class="skill-pct">85%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">LLM / Transformers (BERT, GPT, BitNet)</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-group reveal">
+          <h3 class="skills-group-title"><i class="fa-solid fa-wrench"></i> Tools &amp; Platforms</h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">ETL Pipelines (Snowflake, Snowpark)</span>
+                <span class="skill-pct">88%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Tableau &amp; Power BI</span>
+                <span class="skill-pct">87%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="87"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">AWS (S3, EC2, SageMaker)</span>
+                <span class="skill-pct">80%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Azure (Data Factory, Databricks)</span>
+                <span class="skill-pct">82%</span>
+              </div>
+              <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-pills reveal">
+        <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
+        <span class="tech-pill"><i class="fa-solid fa-database"></i> SQL</span>
+        <span class="tech-pill"><i class="fa-solid fa-robot"></i> XGBoost</span>
+        <span class="tech-pill"><i class="fa-solid fa-robot"></i> LightGBM</span>
+        <span class="tech-pill"><i class="fa-solid fa-fire"></i> Keras / TensorFlow</span>
+        <span class="tech-pill"><i class="fa-solid fa-network-wired"></i> Scikit-learn</span>
+        <span class="tech-pill"><i class="fa-solid fa-snowflake"></i> Snowflake</span>
+        <span class="tech-pill"><i class="fa-solid fa-chart-bar"></i> Tableau</span>
+        <span class="tech-pill"><i class="fa-solid fa-chart-line"></i> Power BI</span>
+        <span class="tech-pill"><i class="fa-brands fa-aws"></i> AWS</span>
+        <span class="tech-pill"><i class="fa-brands fa-microsoft"></i> Azure</span>
+        <span class="tech-pill"><i class="fa-solid fa-bolt"></i> PySpark</span>
+        <span class="tech-pill"><i class="fa-solid fa-flask"></i> Pandas / NumPy</span>
+        <span class="tech-pill"><i class="fa-solid fa-vial"></i> A/B Testing</span>
+        <span class="tech-pill"><i class="fa-solid fa-microchip"></i> BitNet 1.58</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Projects</h2>
+      <div class="projects-grid">
+
+        <!-- Kemper: UDS Pipeline -->
+        <div class="project-card reveal tilt-card">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <i class="fa-solid fa-diagram-project project-icon"></i>
+              <div class="project-links">
+                <a href="https://github.com/sathwik238" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+            <h3 class="project-name">CV Underwriting Decision Support Pipeline</h3>
+            <p class="project-desc">End-to-end production-ready pipeline using 10 years of commercial auto data and Snowpark ETL. Standardized POLICY, XP, CLM, INC, and FIN roll-ups; built scalable feature-engineering modules; tuned frequency model; performed rigorous model validation (lift, loss-ratio, predicted-distribution stability); and implemented automated risk-scoring for real-time underwriting deployment.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Snowpark</span>
+              <span class="tag">ETL</span>
+              <span class="tag">Feature Engineering</span>
+              <span class="tag">Risk Scoring</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kemper: Pure Premium Pricing -->
+        <div class="project-card reveal tilt-card">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <i class="fa-solid fa-car-crash project-icon"></i>
+              <div class="project-links">
+                <a href="https://github.com/sathwik238" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+            <h3 class="project-name">Personal Auto Pure Premium Pricing Model</h3>
+            <p class="project-desc">Developed Pure Premium pricing models for COLLISION coverage using H2O GLM (Poisson/Tweedie + B-splines). Improved rate adequacy through variable selection, lift analysis, and diagnostics across statewide rating factors. Enhanced risk assessment with localized adjustment factors.</p>
+            <div class="project-tags">
+              <span class="tag">H2O GLM</span>
+              <span class="tag">Tweedie</span>
+              <span class="tag">Poisson</span>
+              <span class="tag">Python</span>
+              <span class="tag">Pricing Modeling</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kemper: Snowflake Profiler + LLM Schema Analyzer -->
+        <div class="project-card reveal tilt-card">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <i class="fa-solid fa-magnifying-glass-chart project-icon"></i>
+              <div class="project-links">
+                <a href="https://github.com/sathwik238" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+            <h3 class="project-name">Snowflake Data Profiler &amp; LLM Schema Analyzer</h3>
+            <p class="project-desc">Built an automated Snowflake Data Profiler generating HTML reports with stats, distributions, and charts. Paired with an LLM-driven Schema Analyzer that classifies variables and surfaces modeling insights using only metadata — no raw data access required.</p>
+            <div class="project-tags">
+              <span class="tag">Snowflake</span>
+              <span class="tag">LLM</span>
+              <span class="tag">Python</span>
+              <span class="tag">Automated Profiling</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plymouth Rock: Home Insurance Premium -->
+        <div class="project-card reveal tilt-card">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <i class="fa-solid fa-house project-icon"></i>
+              <div class="project-links">
+                <a href="https://github.com/sathwik238" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+            <h3 class="project-name">Home Insurance Premium Modeling</h3>
+            <p class="project-desc">Developed Tweedie XGBoost models with Bayesian hyperparameter tuning, achieving a <strong>15% improvement in Gini coefficient</strong> for more accurate home insurance premium predictions. Applied localized adjustment factors for flood zones and high-crime neighborhoods.</p>
+            <div class="project-tags">
+              <span class="tag">XGBoost</span>
+              <span class="tag">Bayesian Tuning</span>
+              <span class="tag">Tweedie</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plymouth Rock: Large-Loss Fire -->
+        <div class="project-card reveal tilt-card">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <i class="fa-solid fa-fire project-icon"></i>
+              <div class="project-links">
+                <a href="https://github.com/sathwik238" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+            <h3 class="project-name">Large-Loss Fire Event Prediction</h3>
+            <p class="project-desc">Improved precision for predicting large-loss fire events by <strong>30%</strong> in highly imbalanced datasets. Leveraged advanced resampling techniques and XGBoost-based logistic regression to handle severe class imbalance in rare-event prediction.</p>
+            <div class="project-tags">
+              <span class="tag">XGBoost</span>
+              <span class="tag">Imbalanced Learning</span>
+              <span class="tag">Resampling</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plymouth Rock: Feature Engineering Pipeline -->
+        <div class="project-card reveal tilt-card">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <i class="fa-solid fa-gears project-icon"></i>
+              <div class="project-links">
+                <a href="https://github.com/sathwik238" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+            <h3 class="project-name">Automated Feature Engineering Pipeline</h3>
+            <p class="project-desc">Restructured data pipelines and automated the generation of <strong>800+ features</strong>, achieving a <strong>70% reduction in processing time</strong>. Enabled scalability of predictive models and significantly reduced deployment delays across the organization.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">PySpark</span>
+              <span class="tag">ETL</span>
+              <span class="tag">Feature Engineering</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXPERIENCE & EDUCATION ========== -->
+  <section id="experience" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Experience &amp; Education</h2>
+      <div class="timeline">
+
+        <div class="timeline-item left reveal">
+          <div class="timeline-dot"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">April 2025 – Present</span>
+            <h3 class="timeline-title">Associate Data Scientist</h3>
+            <p class="timeline-org">Kemper Insurance &mdash; Remote, CT, USA</p>
+            <p class="timeline-desc">Delivered end-to-end production CV Underwriting Decision Support pipeline with Snowpark ETL. Developed Personal Auto Pure Premium pricing models using H2O GLM. Built an automated Snowflake Data Profiler and LLM-driven Schema Analyzer. Researched BitNet 1.58 quantized LLMs for low-memory AI deployment.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item right reveal">
+          <div class="timeline-dot"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">May 2024 – April 2025</span>
+            <h3 class="timeline-title">Data Scientist Intern</h3>
+            <p class="timeline-org">Plymouth Rock Assurance &mdash; Boston, USA</p>
+            <p class="timeline-desc">Achieved 70% reduction in data processing time by automating 800+ feature generation. Developed Tweedie XGBoost models improving Gini coefficient by 15%. Improved large-loss fire event prediction precision by 30%. Influenced integration of two high-value third-party data sources.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item left reveal">
+          <div class="timeline-dot"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">August 2023 – December 2024</span>
+            <h3 class="timeline-title">M.S. in Data Science &mdash; GPA 3.7</h3>
+            <p class="timeline-org">University of Connecticut &mdash; Storrs, CT</p>
+            <p class="timeline-desc">Relevant coursework: Predictive Modeling, Machine Learning, Statistical Analysis, Causal Inference, Data Visualization, Deep Learning.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item right reveal">
+          <div class="timeline-dot"><i class="fa-solid fa-laptop-code"></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">May 2022 – August 2023</span>
+            <h3 class="timeline-title">Machine Learning Engineer</h3>
+            <p class="timeline-org">MAQ Software Pvt Ltd &mdash; Hyderabad, India</p>
+            <p class="timeline-desc">Achieved 50% improvement in data retrieval efficiency and 77% reduction in processing time (2 hours → 27 minutes). Implemented no-code Azure ML deployment. Automated data extraction cutting prep time by 40%. Increased stakeholder engagement by 35% through compelling dashboards.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item left reveal">
+          <div class="timeline-dot"><i class="fa-solid fa-certificate"></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Certifications</span>
+            <h3 class="timeline-title">Professional Certifications</h3>
+            <p class="timeline-org">Multiple Platforms</p>
+            <p class="timeline-desc">
+              <span class="cert-badge"><i class="fa-solid fa-check-circle"></i> Modern Big Data Analysis with SQL Specialization</span><br>
+              <span class="cert-badge"><i class="fa-brands fa-google"></i> Google Data Analytics</span><br>
+              <span class="cert-badge"><i class="fa-solid fa-code"></i> HackerRank Certified Python &amp; Advanced SQL</span><br>
+              <span class="cert-badge"><i class="fa-solid fa-building-columns"></i> JPMorgan Chase CADP Certification</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOBBIES ========== -->
+  <section id="hobbies" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Hobbies &amp; Interests</h2>
+      <p class="hobbies-intro reveal">Beyond the data, here's what keeps me going:</p>
+      <div class="hobbies-grid">
+
+        <div class="hobby-card reveal">
+          <div class="hobby-icon"><i class="fa-solid fa-hand-fist"></i></div>
+          <p class="hobby-label">Boxing</p>
+        </div>
+        <div class="hobby-card reveal">
+          <div class="hobby-icon"><i class="fa-solid fa-trophy"></i></div>
+          <p class="hobby-label">Cricket</p>
+        </div>
+        <div class="hobby-card reveal">
+          <div class="hobby-icon"><i class="fa-solid fa-coins"></i></div>
+          <p class="hobby-label">Investing</p>
+        </div>
+        <div class="hobby-card reveal">
+          <div class="hobby-icon"><i class="fa-solid fa-book-open"></i></div>
+          <p class="hobby-label">Reading</p>
+        </div>
+        <div class="hobby-card reveal">
+          <div class="hobby-icon"><i class="fa-solid fa-pen-nib"></i></div>
+          <p class="hobby-label">Content Creation</p>
+        </div>
+        <div class="hobby-card reveal">
+          <div class="hobby-icon"><i class="fa-solid fa-microchip"></i></div>
+          <p class="hobby-label">AI Exploration</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Get In Touch</h2>
+      <div class="contact-wrapper">
+
+        <div class="contact-socials reveal">
+          <p class="contact-subtext">
+            Have a data problem to solve, a collaboration idea, or just want to connect?
+            I'm always open to interesting conversations!
+          </p>
+          <div class="social-links">
+            <a href="https://github.com/sathwik238" class="social-link" target="_blank">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sathwikbollepalli/" class="social-link" target="_blank">
+              <i class="fa-brands fa-linkedin"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:sathwik238@gmail.com" class="social-link">
+              <i class="fa-solid fa-envelope"></i>
+              <span>sathwik238@gmail.com</span>
+            </a>
+            <a href="tel:8607811558" class="social-link">
+              <i class="fa-solid fa-phone"></i>
+              <span>860-781-1558</span>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Data Science collaboration">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Hi Sathwik, I'd like to talk about..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+          <p class="form-status" id="formStatus"></p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <a href="#hero" class="footer-logo">
+        <span class="logo-bracket">&lt;</span>Sathwik<span class="logo-bracket">/&gt;</span>
+      </a>
+      <p>Designed &amp; built by <span class="neon-text">Sathwik Bollepalli</span></p>
+      <p class="footer-sub">Made with <i class="fa-solid fa-heart"></i> and lots of coffee &mdash; &copy; <span id="year"></span></p>
+      <a href="#hero" class="back-to-top" title="Back to top">
+        <i class="fa-solid fa-chevron-up"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
