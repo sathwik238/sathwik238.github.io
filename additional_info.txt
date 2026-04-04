@@ -15,3 +15,39 @@ Recently, I’ve also started creating short educational content on data science
 
 Tech Projects & AI Exploration
 Along with that, I enjoy working on small tech projects, especially around AI, where I experiment with ideas and try to build useful tools.
+
+
+Recommendation:
+
+Pallavi Gupta :https://www.linkedin.com/in/ipallavigupta/
+
+PGDBM @ XLRI Jamshedpur ’27 | ADF | ADB | PowerBI | SQL
+June 16, 2025, Pallavi worked with Bollepalli on the same team
+
+Sathwik is a driven and technically strong data scientist with a solid grasp of machine learning, feature engineering, and cloud tools. He learns quickly, collaborates well, and consistently delivers impactful solutions. His enthusiasm for solving real-world problems makes him a valuable asset to any data-driven team.
+
+
+
+
+Shawn Jin: https://www.linkedin.com/in/shawn-jin-31b9964/
+
+Managing Director, Head of Advanced Analytics
+
+December 13, 2024, Shawn managed Bollepalli directly
+
+
+During his internship with our team in last 6 months, I had the pleasure of overseeing his contributions to several high-impact projects. From the outset, Sathwik demonstrated exceptional technical skills on data manipulations and programming. His work primarily focused on data engineering, data evaluation, and predictive model development. Utilizing a combination of SQL and Python in AWS, Sathwik developed robust machine learning models that helped our team to identify good data vendors. 
+
+Beyond his technical abilities, Sathwik excelled in collaborations and communications. He is a fast learner and at best with execution of the project plan. He became full-time ready quickly.
+
+Sathwik's proficient in programming, eagerness to learn and collaborative spirit will make him successful wherever he goes. I have no doubt that Sathwik would be a great asset to any organization.
+
+
+
+Ashish Kumar : https://www.linkedin.com/in/ashishkumar0104/
+Data & BI Specialist | Azure | Power BI | Databricks | Driving Scalable Analytics & AI Adoption | 7+ Yrs Experience
+
+November 9, 2024, Ashish managed Bollepalli directly
+
+I have worked with Sathwik for around 2 years as his mentor, and responsible for assigning suitable work items and his progress. 
+From day 1, he was very enthusiastic about optimizing codes and taking responsibility at very early stage of his career. What stands most about him is his knowledge of Python and Data Science concepts. Despite being just a student in his final year, I was amazed by his knowledge/skills of Python which challenged those with atleast 2 years of experience. As a team, his skills have helped us multiple times in optimizing our existing python codes and delivering priority work items well before time. He had created a case study how our project worked with Azure ML which helped us to get ML Specialization Certification.
