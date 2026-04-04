@@ -425,17 +425,17 @@ function initCertModal() {
     frame.src = ''; // stop loading PDF when closed
   }
 
-  // Only intercept clicks on local PDF links; external URLs open normally
-  document.querySelectorAll('.cert-btn').forEach(btn => {
+  // Use event delegation so every cert-btn is covered regardless of DOM order
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.cert-btn');
+    if (!btn) return;
     const href = btn.getAttribute('href');
     if (!href || !href.startsWith('assets/')) return;
-
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      const card  = btn.closest('.cert-card');
-      const title = card ? card.querySelector('.cert-title').textContent.trim() : 'Certificate';
-      open(href, title);
-    });
+    e.preventDefault();
+    e.stopPropagation();
+    const card  = btn.closest('.cert-card');
+    const title = card ? card.querySelector('.cert-title').textContent.trim() : 'Certificate';
+    open(href, title);
   });
 
   backdrop.addEventListener('click', close);
