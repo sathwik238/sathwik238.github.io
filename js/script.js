@@ -357,6 +357,133 @@ function initContactForm() {
 }
 
 /* ===================================================
+   DATA VISUALIZATION — RADAR CHART
+=================================================== */
+function initDataViz() {
+  const canvas = document.getElementById('skillsRadarChart');
+  if (!canvas || typeof Chart === 'undefined') return;
+
+  const observer = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    observer.unobserve(canvas);
+
+    new Chart(canvas, {
+      type: 'radar',
+      data: {
+        labels: ['Python', 'SQL & Databases', 'Machine Learning', 'Statistical Modeling', 'Data Engineering', 'Cloud Platforms', 'Data Visualization', 'Big Data'],
+        datasets: [{
+          label: 'Proficiency',
+          data: [93, 92, 88, 90, 80, 75, 85, 78],
+          backgroundColor: 'rgba(0, 245, 255, 0.08)',
+          borderColor: '#00f5ff',
+          borderWidth: 2,
+          pointBackgroundColor: '#00f5ff',
+          pointBorderColor: 'transparent',
+          pointHoverBackgroundColor: '#7b2fff',
+          pointHoverBorderColor: '#7b2fff',
+          pointRadius: 4,
+          pointHoverRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        animation: { duration: 1200, easing: 'easeInOutQuart' },
+        scales: {
+          r: {
+            min: 0,
+            max: 100,
+            ticks: { display: false, stepSize: 25 },
+            grid: { color: 'rgba(0, 245, 255, 0.08)' },
+            angleLines: { color: 'rgba(0, 245, 255, 0.1)' },
+            pointLabels: {
+              color: '#6b6b8a',
+              font: { family: "'Fira Code', monospace", size: 11 },
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#12121f',
+            borderColor: 'rgba(0, 245, 255, 0.2)',
+            borderWidth: 1,
+            titleColor: '#00f5ff',
+            bodyColor: '#e0e0ff',
+            callbacks: {
+              label: ctx => `  ${ctx.raw}%`
+            }
+          }
+        }
+      }
+    });
+  }, { threshold: 0.25 });
+
+  observer.observe(canvas);
+}
+
+/* ===================================================
+   GITHUB ACTIVITY FEED
+=================================================== */
+function initGitHubFeed() {
+  const grid = document.getElementById('githubGrid');
+  if (!grid) return;
+
+  const LANG_COLORS = {
+    Python: '#3572A5', JavaScript: '#f1e05a', TypeScript: '#2b7489',
+    R: '#198CE7', SQL: '#e38c00', HTML: '#e34c26', CSS: '#563d7c',
+    'Jupyter Notebook': '#DA5B0B', Shell: '#89e051',
+  };
+
+  function timeAgo(dateStr) {
+    const days = Math.floor((Date.now() - new Date(dateStr)) / 86400000);
+    if (days < 1)  return 'today';
+    if (days < 30) return `${days}d ago`;
+    if (days < 365) return `${Math.floor(days / 30)}mo ago`;
+    return `${Math.floor(days / 365)}y ago`;
+  }
+
+  function renderRepos(repos) {
+    grid.innerHTML = repos.map(repo => `
+      <a href="${repo.html_url}" target="_blank" rel="noopener" class="gh-card reveal">
+        <div class="gh-card-header">
+          <i class="fa-solid fa-code-branch gh-icon"></i>
+          <span class="gh-repo-name">${repo.name}</span>
+        </div>
+        <p class="gh-desc">${repo.description || 'No description provided.'}</p>
+        <div class="gh-meta">
+          ${repo.language
+            ? `<span class="gh-lang">
+                <span class="gh-lang-dot" style="background:${LANG_COLORS[repo.language] || '#6b6b8a'}"></span>
+                ${repo.language}
+               </span>`
+            : ''}
+          <span><i class="fa-regular fa-star"></i> ${repo.stargazers_count}</span>
+          <span><i class="fa-regular fa-clock"></i> ${timeAgo(repo.updated_at)}</span>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  fetch('https://api.github.com/users/sathwik238/repos?sort=updated&per_page=6&type=public')
+    .then(res => {
+      if (!res.ok) throw new Error('GitHub API error');
+      return res.json();
+    })
+    .then(data => {
+      if (!Array.isArray(data)) throw new Error('Unexpected response');
+      renderRepos(data);
+    })
+    .catch(() => {
+      grid.innerHTML = `
+        <p class="gh-error">
+          Could not load GitHub data right now. &nbsp;
+          <a href="https://github.com/sathwik238" target="_blank" rel="noopener">View profile on GitHub →</a>
+        </p>`;
+    });
+}
+
+/* ===================================================
    LOADING SCREEN
 =================================================== */
 function initLoader() {
@@ -466,6 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initRevealOnScroll();
   initSkillBars();
   initTiltEffect();
+  initDataViz();
+  initGitHubFeed();
   initContactForm();
   initCertModal();
   initFooterYear();

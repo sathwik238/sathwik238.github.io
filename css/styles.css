@@ -1230,6 +1230,288 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    RESPONSIVE
 =================================================== */
 /* ===================================================
+   DATA VIZ PROJECT CARD
+=================================================== */
+.project-card--viz {
+  grid-column: 1 / -1;
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 245, 255, 0.07);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card--viz:hover {
+  border-color: rgba(0, 245, 255, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), var(--cyan-glow);
+}
+
+.viz-live-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #4ade80;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  letter-spacing: 0.05em;
+}
+
+.viz-live-badge i {
+  font-size: 0.55rem;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+.viz-canvas-wrap {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  max-height: 380px;
+}
+
+.viz-canvas-wrap canvas {
+  max-width: 500px;
+  width: 100%;
+}
+
+/* ===================================================
+   GITHUB ACTIVITY
+=================================================== */
+.github-intro {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.gh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.gh-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 245, 255, 0.07);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  color: var(--text-primary);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.gh-card:hover {
+  border-color: rgba(0, 245, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
+}
+
+.gh-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.gh-icon {
+  color: var(--cyan);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.gh-repo-name {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cyan);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gh-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gh-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.gh-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.gh-lang-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.gh-profile-cta {
+  text-align: center;
+}
+
+/* Skeleton shimmer */
+.gh-skeleton {
+  height: 140px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 245, 255, 0.05);
+  background: linear-gradient(90deg,
+    var(--bg-card) 0%,
+    var(--bg-card-hover) 50%,
+    var(--bg-card) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.gh-error {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  padding: 2rem;
+}
+
+.gh-error a {
+  color: var(--cyan);
+}
+
+/* ===================================================
+   TESTIMONIALS
+=================================================== */
+.testimonials-intro {
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 245, 255, 0.07);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: var(--transition);
+  position: relative;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(123, 47, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), var(--purple-glow);
+  transform: translateY(-3px);
+}
+
+.testimonial-quote-icon {
+  font-size: 1.5rem;
+  color: var(--purple);
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.testimonial-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+  flex: 1;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 245, 255, 0.06);
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan-dim), var(--purple-dim));
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.testimonial-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.testimonial-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.testimonial-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.testimonial-li {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.testimonial-li:hover {
+  color: #0a66c2;
+}
+
+/* ===================================================
    LOADING SCREEN
 =================================================== */
 #loader {
@@ -1509,8 +1791,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   .skills-groups { grid-template-columns: 1fr; }
 
-  .projects-grid { grid-template-columns: 1fr; }
-  .certs-grid    { grid-template-columns: 1fr; }
+  .projects-grid      { grid-template-columns: 1fr; }
+  .certs-grid         { grid-template-columns: 1fr; }
+  .gh-grid            { grid-template-columns: 1fr; }
+  .testimonials-grid  { grid-template-columns: 1fr; }
 
   .hobbies-grid { grid-template-columns: repeat(3, 1fr); }
 

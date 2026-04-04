@@ -36,11 +36,13 @@
       <ul class="nav-links">
         <li><a href="#about"        class="nav-link" data-section="about">About</a></li>
         <li><a href="#skills"       class="nav-link" data-section="skills">Skills</a></li>
-        <li><a href="#projects"     class="nav-link" data-section="projects">Projects</a></li>
-        <li><a href="#experience"   class="nav-link" data-section="experience">Experience</a></li>
-        <li><a href="#certificates" class="nav-link" data-section="certificates">Certificates</a></li>
-        <li><a href="#hobbies"      class="nav-link" data-section="hobbies">Hobbies</a></li>
-        <li><a href="#contact"      class="nav-link" data-section="contact">Contact</a></li>
+        <li><a href="#projects"      class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#github"        class="nav-link" data-section="github">GitHub</a></li>
+        <li><a href="#experience"    class="nav-link" data-section="experience">Experience</a></li>
+        <li><a href="#certificates"  class="nav-link" data-section="certificates">Certificates</a></li>
+        <li><a href="#hobbies"       class="nav-link" data-section="hobbies">Hobbies</a></li>
+        <li><a href="#testimonials"  class="nav-link" data-section="testimonials">Testimonials</a></li>
+        <li><a href="#contact"       class="nav-link" data-section="contact">Contact</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span class="bar"></span>
@@ -56,9 +58,11 @@
       <li><a href="#about"        class="mobile-nav-link">About</a></li>
       <li><a href="#skills"       class="mobile-nav-link">Skills</a></li>
       <li><a href="#projects"     class="mobile-nav-link">Projects</a></li>
+      <li><a href="#github"       class="mobile-nav-link">GitHub</a></li>
       <li><a href="#experience"   class="mobile-nav-link">Experience</a></li>
       <li><a href="#certificates" class="mobile-nav-link">Certificates</a></li>
       <li><a href="#hobbies"      class="mobile-nav-link">Hobbies</a></li>
+      <li><a href="#testimonials" class="mobile-nav-link">Testimonials</a></li>
       <li><a href="#contact"      class="mobile-nav-link">Contact</a></li>
     </ul>
   </div>
@@ -248,6 +252,26 @@
       <h2 class="section-title reveal">Projects</h2>
       <div class="projects-grid">
 
+        <!-- ── INTERACTIVE DATA VIZ CARD ── -->
+        <div class="project-card project-card--viz reveal">
+          <div class="project-header">
+            <i class="fa-solid fa-chart-line project-icon"></i>
+            <div class="project-links">
+              <span class="viz-live-badge"><i class="fa-solid fa-circle"></i> Live</span>
+            </div>
+          </div>
+          <h3 class="project-name">Data Science Competency Radar</h3>
+          <p class="project-desc">Interactive radar chart — hover over each axis to see proficiency levels across core data science domains.</p>
+          <div class="viz-canvas-wrap">
+            <canvas id="skillsRadarChart"></canvas>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Chart.js</span>
+            <span class="tag">Data Visualization</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+
         <div class="project-card reveal tilt-card">
           <div class="project-card-inner">
             <div class="project-header">
@@ -364,6 +388,27 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GITHUB ACTIVITY ========== -->
+  <section id="github" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">GitHub Activity</h2>
+      <p class="github-intro reveal">Recent public repositories, pulled live from the GitHub API.</p>
+      <div class="gh-grid" id="githubGrid">
+        <div class="gh-skeleton"></div>
+        <div class="gh-skeleton"></div>
+        <div class="gh-skeleton"></div>
+        <div class="gh-skeleton"></div>
+        <div class="gh-skeleton"></div>
+        <div class="gh-skeleton"></div>
+      </div>
+      <div class="gh-profile-cta reveal">
+        <a href="https://github.com/sathwik238" target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="fa-brands fa-github"></i> View Full Profile
+        </a>
       </div>
     </div>
   </section>
@@ -682,6 +727,64 @@
     </div>
   </section>
 
+  <!-- ========== TESTIMONIALS ========== -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Recommendations</h2>
+      <p class="testimonials-intro reveal">What colleagues and mentors have said.</p>
+      <div class="testimonials-grid">
+
+        <!-- ── Replace each block below with your real LinkedIn recommendation ── -->
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p class="testimonial-text">Sathwik consistently demonstrated exceptional analytical thinking and the ability to translate complex data into actionable business insights. His work on the feature engineering pipeline alone saved the team weeks of manual effort.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SB</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Supervisor Name</span>
+              <span class="testimonial-title">Senior Data Scientist · Company Name</span>
+            </div>
+            <a href="https://www.linkedin.com/in/sathwikbollepalli/" target="_blank" rel="noopener" class="testimonial-li" title="View on LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p class="testimonial-text">One of the most driven students I've had the pleasure of advising. Sathwik brings both technical rigor and intellectual curiosity to every problem — his pricing model work was publication-worthy in its depth of analysis.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">PM</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Professor Name</span>
+              <span class="testimonial-title">Associate Professor · University Name</span>
+            </div>
+            <a href="https://www.linkedin.com/in/sathwikbollepalli/" target="_blank" rel="noopener" class="testimonial-li" title="View on LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p class="testimonial-text">Sathwik has a rare ability to communicate data science concepts to non-technical stakeholders without losing precision. His models were not only accurate but well-documented and immediately deployable by the engineering team.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JD</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">Colleague Name</span>
+              <span class="testimonial-title">ML Engineer · Company Name</span>
+            </div>
+            <a href="https://www.linkedin.com/in/sathwikbollepalli/" target="_blank" rel="noopener" class="testimonial-li" title="View on LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CONTACT ========== -->
   <section id="contact" class="section">
     <div class="container">
@@ -775,6 +878,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
