@@ -12,6 +12,21 @@
 </head>
 <body>
 
+  <!-- ========== LOADING SCREEN ========== -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-logo">
+        <span class="loader-bracket">&lt;</span>Sathwik<span class="loader-bracket">/&gt;</span>
+      </div>
+      <div class="loader-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCROLL PROGRESS ========== -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
   <!-- ========== NAVBAR ========== -->
   <nav id="navbar">
     <div class="nav-container">
@@ -737,6 +752,27 @@
       </a>
     </div>
   </footer>
+
+  <!-- ========== CERTIFICATE MODAL ========== -->
+  <div id="certModal" class="cert-modal" role="dialog" aria-modal="true" aria-labelledby="certModalTitle" hidden>
+    <div class="cert-modal-backdrop"></div>
+    <div class="cert-modal-box">
+      <div class="cert-modal-header">
+        <h3 class="cert-modal-title" id="certModalTitle"></h3>
+        <button class="cert-modal-close" id="certModalClose" aria-label="Close preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="cert-modal-body">
+        <iframe id="certModalFrame" title="Certificate preview" frameborder="0"></iframe>
+      </div>
+      <div class="cert-modal-footer">
+        <a id="certModalLink" href="#" target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
 </body>

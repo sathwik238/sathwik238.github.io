@@ -357,6 +357,95 @@ function initContactForm() {
 }
 
 /* ===================================================
+   LOADING SCREEN
+=================================================== */
+function initLoader() {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+
+  const MIN_MS = 700;
+  const start  = Date.now();
+
+  function hide() {
+    const wait = Math.max(0, MIN_MS - (Date.now() - start));
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+    }, wait);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(hide);
+  } else {
+    hide();
+  }
+}
+
+/* ===================================================
+   SCROLL PROGRESS BAR
+=================================================== */
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+
+  function update() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0) + '%';
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ===================================================
+   CERTIFICATE MODAL
+=================================================== */
+function initCertModal() {
+  const modal    = document.getElementById('certModal');
+  if (!modal) return;
+
+  const backdrop = modal.querySelector('.cert-modal-backdrop');
+  const closeBtn = document.getElementById('certModalClose');
+  const frame    = document.getElementById('certModalFrame');
+  const titleEl  = document.getElementById('certModalTitle');
+  const linkEl   = document.getElementById('certModalLink');
+
+  function open(href, title) {
+    titleEl.textContent = title;
+    linkEl.href         = href;
+    frame.src           = href;
+    modal.hidden        = false;
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function close() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    frame.src = ''; // stop loading PDF when closed
+  }
+
+  // Only intercept clicks on local PDF links; external URLs open normally
+  document.querySelectorAll('.cert-btn').forEach(btn => {
+    const href = btn.getAttribute('href');
+    if (!href || !href.startsWith('assets/')) return;
+
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const card  = btn.closest('.cert-card');
+      const title = card ? card.querySelector('.cert-title').textContent.trim() : 'Certificate';
+      open(href, title);
+    });
+  });
+
+  backdrop.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !modal.hidden) close();
+  });
+}
+
+/* ===================================================
    FOOTER — DYNAMIC YEAR
 =================================================== */
 function initFooterYear() {
@@ -368,6 +457,8 @@ function initFooterYear() {
    ENTRY POINT
 =================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  initLoader();
+  initScrollProgress();
   initParticles();
   initTypewriter();
   initNavScroll();
@@ -376,5 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillBars();
   initTiltEffect();
   initContactForm();
+  initCertModal();
   initFooterYear();
 });
