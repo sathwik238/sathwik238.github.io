@@ -1267,15 +1267,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .viz-canvas-wrap {
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
   display: flex;
   justify-content: center;
-  max-height: 380px;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
 }
 
 .viz-canvas-wrap canvas {
-  max-width: 500px;
-  width: 100%;
+  width: 100% !important;
+  height: auto !important;
 }
 
 /* ===================================================
