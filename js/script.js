@@ -425,17 +425,17 @@ function initCertModal() {
     frame.src = ''; // stop loading PDF when closed
   }
 
-  // Use event delegation so every cert-btn is covered regardless of DOM order
+  // Use event delegation; PDF path stored in data-pdf so browser never intercepts it
   document.addEventListener('click', e => {
     const btn = e.target.closest('.cert-btn');
     if (!btn) return;
-    const href = btn.getAttribute('href');
-    if (!href || !href.startsWith('assets/')) return;
+    const pdf = btn.getAttribute('data-pdf');
+    if (!pdf) return; // no data-pdf → external link, let it open normally
     e.preventDefault();
     e.stopPropagation();
     const card  = btn.closest('.cert-card');
     const title = card ? card.querySelector('.cert-title').textContent.trim() : 'Certificate';
-    open(href, title);
+    open(pdf, title);
   });
 
   backdrop.addEventListener('click', close);
