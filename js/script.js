@@ -428,6 +428,38 @@ function initDataViz() {
 }
 
 /* ===================================================
+   CURSOR GLOW
+=================================================== */
+function initCursorGlow() {
+  const glow = document.getElementById('cursorGlow');
+  if (!glow) return;
+
+  // Skip on touch-only devices
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  let mouseX = 0, mouseY = 0;
+  let rafId = null;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(() => {
+        glow.style.left = mouseX + 'px';
+        glow.style.top  = mouseY + 'px';
+        glow.style.opacity = '1';
+        rafId = null;
+      });
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+  });
+}
+
+/* ===================================================
    LOADING SCREEN
 =================================================== */
 function initLoader() {
@@ -528,6 +560,7 @@ function initFooterYear() {
    ENTRY POINT
 =================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  initCursorGlow();
   initLoader();
   initScrollProgress();
   initParticles();
